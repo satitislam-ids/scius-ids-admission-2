@@ -1,0 +1,164 @@
+{
+  "settings": {
+    "openDate": "2026-08-01T08:00:00",
+    "deadline": "2026-08-31T23:59:00",
+    "applyLink": "https://apply.mwit.ac.th/",
+    "pdfLink": ""
+  },
+  "timeline": [
+    {
+      "id": 1,
+      "date_th": "1 - 31 สิงหาคม 2569",
+      "date_en": "Aug 1 - 31, 2026",
+      "title_th": "เปิดรับสมัครรอบแรก",
+      "title_en": "Application Opens",
+      "desc_th": "สมัครออนไลน์ผ่านระบบกลาง มีค่าธรรมเนียม 200 บาท",
+      "desc_en": "Online application via central system. Fee 200 THB",
+      "icon": "calendar-plus"
+    },
+    {
+      "id": 2,
+      "date_th": "15 พฤศจิกายน 2569",
+      "date_en": "Nov 15, 2026",
+      "title_th": "สอบคัดเลือกรอบแรก",
+      "title_en": "1st Round Exam",
+      "desc_th": "สอบข้อเขียนวิชาคณิตศาสตร์ และ วิทยาศาสตร์",
+      "desc_en": "Math & Science written examination",
+      "icon": "pencil-simple"
+    },
+    {
+      "id": 3,
+      "date_th": "ภายใน 18 ธันวาคม 2569",
+      "date_en": "By Dec 18, 2026",
+      "title_th": "ประกาศผลรอบแรก",
+      "title_en": "1st Round Results",
+      "desc_th": "ประกาศรายชื่อผู้ผ่านรอบแรกผ่านเว็บไซต์โครงการ",
+      "desc_en": "Announcement of 1st round passers",
+      "icon": "megaphone"
+    },
+    {
+      "id": 4,
+      "date_th": "3 - 13 มกราคม 2570",
+      "date_en": "Jan 3 - 13, 2027",
+      "title_th": "ยืนยันสิทธิ์รอบสอง",
+      "title_en": "Confirm 2nd Round",
+      "desc_th": "ชำระเงินค่าสมัครสอบรอบสอง 700 บาท",
+      "desc_en": "Pay 700 THB for 2nd round exam",
+      "icon": "money"
+    },
+    {
+      "id": 5,
+      "date_th": "23 มกราคม 2570",
+      "date_en": "Jan 23, 2027",
+      "title_th": "สอบคัดเลือกรอบสอง",
+      "title_en": "2nd Round Exam",
+      "desc_th": "สอบข้อเขียนเชิงลึก ปฏิบัติการ และวิชาภาษาอังกฤษ ณ ม.อ. ปัตตานี",
+      "desc_en": "In-depth writing, Lab, and English exam at PSU Pattani",
+      "icon": "flask"
+    },
+    {
+      "id": 6,
+      "date_th": "ภายในกุมภาพันธ์ 2570",
+      "date_en": "By Feb 2027",
+      "title_th": "ประกาศผลตัวจริง 30 คนสุดท้าย",
+      "title_en": "Final Result Announcement",
+      "desc_th": "ประกาศผลเพื่อเข้าเรียนในชั้น ม.4",
+      "desc_en": "Final list of 30 admitted students",
+      "icon": "student"
+    }
+  ],
+  "faqs": [
+    {
+      "id": 1,
+      "q_th": "โครงการนี้เปิดรับนักเรียนศาสนาอื่นหรือไม่?",
+      "q_en": "Are non-Muslim students accepted?",
+      "a_th": "รับครับ ยินดีต้อนรับนักเรียนทุกศาสนาเพื่อเรียนรู้ในสังคมพหุวัฒนธรรม",
+      "a_en": "Yes, students of all religions are welcome."
+    },
+    {
+      "id": 2,
+      "q_th": "ต้องเสียค่าเทอมไหม?",
+      "q_en": "Is there any tuition fee?",
+      "a_th": "ผู้สอบผ่านจะได้รับทุนเรียนฟรีตลอด 3 ปี รวมถึงค่าที่พัก",
+      "a_en": "Admitted students receive full scholarships covering tuition and dorms."
+    }
+  ],
+  "content": {
+    "features": [
+      {
+        "id": 1,
+        "icon": "trophy",
+        "title_th": "วิทยาศาสตร์บูรณาการวิถีอิสลาม",
+        "title_en": "Science & Islamic Integration",
+        "desc_th": "เป็นเลิศทางวิทยาศาสตร์ควบคู่จริยธรรม",
+        "desc_en": "Scientific excellence combined with ethics",
+        "detail_th": "บูรณาการหลักการศาสนาเข้ากับวิชาสามัญ เพื่อสร้างผู้นำที่ดี",
+        "detail_en": "Integrating principles into academics for good leadership."
+      },
+      {
+        "id": 2,
+        "icon": "plant",
+        "title_th": "ทรัพยากรธรรมชาติภาคใต้",
+        "title_en": "Southern Natural Resources",
+        "desc_th": "เรียนรู้สอดคล้องกับบริบทท้องถิ่น",
+        "desc_en": "Learning aligned with local context",
+        "detail_th": "เน้นเทคโนโลยีการยาง อาหารฮาลาล และประมง",
+        "detail_en": "Focusing on rubber, Halal food, and fishery tech."
+      },
+      {
+        "id": 3,
+        "icon": "flask",
+        "title_th": "วิจัยร่วมกับคณาจารย์ ม.อ.",
+        "title_en": "Research with PSU Experts",
+        "desc_th": "ทำโครงงานจริงในระดับมหาวิทยาลัย",
+        "desc_en": "Real university-level projects",
+        "detail_th": "มีอาจารย์และนักวิจัยคณะวิทย์ฯ เป็นพี่เลี้ยงดูแลอย่างใกล้ชิด",
+        "detail_en": "Mentored closely by faculty researchers."
+      },
+      {
+        "id": 4,
+        "icon": "globe-hemisphere-west",
+        "title_th": "สังคมพหุวัฒนธรรม",
+        "title_en": "Multicultural Society",
+        "desc_th": "เรียนรู้การอยู่ร่วมกันอย่างมีความสุข",
+        "desc_en": "Living together happily",
+        "detail_th": "ออกแบบให้ผู้เรียนปรับตัวเข้ากับสภาพแวดล้อมสากล",
+        "detail_en": "Designed for students to adapt to global environments."
+      }
+    ],
+    "benefits": [
+      {
+        "id": 1,
+        "icon": "money",
+        "title_th": "เรียนฟรี 100%",
+        "title_en": "100% Free Tuition",
+        "desc_th": "งบประมาณสนับสนุนตลอด 3 ปี (ม.4-ม.6)",
+        "desc_en": "Fully funded for 3 years (Grade 10-12)"
+      },
+      {
+        "id": 2,
+        "icon": "buildings",
+        "title_th": "อยู่ฟรี กินฟรี",
+        "title_en": "Free Dorms & Meals",
+        "desc_th": "พักหอพักปลอดภัยพร้อมอาหารครบมื้อ",
+        "desc_en": "Safe dormitories with all meals provided"
+      },
+      {
+        "id": 3,
+        "icon": "microscope",
+        "title_th": "ใช้ทรัพยากร ม.อ.",
+        "title_en": "Access to PSU Facilities",
+        "desc_th": "ใช้ห้องแล็บ ห้องสมุด เสมือนนักศึกษา",
+        "desc_en": "Access to labs and libraries like a university student"
+      },
+      {
+        "id": 4,
+        "icon": "rocket-launch",
+        "title_th": "โควตารับตรง ป.ตรี",
+        "title_en": "Direct Quota to Bachelor's",
+        "desc_th": "โอกาสศึกษาต่อระดับอุดมศึกษาโดยวิธีรับตรง",
+        "desc_en": "Special quota for undergraduate studies"
+      }
+    ]
+  }
+}
