@@ -174,7 +174,7 @@
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="text-3xl font-bold text-psu-blue mb-4" data-i18n="about_title">โครงการ วมว. คืออะไร?</h2>
                 <p class="text-slate-600 text-lg" data-i18n="about_desc">
-                    โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม
+                    โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)
                 </p>
             </div>
             <div class="text-center mb-10"><h3 class="text-2xl font-bold text-slate-800" data-i18n="feature_heading">ทำไมต้อง วมว. สาธิตอิสลาม ม.อ. ?</h3></div>
@@ -255,6 +255,73 @@
                 </div>
             </div>
             <div class="mt-12 text-center" id="pdf-link-container"></div>
+        </div>
+    </section>
+
+    <!-- 🟢 SECTION ใหม่: เกณฑ์การสอบคัดเลือก (Exam Details) 🟢 -->
+    <section class="py-16 bg-slate-100 border-t border-slate-200 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-psu-accent/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-psu-blue/10 blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-psu-blue mb-4" data-i18n="exam_title">เนื้อหาและเกณฑ์การสอบคัดเลือก</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto" data-i18n="exam_desc">การคัดเลือกแบ่งเป็น 2 รอบ โดยใช้ข้อสอบส่วนกลางมาตรฐานเดียวกับโรงเรียนมหิดลวิทยานุสรณ์</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Round 1 Card -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border-t-4 border-psu-light relative transition hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute top-0 right-0 bg-psu-light text-white font-bold px-4 py-1.5 rounded-bl-2xl rounded-tr-3xl text-sm" data-i18n="exam_r1_badge">สอบรอบแรก</div>
+                    <div class="w-14 h-14 bg-blue-50 text-psu-blue rounded-full flex items-center justify-center text-3xl mb-6"><i class="ph-fill ph-exam"></i></div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2" data-i18n="exam_r1_title">วัดความฉลาดรู้พื้นฐาน</h3>
+                    <p class="text-psu-accent font-medium text-sm mb-6 flex items-center gap-2"><i class="ph-bold ph-calendar-blank"></i> <span data-i18n="exam_r1_date">15 พฤศจิกายน 2569</span></p>
+                    
+                    <div class="space-y-4 text-slate-600">
+                        <div class="flex gap-4">
+                            <div class="mt-1 text-psu-light"><i class="ph-bold ph-calculator text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-slate-800" data-i18n="exam_subj_math">คณิตศาสตร์ (09.00 - 10.30 น.)</h4>
+                                <p class="text-sm" data-i18n="exam_math_desc">ความฉลาดรู้ด้านคณิตศาสตร์ (Mathematical literacy) ครอบคลุมบริบทชีวิตจริง</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="mt-1 text-islamic-green"><i class="ph-bold ph-flask text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-slate-800" data-i18n="exam_subj_sci">วิทยาศาสตร์ (11.00 - 12.30 น.)</h4>
+                                <p class="text-sm" data-i18n="exam_sci_desc">ความฉลาดรู้ด้านวิทยาศาสตร์ ครอบคลุมความรู้ ทักษะ และเจตคติ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <p class="text-sm text-slate-500 flex items-start gap-2">
+                            <i class="ph-fill ph-info text-yellow-500 text-lg"></i>
+                            <span data-i18n="exam_r1_note">เนื้อหาครอบคลุมหลักสูตร ม.ต้น (ม.1 - ม.3) ประกาศผลผู้ผ่านเข้ารอบสองจากคะแนนรวม 2 วิชา (น้ำหนักเท่ากัน)</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Round 2 Card -->
+                <div class="bg-white rounded-3xl p-8 shadow-lg border-t-4 border-psu-accent relative transition hover:-translate-y-1 hover:shadow-xl">
+                    <div class="absolute top-0 right-0 bg-psu-accent text-white font-bold px-4 py-1.5 rounded-bl-2xl rounded-tr-3xl text-sm" data-i18n="exam_r2_badge">สอบรอบสอง</div>
+                    <div class="w-14 h-14 bg-cyan-50 text-psu-accent rounded-full flex items-center justify-center text-3xl mb-6"><i class="ph-fill ph-microscope"></i></div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2" data-i18n="exam_r2_title">วัดความรู้เชิงลึกและปฏิบัติการ</h3>
+                    <p class="text-psu-light font-medium text-sm mb-6 flex items-center gap-2"><i class="ph-bold ph-calendar-blank"></i> <span data-i18n="exam_r2_date">23 มกราคม 2570</span></p>
+                    
+                    <div class="space-y-4 text-slate-600">
+                        <p class="text-sm" data-i18n="exam_r2_desc">ทดสอบเชิงลึกในวิชาคณิตศาสตร์ วิทยาศาสตร์ เทคโนโลยี และภาษาอังกฤษ (เฉพาะผู้ผ่านรอบแรกที่เลือกสอบกับศูนย์ ม.อ. ปัตตานี)</p>
+                        
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mt-4">
+                            <h4 class="font-bold text-slate-800 text-sm mb-2 flex items-center gap-2"><i class="ph-fill ph-warning-circle text-red-400"></i> <span data-i18n="exam_criteria_title">เกณฑ์ขั้นต่ำการผ่านรอบสอง:</span></h4>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> <span data-i18n="exam_criteria_1">คะแนนวิชาภาษาอังกฤษ ต้องไม่น้อยกว่าร้อยละ 35</span></li>
+                                <li class="flex items-start gap-2"><i class="ph-bold ph-check text-green-500 mt-0.5"></i> <span data-i18n="exam_criteria_2">ห้ามสอบได้ "คะแนนเป็นศูนย์" ในวิชาคณิตศาสตร์ วิทยาศาสตร์ และเทคโนโลยี</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -427,16 +494,18 @@
         let siteData = {
             settings: { openDate: "2026-08-01T08:00:00", deadline: "2026-08-31T23:59:00", applyLink: "https://apply.mwit.ac.th/", pdfLink: "" },
             timeline: [
-                { id: 1, date_th: "1 - 31 สิงหาคม 2569", date_en: "Aug 1 - 31, 2026", title_th: "เปิดรับสมัครรอบแรก", title_en: "Application Opens", desc_th: "สมัครออนไลน์ผ่านระบบกลาง มีค่าธรรมเนียม 200 บาท", desc_en: "Online application via central system. Fee 200 THB", icon: "calendar-plus" },
-                { id: 2, date_th: "15 พฤศจิกายน 2569", date_en: "Nov 15, 2026", title_th: "สอบคัดเลือกรอบแรก", title_en: "1st Round Exam", desc_th: "สอบข้อเขียนวิชาคณิตศาสตร์ และ วิทยาศาสตร์", desc_en: "Math & Science written examination", icon: "pencil-simple" },
+                { id: 1, date_th: "1 - 31 สิงหาคม 2569", date_en: "Aug 1 - 31, 2026", title_th: "เปิดรับสมัครรอบแรก", title_en: "Application Opens", desc_th: "สมัครออนไลน์ผ่านระบบกลาง มีค่าธรรมเนียม 200 บาท (หากยากจน ขอหนังสือรับรองจาก ผอ. เพื่อขอยกเว้นได้)", desc_en: "Online application via central system. Fee 200 THB (Exemption available with school director's cert)", icon: "calendar-plus" },
+                { id: 2, date_th: "15 พฤศจิกายน 2569", date_en: "Nov 15, 2026", title_th: "สอบคัดเลือกรอบแรก", title_en: "1st Round Exam", desc_th: "สอบวิชาคณิตศาสตร์ และ วิทยาศาสตร์ (ต้องนำบัตรสอบและบัตร ปชช. มาด้วย)", desc_en: "Math & Science exam. Must bring exam ID and National ID.", icon: "pencil-simple" },
                 { id: 3, date_th: "ภายใน 18 ธันวาคม 2569", date_en: "By Dec 18, 2026", title_th: "ประกาศผลรอบแรก", title_en: "1st Round Results", desc_th: "ประกาศรายชื่อผู้ผ่านรอบแรกผ่านเว็บไซต์โครงการ", desc_en: "Announcement of 1st round passers", icon: "megaphone" },
                 { id: 4, date_th: "3 - 13 มกราคม 2570", date_en: "Jan 3 - 13, 2027", title_th: "ยืนยันสิทธิ์รอบสอง", title_en: "Confirm 2nd Round", desc_th: "ชำระเงินค่าสมัครสอบรอบสอง 700 บาท", desc_en: "Pay 700 THB for 2nd round exam", icon: "money" },
-                { id: 5, date_th: "23 มกราคม 2570", date_en: "Jan 23, 2027", title_th: "สอบคัดเลือกรอบสอง", title_en: "2nd Round Exam", desc_th: "สอบข้อเขียนเชิงลึก ปฏิบัติการ และวิชาภาษาอังกฤษ ณ ม.อ. ปัตตานี", desc_en: "In-depth writing, Lab, and English exam at PSU Pattani", icon: "flask" },
-                { id: 6, date_th: "ภายในกุมภาพันธ์ 2570", date_en: "By Feb 2027", title_th: "ประกาศผลตัวจริง 30 คนสุดท้าย", title_en: "Final Result Announcement", desc_th: "ประกาศผลเพื่อเข้าเรียนในชั้น ม.4", desc_en: "Final list of 30 admitted students", icon: "student" }
+                { id: 5, date_th: "23 มกราคม 2570", date_en: "Jan 23, 2027", title_th: "สอบคัดเลือกรอบสอง", title_en: "2nd Round Exam", desc_th: "สอบเชิงลึก ปฏิบัติการ และภาษาอังกฤษ ณ ศูนย์ ม.อ. ปัตตานี พร้อมประชุมผู้ปกครอง", desc_en: "In-depth exams at PSU Pattani center and Parents meeting", icon: "flask" },
+                { id: 6, date_th: "ภายในกุมภาพันธ์ 2570", date_en: "By Feb 2027", title_th: "ประกาศผลตัวจริง 30 คนสุดท้าย", title_en: "Final Result Announcement", desc_th: "ประกาศผลเพื่อเข้าเรียนในชั้น ม.4 (กรณีคะแนนเท่ากัน จะให้สิทธิ์ผู้ที่เลือกสมัครเฉพาะ วมว. ก่อน)", desc_en: "Final list of 30 admitted students", icon: "student" }
             ],
             faqs: [
-                { id: 1, q_th: "โครงการนี้เปิดรับนักเรียนศาสนาอื่นหรือไม่?", q_en: "Are non-Muslim students accepted?", a_th: "รับครับ ยินดีต้อนรับนักเรียนทุกศาสนาเพื่อเรียนรู้ในสังคมพหุวัฒนธรรม", a_en: "Yes, students of all religions are welcome." },
-                { id: 2, q_th: "ต้องเสียค่าเทอมไหม?", q_en: "Is there any tuition fee?", a_th: "ผู้สอบผ่านจะได้รับทุนเรียนฟรีตลอด 3 ปี รวมถึงค่าที่พัก", a_en: "Admitted students receive full scholarships covering tuition and dorms." }
+                { id: 1, q_th: "โครงการนี้เปิดรับนักเรียนศาสนาอื่นหรือไม่?", q_en: "Are non-Muslim students accepted?", a_th: "รับครับ โครงการเรายินดีต้อนรับนักเรียนทุกศาสนา เพื่อการเรียนรู้ร่วมกันในสังคมพหุวัฒนธรรม", a_en: "Yes, students of all religions are welcome to foster a multicultural learning environment." },
+                { id: 2, q_th: "ต้องเสียค่าเทอมไหม?", q_en: "Is there any tuition fee?", a_th: "ผู้สอบผ่านจะได้รับการสนับสนุนค่าใช้จ่ายตลอด 3 ปี (ม.4-ม.6) รวมถึงค่าหอพักและอาหาร", a_en: "Admitted students receive full financial support covering tuition, dorms, and meals for 3 years." },
+                { id: 3, q_th: "สามารถเลือกสมัครศูนย์ วมว. ได้กี่แห่ง?", q_en: "How many SCiUS centers can I choose?", a_th: "ในระบบสมัครรอบแรก สามารถเลือกได้สูงสุด 2 แห่ง (ต้องเรียงลำดับ) แต่หากผ่านเข้ารอบสอง จะมีสิทธิ์เข้าสอบรอบสองได้ 'เพียง 1 แห่ง' ตามลำดับที่เลือกไว้เท่านั้น", a_en: "You can rank up to 2 centers in the 1st round. However, you can only take the 2nd round exam at 1 center based on your rank." },
+                { id: 4, q_th: "หากเรียนไม่จบ หรือทำผิดกฎพ้นสภาพ มีเงื่อนไขปรับเงินหรือไม่?", q_en: "Are there penalties for leaving the program early?", a_th: "มีครับ นักเรียนต้องปฏิบัติตามกฎระเบียบของโครงการ หากผิดวินัยร้ายแรงจนต้องพ้นสภาพ หรือสละสิทธิ์กลางคัน จะต้องชดใช้เงินคืนตามหลักเกณฑ์ที่โครงการกำหนด", a_en: "Yes. Students must follow program rules. Early termination or rule violations will result in a financial penalty according to the policy." }
             ],
             content: {
                 features: [
@@ -470,7 +539,7 @@
                 stat_3_val: "200 ฿", stat_3_desc: "ค่าสมัครสอบรอบแรก",
                 stat_4_val: "ส.ค.", stat_4_desc: "ช่วงเปิดรับสมัคร",
 
-                about_title: "โครงการ วมว. คืออะไร?", about_desc: "โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม",
+                about_title: "โครงการ วมว. คืออะไร?", about_desc: "โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (อว.)",
                 feature_heading: "ทำไมต้อง วมว. สาธิตอิสลาม ม.อ. ?",
                 check_title: "ตรวจสอบสิทธิ์เบื้องต้น", check_desc: "ติ๊กเลือกคุณสมบัติที่คุณมี หากผ่านเกณฑ์ ระบบจะแสดงปุ่มสมัครให้",
                 chk_h1: "คุณสมบัติด้านวิชาการ", chk_h2: "คุณสมบัติทั่วไป & หอพัก",
@@ -478,6 +547,18 @@
                 check_5: "สัญชาติไทย (มีเลข 13 หลัก)", check_6: "สุขภาพดี ไม่เป็นโรคติดต่อร้ายแรง", check_7: "สามารถเข้าพักในหอพักประจำได้", check_8: "ขยัน ประพฤติดี",
                 check_success: "คุณสมบัติครบถ้วน!", 
                 
+                // 🟢 คำแปล Section เกณฑ์การสอบ (เพิ่มใหม่) 🟢
+                exam_title: "เนื้อหาและเกณฑ์การสอบคัดเลือก", exam_desc: "การคัดเลือกแบ่งเป็น 2 รอบ โดยใช้ข้อสอบส่วนกลางมาตรฐานเดียวกับ รร.มหิดลวิทยานุสรณ์",
+                exam_r1_badge: "สอบรอบแรก", exam_r1_title: "วัดความฉลาดรู้พื้นฐาน", exam_r1_date: "15 พฤศจิกายน 2569",
+                exam_subj_math: "คณิตศาสตร์ (09.00 - 10.30 น.)", exam_math_desc: "ความฉลาดรู้ด้านคณิตศาสตร์ (Mathematical literacy) ครอบคลุมบริบทชีวิตจริง",
+                exam_subj_sci: "วิทยาศาสตร์ (11.00 - 12.30 น.)", exam_sci_desc: "ความฉลาดรู้ด้านวิทยาศาสตร์ ครอบคลุมความรู้ ทักษะ และเจตคติ",
+                exam_r1_note: "เนื้อหาครอบคลุมหลักสูตร ม.ต้น (ม.1 - ม.3) ประกาศผลผู้ผ่านเข้ารอบสองจากคะแนนรวม 2 วิชา (น้ำหนักเท่ากัน)",
+                exam_r2_badge: "สอบรอบสอง", exam_r2_title: "วัดความรู้เชิงลึกและปฏิบัติการ", exam_r2_date: "23 มกราคม 2570",
+                exam_r2_desc: "ทดสอบเชิงลึกในวิชาคณิตศาสตร์ วิทยาศาสตร์ เทคโนโลยี และภาษาอังกฤษ (เฉพาะผู้ผ่านรอบแรกที่เลือกสอบกับศูนย์ ม.อ. ปัตตานี)",
+                exam_criteria_title: "เกณฑ์ขั้นต่ำการผ่านรอบสอง:", 
+                exam_criteria_1: "คะแนนวิชาภาษาอังกฤษ ต้องไม่น้อยกว่าร้อยละ 35",
+                exam_criteria_2: "ห้ามสอบได้ \"คะแนนเป็นศูนย์\" ในวิชาคณิตศาสตร์ วิทย์ และเทคโนโลยี",
+
                 // เอกสาร
                 doc_title: "เอกสารที่ต้องเตรียมสมัคร", doc_desc: "จัดเตรียมไฟล์ให้พร้อม ก่อนเข้าระบบรับสมัคร",
                 doc_1_title: "ใบระเบียน ปพ.1", doc_1_desc: "แสดงเกรดเฉลี่ย ม.1 - ม.2 (รวม 4 เทอม)",
@@ -512,7 +593,7 @@
                 stat_3_val: "200 THB", stat_3_desc: "1st Round Fee",
                 stat_4_val: "Aug", stat_4_desc: "Application Period",
 
-                about_title: "What is SCiUS?", about_desc: "Science Classrooms in University-Affiliated Schools Project, supported by MHESI.",
+                about_title: "What is SCiUS?", about_desc: "Science Classrooms in University-Affiliated Schools Project, supported by Ministry of Higher Education, Science, Research and Innovation (MHESI).",
                 feature_heading: "Why SCiUS IDS PSU?",
                 check_title: "Basic Eligibility Check", check_desc: "Check the boxes if you meet the criteria. If all met, the apply button will appear.",
                 chk_h1: "Academic Requirements", chk_h2: "General & Dormitory",
@@ -520,6 +601,18 @@
                 check_5: "Thai Nationality", check_6: "Good health condition", check_7: "Able to live in dormitory", check_8: "Good behavior & supported by parents",
                 check_success: "You are eligible!", 
                 
+                // 🟢 คำแปล Section เกณฑ์การสอบ (เพิ่มใหม่) EN 🟢
+                exam_title: "Exam Syllabus & Criteria", exam_desc: "Selection involves 2 rounds using central standardized exams (MWIT standard).",
+                exam_r1_badge: "Round 1", exam_r1_title: "Basic Literacy Assessment", exam_r1_date: "Nov 15, 2026",
+                exam_subj_math: "Mathematics (09:00 - 10:30)", exam_math_desc: "Mathematical literacy covering real-life contexts.",
+                exam_subj_sci: "Science (11:00 - 12:30)", exam_sci_desc: "Scientific literacy covering knowledge, skills, and attitudes.",
+                exam_r1_note: "Covers M.1 - M.3 syllabus. Passers determined by total score of both subjects (equal weight).",
+                exam_r2_badge: "Round 2", exam_r2_title: "In-depth & Lab Assessment", exam_r2_date: "Jan 23, 2027",
+                exam_r2_desc: "Advanced testing in Math, Science, Technology, and English (For those who chose PSU Pattani).",
+                exam_criteria_title: "Round 2 Minimum Criteria:", 
+                exam_criteria_1: "English score must be at least 35%.",
+                exam_criteria_2: "Must NOT score ZERO in Math, Science, or Technology.",
+
                 // เอกสาร
                 doc_title: "Required Documents", doc_desc: "Prepare these files before applying online.",
                 doc_1_title: "Transcript (Por.Por.1)", doc_1_desc: "Grades M.1 - M.2 (4 Terms)",
