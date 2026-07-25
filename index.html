@@ -7,8 +7,14 @@
     <!-- SEO & Social Sharing Tags -->
     <meta name="description" content="เปิดรับสมัครนักเรียนชั้น ม.4 โครงการ วมว. โรงเรียนสาธิตวิทยาการอิสลาม มหาวิทยาลัยสงขลานครินทร์ เรียนฟรี มีทุนการศึกษา พร้อมโอกาสศึกษาต่อระดับอุดมศึกษา">
     <meta name="keywords" content="วมว, ม.อ., สาธิตอิสลาม, เรียนฟรี, ทุนการศึกษา, สอบเข้า ม.4, วิทยาศาสตร์">
-    <meta property="og:title" content="รับสมัครนักเรียน โครงการ วมว. | สาธิตวิทยาการอิสลาม ม.อ.">
+    <meta property="og:title" content="รับสมัครนักเรียน โครงการ วมว. | โรงเรียนสาธิตวิทยาการอิสลาม ม.อ.">
     <meta property="og:description" content="เปิดรับสมัครนักเรียนชั้น ม.4 ทุนเรียนฟรี 3 ปี โครงการห้องเรียนวิทยาศาสตร์ (วมว.)">
+    
+    <!-- ภาพหน้าปกเวลาแชร์ลิงก์ (OG Image): นำลิงก์รูปภาพที่ได้จากการแคปหน้าจอไฟล์ og-banner-template.html มาใส่ที่นี่แทน -->
+    <meta property="og:image" content="https://i.postimg.cc/bvvWWSZV/thumbnail-SCi-US-IDS.png">
+    
+    <!-- Favicon (ไอคอนบนแท็บเบราว์เซอร์) -->
+    <link rel="icon" href="https://i.postimg.cc/G3JfNWnH/Asset-1.png" type="image/png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,23 +69,21 @@
 </head>
 <body class="bg-slate-50 text-slate-800 pb-20 md:pb-0">
 
-    <!-- Loading Overlay -->
     <div id="loading-overlay">
         <div class="spinner mb-4"></div>
         <p class="text-psu-blue font-medium animate-pulse">กำลังโหลดข้อมูลเว็บไซต์...</p>
     </div>
 
-    <!-- Navigation -->
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                
-                <!-- โลโก้ Navbar (ล็อกภาพถาวร ไม่มีวันพัง) -->
-                <div class="flex items-center cursor-pointer space-x-3 group" onclick="window.scrollTo(0,0)">
-                    <img src="https://i.postimg.cc/G3JfNWnH/Asset-1.png" onerror="this.onerror=null; this.src='https://scius.mhesi.go.th/images/logo.png';" alt="SCiUS Logo" class="h-10 sm:h-12 object-contain transition-transform group-hover:scale-105">
-                    <div class="flex flex-col justify-center">
-                        <span class="text-psu-blue font-bold text-lg sm:text-xl leading-none tracking-wide">SCiUS <span class="text-psu-accent">IDS PSU</span></span>
-                    </div>
+                <!-- โลโก้ใหม่ ปรับขนาดให้พอดีและเป็นทางการ -->
+                <div class="flex items-center cursor-pointer gap-3 sm:gap-4" onclick="window.scrollTo(0,0)">
+                    <img src="https://i.postimg.cc/G3JfNWnH/Asset-1.png" alt="SCiUS Logo" class="h-10 sm:h-12 w-auto object-contain">
+                    <span class="font-bold text-lg sm:text-2xl tracking-wide whitespace-nowrap">
+                        <span class="text-psu-blue">SCiUS</span>
+                        <span class="text-psu-accent ml-1">IDS PSU</span>
+                    </span>
                 </div>
                 
                 <div class="flex items-center space-x-2 sm:space-x-4">
@@ -87,7 +91,7 @@
                         <i class="ph ph-translate text-lg"></i>
                         <span id="lang-indicator">TH</span>
                     </button>
-                    <a href="#eligibility" class="hidden sm:inline-flex bg-psu-blue hover:bg-psu-light text-white px-5 py-2.5 rounded-full font-medium transition-colors items-center shadow-md hover:shadow-lg text-sm" data-i18n="nav_check">
+                    <a href="#eligibility" class="hidden sm:inline-flex bg-psu-blue hover:bg-psu-light text-white px-5 py-2.5 rounded-full font-medium transition-colors items-center shadow-md text-sm" data-i18n="nav_check">
                         ตรวจสอบสิทธิ์
                     </a>
                 </div>
@@ -95,20 +99,18 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero-pattern text-white pt-28 pb-24 relative overflow-hidden">
         <div class="hero-glow"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            
             <div id="status-badge" class="inline-flex items-center px-4 py-1.5 rounded-full bg-green-500/20 text-green-300 border border-green-500/30 text-sm font-medium mb-6 backdrop-blur-sm">
                 <span class="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
                 <span id="status-text" data-i18n="status_open">ระบบกำลังเปิดรับสมัคร</span>
             </div>
 
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-i18n="hero_title">
-                ห้องเรียนวิทยาศาสตร์ วมว.
+                ห้องเรียนวิทยาศาสตร์ โครงการ วมว.
                 <br class="hidden sm:block"/>
-                <span class="text-psu-accent">สาธิตวิทยาการอิสลาม ม.อ.</span>
+                <span class="text-psu-accent">โรงเรียนสาธิตวิทยาการอิสลาม ม.อ.</span>
             </h1>
             
             <p class="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto mb-10 font-light leading-relaxed" data-i18n="hero_subtitle">
@@ -116,7 +118,7 @@
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a id="apply-btn-main" href="#" target="_blank" class="w-full sm:w-auto bg-psu-accent hover:bg-white hover:text-psu-blue text-white text-lg font-semibold px-8 py-4 rounded-full shadow-[0_0_20px_rgba(0,174,239,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] transition-all flex items-center justify-center space-x-2">
+                <a id="apply-btn-main" href="#" target="_blank" class="w-full sm:w-auto bg-psu-accent hover:bg-white hover:text-psu-blue text-white text-lg font-semibold px-8 py-4 rounded-full shadow-lg transition-all flex items-center justify-center space-x-2">
                     <span data-i18n="btn_apply">สมัครเข้าศึกษาต่อ (MWIT)</span>
                     <i class="ph-bold ph-arrow-right"></i>
                 </a>
@@ -125,49 +127,44 @@
                 </a>
             </div>
 
-            <!-- Countdown Box -->
             <div class="mt-14 inline-block bg-black/40 backdrop-blur-md rounded-3xl p-6 border border-white/10 shadow-2xl">
                 <p class="text-blue-200 text-sm font-medium mb-3 uppercase tracking-wider" id="countdown-title">เปิดรับสมัครในอีก</p>
-                <div class="flex gap-4 sm:gap-6 text-center justify-center" id="countdown-container">
-                    <!-- JS Countdown -->
-                </div>
+                <div class="flex gap-4 sm:gap-6 text-center justify-center" id="countdown-container"></div>
             </div>
         </div>
     </section>
 
-    <!-- Stat Cards -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center transform hover:-translate-y-1 transition-transform">
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center">
                 <div class="text-psu-accent mb-2"><i class="ph-fill ph-users-three text-3xl"></i></div>
-                <div class="text-2xl sm:text-3xl font-bold text-psu-blue mb-1">30 คน</div>
-                <div class="text-xs sm:text-sm text-slate-500 font-medium">รับ 1 ห้องเรียน</div>
+                <div class="text-2xl sm:text-3xl font-bold text-psu-blue mb-1" data-i18n="stat_1_val">30 คน</div>
+                <div class="text-xs sm:text-sm text-slate-500 font-medium" data-i18n="stat_1_desc">รับ 1 ห้องเรียน</div>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center transform hover:-translate-y-1 transition-transform">
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center">
                 <div class="text-psu-accent mb-2"><i class="ph-fill ph-graduation-cap text-3xl"></i></div>
-                <div class="text-2xl sm:text-3xl font-bold text-psu-blue mb-1">ฟรี</div>
-                <div class="text-xs sm:text-sm text-slate-500 font-medium">ทุนการศึกษา 3 ปี</div>
+                <div class="text-2xl sm:text-3xl font-bold text-psu-blue mb-1" data-i18n="stat_2_val">ฟรี</div>
+                <div class="text-xs sm:text-sm text-slate-500 font-medium" data-i18n="stat_2_desc">ทุนการศึกษา 3 ปี</div>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center transform hover:-translate-y-1 transition-transform">
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center">
                 <div class="text-psu-accent mb-2"><i class="ph-fill ph-money text-3xl"></i></div>
-                <div class="text-2xl sm:text-3xl font-bold text-psu-blue mb-1">200 ฿</div>
-                <div class="text-xs sm:text-sm text-slate-500 font-medium">ค่าสมัครสอบรอบแรก</div>
+                <div class="text-2xl sm:text-3xl font-bold text-psu-blue mb-1" data-i18n="stat_3_val">200 ฿</div>
+                <div class="text-xs sm:text-sm text-slate-500 font-medium" data-i18n="stat_3_desc">ค่าสมัครสอบรอบแรก</div>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center transform hover:-translate-y-1 transition-transform">
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 text-center">
                 <div class="text-psu-accent mb-2"><i class="ph-fill ph-calendar-check text-3xl"></i></div>
-                <div class="text-xl sm:text-2xl font-bold text-psu-blue mb-1">ส.ค.</div>
-                <div class="text-xs sm:text-sm text-slate-500 font-medium">ช่วงเปิดรับสมัคร</div>
+                <div class="text-xl sm:text-2xl font-bold text-psu-blue mb-1" data-i18n="stat_4_val">ส.ค.</div>
+                <div class="text-xs sm:text-sm text-slate-500 font-medium" data-i18n="stat_4_desc">ช่วงเปิดรับสมัคร</div>
             </div>
         </div>
     </section>
 
-    <!-- 📦 Section 1: About SCiUS -->
     <section id="about" class="py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="text-3xl font-bold text-psu-blue mb-4" data-i18n="about_title">โครงการ วมว. คืออะไร?</h2>
                 <p class="text-slate-600 text-lg" data-i18n="about_desc">
-                    โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวง อว.
+                    โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม
                 </p>
             </div>
             <div class="text-center mb-10"><h3 class="text-2xl font-bold text-slate-800" data-i18n="feature_heading">ทำไมต้อง วมว. สาธิตอิสลาม ม.อ. ?</h3></div>
@@ -175,34 +172,32 @@
         </div>
     </section>
 
-    <!-- 🎓 Section 2: Eligibility Checker -->
     <section id="eligibility" class="py-16 bg-white border-y border-slate-200">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-psu-blue rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full transform translate-x-1/3 -translate-y-1/3"></div>
                 <div class="relative z-10">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-2 flex items-center gap-3">
                         <i class="ph-fill ph-check-circle text-psu-accent"></i>
                         <span data-i18n="check_title">ตรวจสอบสิทธิ์เบื้องต้น (ใน 1 นาที)</span>
                     </h2>
-                    <p class="text-blue-200 mb-10" data-i18n="check_desc">ติ๊กเลือกคุณสมบัติที่คุณมี หากผ่านเกณฑ์ทั้งหมด ระบบจะแสดงปุ่มให้ไปต่อ</p>
+                    <p class="text-blue-200 mb-10" data-i18n="check_desc">ติ๊กเลือกคุณสมบัติที่คุณมี หากผ่านเกณฑ์ ระบบจะแสดงปุ่มสมัครให้</p>
                     <div class="grid md:grid-cols-2 gap-8 mb-10">
                         <div class="bg-white/5 rounded-2xl p-6 border border-white/10">
                             <h3 class="text-xl font-semibold mb-6 flex items-center gap-2 text-psu-accent"><i class="ph-fill ph-chart-bar"></i> <span data-i18n="chk_h1">คุณสมบัติด้านวิชาการ</span></h3>
                             <div class="space-y-4">
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_1">กำลังศึกษาชั้น ม.3 ในปีการศึกษา 2569</span></label>
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_2">เกรดเฉลี่ยสะสมรวม (GPAX ม.1-ม.2) &ge; 3.00</span></label>
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_3">เกรดเฉลี่ยกลุ่มวิชาวิทยาศาสตร์ &ge; 3.00</span></label>
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_4">เกรดเฉลี่ยกลุ่มวิชาคณิตศาสตร์ &ge; 3.00</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_1">กำลังศึกษาชั้น ม.3 ในปี 2569</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_2">GPAX ม.1-ม.2 &ge; 3.00</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_3">เกรดเฉลี่ยกลุ่มวิชาวิทยาศาสตร์ &ge; 3.00</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_4">เกรดเฉลี่ยกลุ่มวิชาคณิตศาสตร์ &ge; 3.00</span></label>
                             </div>
                         </div>
                         <div class="bg-white/5 rounded-2xl p-6 border border-white/10">
                             <h3 class="text-xl font-semibold mb-6 flex items-center gap-2 text-psu-accent"><i class="ph-fill ph-house-line"></i> <span data-i18n="chk_h2">คุณสมบัติทั่วไป & หอพัก</span></h3>
                             <div class="space-y-4">
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_5">มีสัญชาติไทย (มีเลข 13 หลัก)</span></label>
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_6">สุขภาพดี ไม่เป็นโรคติดต่อร้ายแรง</span></label>
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_7">สามารถเข้าพักในหอพักประจำได้</span></label>
-                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 transition-colors cursor-pointer border border-transparent hover:border-white/20 group"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200 group-hover:text-white" data-i18n="check_8">มีความขยัน ประพฤติดี</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_5">มีสัญชาติไทย (มีเลข 13 หลัก)</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_6">สุขภาพดี ไม่เป็นโรคติดต่อร้ายแรง</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_7">สามารถเข้าพักในหอพักประจำได้</span></label>
+                                <label class="flex items-start p-3 rounded-xl bg-black/20 hover:bg-black/40 cursor-pointer"><input type="checkbox" class="eligibility-cb w-5 h-5 mt-0.5 rounded text-psu-accent"><span class="ml-4 text-sm sm:text-base text-slate-200" data-i18n="check_8">มีความขยัน ประพฤติดี</span></label>
                             </div>
                         </div>
                     </div>
@@ -220,7 +215,6 @@
         </div>
     </section>
 
-    <!-- 📂 Section 3: Required Documents -->
     <section class="py-16 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
@@ -230,29 +224,30 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col items-center text-center shadow-sm">
                     <i class="ph-fill ph-file-text text-4xl text-psu-accent mb-3"></i>
-                    <h4 class="font-bold text-slate-800 mb-2">ใบระเบียน ปพ.1</h4><p class="text-sm text-slate-500">แสดงเกรดเฉลี่ย ม.1 - ม.2 (รวม 4 เทอม)</p>
+                    <h4 class="font-bold text-slate-800 mb-2" data-i18n="doc_1_title">ใบระเบียน ปพ.1</h4>
+                    <p class="text-sm text-slate-500" data-i18n="doc_1_desc">แสดงเกรดเฉลี่ย ม.1 - ม.2 (รวม 4 เทอม)</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col items-center text-center shadow-sm">
                     <i class="ph-fill ph-identification-card text-4xl text-psu-accent mb-3"></i>
-                    <h4 class="font-bold text-slate-800 mb-2">บัตรประจำตัวประชาชน</h4><p class="text-sm text-slate-500">ของตัวนักเรียนผู้สมัคร</p>
+                    <h4 class="font-bold text-slate-800 mb-2" data-i18n="doc_2_title">บัตรประจำตัวประชาชน</h4>
+                    <p class="text-sm text-slate-500" data-i18n="doc_2_desc">ของตัวนักเรียนผู้สมัคร</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">ทางเลือก</div>
+                    <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg" data-i18n="doc_3_tag">ทางเลือก</div>
                     <i class="ph-fill ph-handshake text-4xl text-slate-400 mb-3"></i>
-                    <h4 class="font-bold text-slate-800 mb-2">ใบรับรองผู้อำนวยการ</h4><p class="text-sm text-slate-500">สำหรับขอยกเว้นค่าธรรมเนียมสมัครสอบ</p>
+                    <h4 class="font-bold text-slate-800 mb-2" data-i18n="doc_3_title">ใบรับรองผู้อำนวยการ</h4>
+                    <p class="text-sm text-slate-500" data-i18n="doc_3_desc">สำหรับขอยกเว้นค่าธรรมเนียมสมัครสอบ</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col items-center text-center shadow-sm">
                     <i class="ph-fill ph-camera text-4xl text-psu-accent mb-3"></i>
-                    <h4 class="font-bold text-slate-800 mb-2">รูปถ่ายติดบัตร</h4><p class="text-sm text-slate-500">สำหรับทำบัตรประจำตัวสอบ</p>
+                    <h4 class="font-bold text-slate-800 mb-2" data-i18n="doc_4_title">รูปถ่ายติดบัตร</h4>
+                    <p class="text-sm text-slate-500" data-i18n="doc_4_desc">สำหรับทำบัตรประจำตัวสอบ</p>
                 </div>
             </div>
-            <div class="mt-12 text-center" id="pdf-link-container">
-                <!-- PDF Link injected by JS -->
-            </div>
+            <div class="mt-12 text-center" id="pdf-link-container"></div>
         </div>
     </section>
 
-    <!-- 🗓️ Section 4: Timeline -->
     <section class="py-20 bg-white relative border-t border-slate-200">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -266,9 +261,7 @@
         </div>
     </section>
 
-    <!-- 🎁 Section 5: Benefits -->
     <section class="py-20 bg-psu-blue text-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
                 <div class="inline-block bg-white/20 p-4 rounded-full mb-6"><i class="ph-fill ph-gift text-4xl text-psu-accent"></i></div>
@@ -279,7 +272,6 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section class="py-20 bg-slate-50">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12"><h2 class="text-3xl font-bold text-psu-blue mb-4">FAQ / คำถามที่พบบ่อย</h2></div>
@@ -287,43 +279,24 @@
         </div>
     </section>
 
-    <!-- Trust Strip (Sponsors) โลโก้ล็อกถาวร กันแตก 100% -->
     <section class="py-12 bg-white border-t border-slate-200">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-8">
-                <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-widest" data-i18n="sponsor_title">สนับสนุนและดำเนินการโดย</h4>
-            </div>
+            <div class="text-center mb-6"><h4 class="text-sm font-semibold text-slate-400 uppercase tracking-widest" data-i18n="sponsor_title">สนับสนุนและดำเนินการโดย</h4></div>
             <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-14">
-                <!-- 1. อว. ใหญ่สุด -->
-                <img src="https://i.postimg.cc/6p0CnxgZ/Artwork-Logo-MHESIfinal27042564-01.png" 
-                     onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/th/b/b7/Mhesi_logo.png';" 
-                     class="h-20 sm:h-24 grayscale-hover object-contain" alt="MHESI">
-                
-                <!-- 2. วมว. -->
-                <img src="https://i.postimg.cc/G3JfNWnH/Asset-1.png" 
-                     onerror="this.onerror=null; this.src='https://scius.mhesi.go.th/images/logo.png';" 
-                     class="h-16 sm:h-20 grayscale-hover object-contain" alt="SCiUS">
-                
-                <!-- 3. ม.อ. (ดึงจาก Wikipedia เสถียร 100%) -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Prince_of_Songkla_University_Emblem.png" 
-                     onerror="this.onerror=null; this.src='https://www.psu.ac.th/assets/images/logo/logo-psu-th.png';" 
-                     class="h-16 sm:h-20 grayscale-hover object-contain" alt="PSU">
-                
-                <!-- 4. คณะวิทย์ -->
-                <img src="https://i.postimg.cc/XvrcbD1Y/Logo-Subbrand-Faculty-of-Science-and-Technology-Full-TH.png" 
-                     onerror="this.onerror=null; this.src='https://sci.psu.ac.th/th/wp-content/uploads/2021/05/logo-sci.png';" 
-                     class="h-12 sm:h-16 grayscale-hover object-contain" alt="Science PSU">
+                <img id="logo-mhesi" src="https://i.postimg.cc/6p0CnxgZ/Artwork-Logo-MHESIfinal27042564-01.png" class="h-20 sm:h-24 grayscale-hover object-contain" alt="MHESI">
+                <img id="logo-scius-footer" src="https://i.postimg.cc/G3JfNWnH/Asset-1.png" class="h-16 sm:h-20 grayscale-hover object-contain" alt="SCiUS">
+                <img id="logo-psu" src="https://i.postimg.cc/Y08RHts6/Prince-of-Songkla-University-Emblem.png" class="h-16 sm:h-20 grayscale-hover object-contain" alt="PSU">
+                <img id="logo-sci" src="https://i.postimg.cc/XvrcbD1Y/Logo-Subbrand-Faculty-of-Science-and-Technology-Full-TH.png" class="h-12 sm:h-16 grayscale-hover object-contain" alt="Science PSU">
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-slate-900 text-slate-300 pt-16 pb-8 border-t-4 border-psu-accent pb-24 md:pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12 border-b border-slate-800 pb-10">
-                <div class="md:col-span-1">
-                    <h3 class="text-white text-xl font-bold mb-2">โครงการ วมว. โรงเรียนสาธิตวิทยาการอิสลาม</h3>
-                    <p class="text-slate-400 mb-6 text-sm">มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี</p>
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-2" data-i18n="ft_title">โครงการ วมว. โรงเรียนสาธิตวิทยาการอิสลาม</h3>
+                    <p class="text-slate-400 mb-6 text-sm" data-i18n="ft_subtitle">มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี</p>
                     <div class="flex space-x-4">
                         <a href="https://www.facebook.com/sciusids/" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-psu-accent hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/scius.ids/" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-psu-accent hover:text-white transition"><i class="fab fa-instagram"></i></a>
@@ -332,31 +305,30 @@
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-white font-semibold mb-4">ติดต่อสอบถาม</h4>
+                    <h4 class="text-white font-semibold mb-4" data-i18n="ft_contact">ติดต่อสอบถาม</h4>
                     <ul class="space-y-3 text-sm">
-                        <li class="flex items-start gap-3"><i class="ph-fill ph-map-pin text-psu-accent text-lg mt-0.5"></i> <span>181 หมู่ 6 ถ.เจริญประดิษฐ์ ต.รูสะมิแล อ.เมือง จ.ปัตตานี 94000</span></li>
+                        <li class="flex items-start gap-3"><i class="ph-fill ph-map-pin text-psu-accent text-lg mt-0.5"></i> <span data-i18n="ft_address">181 หมู่ 6 ถ.เจริญประดิษฐ์ ต.รูสะมิแล อ.เมือง จ.ปัตตานี 94000</span></li>
                         <li class="flex items-center gap-3"><i class="ph-fill ph-phone text-psu-accent text-lg"></i> <span>073-313928-31 ต่อ 4511</span></li>
                         <li class="flex items-center gap-3"><i class="ph-fill ph-envelope-simple text-psu-accent text-lg"></i> <span>Satit.isds@gmail.com</span></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white font-semibold mb-4">ลิงก์ที่เกี่ยวข้อง</h4>
+                    <h4 class="text-white font-semibold mb-4" data-i18n="ft_links">ลิงก์ที่เกี่ยวข้อง</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="https://apply.mwit.ac.th/" target="_blank" class="hover:text-psu-accent transition flex items-center gap-2"><i class="ph ph-caret-right"></i> ระบบรับสมัคร MWIT</a></li>
-                        <li><a href="https://scius.mhesi.go.th/" target="_blank" class="hover:text-psu-accent transition flex items-center gap-2"><i class="ph ph-caret-right"></i> เว็บไซต์ วมว. ส่วนกลาง</a></li>
-                        <li><a href="https://scius.sat.psu.ac.th/" target="_blank" class="hover:text-psu-accent transition flex items-center gap-2"><i class="ph ph-caret-right"></i> คณะวิทยาศาสตร์ ม.อ. ปัตตานี</a></li>
+                        <li><a href="https://apply.mwit.ac.th/" target="_blank" class="hover:text-psu-accent transition flex items-center gap-2"><i class="ph ph-caret-right"></i> <span data-i18n="ft_link_1">ระบบรับสมัคร MWIT</span></a></li>
+                        <li><a href="https://scius.mhesi.go.th/" target="_blank" class="hover:text-psu-accent transition flex items-center gap-2"><i class="ph ph-caret-right"></i> <span data-i18n="ft_link_2">เว็บไซต์ วมว. ส่วนกลาง</span></a></li>
+                        <li><a href="https://scius.sat.psu.ac.th/" target="_blank" class="hover:text-psu-accent transition flex items-center gap-2"><i class="ph ph-caret-right"></i> <span data-i18n="ft_link_3">คณะวิทยาศาสตร์ ม.อ. ปัตตานี</span></a></li>
                     </ul>
                 </div>
             </div>
             <div class="text-center text-sm text-slate-500 relative">
-                <p>&copy; 2026 SCiUS IDS PSU Pattani all rights reserved.</p>
+                <p data-i18n="ft_copy">&copy; 2026 SCiUS IDS PSU Pattani all rights reserved.</p>
                 <button onclick="toggleAdminPanel()" class="absolute right-0 top-0 hover:text-white flex items-center gap-1 opacity-50 hover:opacity-100"><i class="ph-fill ph-gear"></i> Admin</button>
             </div>
         </div>
     </footer>
 
-    <!-- Sticky Mobile CTA -->
-    <div class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-4 z-50 md:hidden flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+    <div class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-4 z-50 md:hidden flex justify-between items-center shadow-lg">
         <div>
             <p class="text-xs text-slate-500 font-bold" data-i18n="sticky_txt">โครงการ วมว. ม.อ.</p>
             <p class="text-psu-blue font-bold text-sm">รับสมัคร ม.4 (เรียนฟรี)</p>
@@ -366,44 +338,47 @@
         </a>
     </div>
 
-    <!-- Admin Panel -->
     <div id="admin-panel" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex justify-center items-center p-4 overflow-y-auto">
-        <div id="admin-login" class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm animate-fade-in my-auto">
+        <div id="admin-login" class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm my-auto">
             <div class="text-center mb-6">
                 <div class="w-16 h-16 bg-psu-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 text-psu-blue text-2xl"><i class="ph-fill ph-lock-key"></i></div>
                 <h2 class="text-2xl font-bold text-slate-800">เข้าสู่ระบบจัดการ</h2>
                 <p class="text-slate-500 text-sm mt-1">เฉพาะเจ้าหน้าที่ศูนย์ วมว.</p>
             </div>
             <div class="space-y-4">
-                <div><input type="password" id="login-pass" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-psu-blue text-center font-bold tracking-widest text-lg" placeholder="รหัสผ่าน (PIN)"></div>
+                <div><input type="password" id="login-pass" class="w-full px-4 py-3 border rounded-lg text-center font-bold tracking-widest text-lg" placeholder="รหัสผ่าน (PIN)"></div>
                 <button onclick="handleLogin()" class="w-full bg-psu-blue text-white font-bold py-3 rounded-lg hover:bg-psu-light transition">ยืนยัน</button>
-                <button onclick="toggleAdminPanel()" class="w-full text-slate-500 hover:text-slate-800 py-2 text-sm">ยกเลิก</button>
+                <button onclick="toggleAdminPanel()" class="w-full text-slate-500 py-2 text-sm">ยกเลิก</button>
                 <p id="login-error" class="text-red-500 text-sm text-center hidden"></p>
-                <div class="text-xs text-center text-slate-400 mt-2"> </div>
             </div>
         </div>
 
         <div id="admin-dashboard" class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col hidden my-8">
-            <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-2xl sticky top-0 z-10">
-                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i class="ph-fill ph-github-logo text-psu-blue"></i> GitHub CMS</h2>
+            <div class="px-6 py-4 border-b flex justify-between items-center bg-slate-50 rounded-t-2xl sticky top-0 z-10">
+                <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i class="ph-fill ph-gear text-psu-blue"></i> CMS Admin Control</h2>
                 <button onclick="handleLogout()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">ปิด</button>
             </div>
             <div class="p-6 overflow-y-auto space-y-6 flex-1 bg-slate-50">
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                    <h3 class="font-bold text-psu-blue mb-2 flex items-center gap-2"><i class="ph-bold ph-key"></i> ตั้งค่าการอัปเดตอัตโนมัติ (GitHub API Sync)</h3>
+                    <p class="text-xs text-slate-600 mb-3">แปะ GitHub Access Token ไว้ครั้งเดียว เมื่อกดบันทึก ข้อมูลจะวิ่งไปอัปเดตบน GitHub + Vercel ทันทีโดยไม่ต้องโหลดไฟล์วางทับ!</p>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <input type="text" id="github-user" class="text-xs p-2 border rounded" placeholder="GitHub Username (เช่น yourname)">
+                        <input type="text" id="github-repo" class="text-xs p-2 border rounded" placeholder="Repo Name (เช่น mwit-apply-psu)">
+                        <input type="password" id="github-token" class="text-xs p-2 border rounded" placeholder="GitHub Token (ghp_...)">
+                    </div>
+                </div>
+
                 <div class="bg-white border rounded-xl p-5 shadow-sm">
                     <h3 class="font-bold text-lg mb-4 text-psu-blue border-b pb-2">1. ตั้งค่าระบบและลิงก์</h3>
                     <div class="grid sm:grid-cols-2 gap-4 mb-4">
-                        <div class="space-y-3">
-                            <label class="block text-xs font-medium">เปิดรับสมัคร</label>
-                            <input type="datetime-local" id="admin-open-date" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('openDate', this.value)">
-                        </div>
-                        <div class="space-y-3">
-                            <label class="block text-xs font-medium">ปิดรับสมัคร</label>
-                            <input type="datetime-local" id="admin-deadline" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('deadline', this.value)">
-                        </div>
+                        <div><label class="block text-xs font-medium mb-1">เปิดรับสมัคร</label><input type="datetime-local" id="admin-open-date" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('openDate', this.value)"></div>
+                        <div><label class="block text-xs font-medium mb-1">ปิดรับสมัคร</label><input type="datetime-local" id="admin-deadline" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('deadline', this.value)"></div>
                     </div>
                     <div class="space-y-3 mt-4">
-                        <div><label class="block text-xs font-medium">ลิงก์ระบบสมัคร (MWIT)</label><input type="text" id="admin-apply-link" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('applyLink', this.value)"></div>
-                        <div><label class="block text-xs font-medium">ลิงก์ไฟล์ประกาศฉบับเต็ม (PDF)</label><input type="text" id="admin-pdf-link" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('pdfLink', this.value)" placeholder="วางลิงก์ Google Drive หรือ PDF ที่นี่"></div>
+                        <div><label class="block text-xs font-medium mb-1">ลิงก์ระบบสมัคร (MWIT)</label><input type="text" id="admin-apply-link" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('applyLink', this.value)"></div>
+                        <div><label class="block text-xs font-medium mb-1">ลิงก์ไฟล์ประกาศฉบับเต็ม (PDF)</label><input type="text" id="admin-pdf-link" class="w-full text-sm px-3 py-2 border rounded" onchange="updateSettings('pdfLink', this.value)"></div>
                     </div>
                 </div>
 
@@ -431,24 +406,16 @@
                     <div id="admin-faq-list" class="space-y-3"></div>
                 </div>
             </div>
-            <div class="px-6 py-5 border-t bg-white rounded-b-2xl flex justify-between items-center z-20">
-                <button onclick="exportJSONForGithub()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-lg shadow ml-auto"><i class="ph-bold ph-download-simple"></i> ดาวน์โหลด JSON</button>
+            <div class="px-6 py-5 border-t bg-white rounded-b-2xl flex flex-wrap justify-between items-center gap-3">
+                <button onclick="exportJSONForGithub()" class="bg-slate-600 hover:bg-slate-700 text-white font-medium px-4 py-2.5 rounded-lg text-sm"><i class="ph-bold ph-download-simple"></i> โหลดไฟล์ JSON (ทางเลือกเดิม)</button>
+                <button onclick="syncToGitHubDirectly()" id="sync-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2.5 rounded-lg shadow flex items-center gap-2"><i class="ph-bold ph-cloud-arrow-up"></i> บันทึกและอัปเดตเว็บทันที (GitHub Sync)</button>
             </div>
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- 🔥 MAIN SCRIPT LOGIC 🔥 -->
-    <!-- ========================================== -->
     <script>
         let siteData = {
-            settings: { 
-                openDate: "2026-08-01T08:00:00", 
-                deadline: "2026-08-31T23:59:00", 
-                applyLink: "https://apply.mwit.ac.th/",
-                pdfLink: "" 
-            },
+            settings: { openDate: "2026-08-01T08:00:00", deadline: "2026-08-31T23:59:00", applyLink: "https://apply.mwit.ac.th/", pdfLink: "" },
             timeline: [
                 { id: 1, date_th: "1 - 31 สิงหาคม 2569", date_en: "Aug 1 - 31, 2026", title_th: "เปิดรับสมัครรอบแรก", title_en: "Application Opens", desc_th: "สมัครออนไลน์ผ่านระบบกลาง มีค่าธรรมเนียม 200 บาท", desc_en: "Online application via central system. Fee 200 THB", icon: "calendar-plus" },
                 { id: 2, date_th: "15 พฤศจิกายน 2569", date_en: "Nov 15, 2026", title_th: "สอบคัดเลือกรอบแรก", title_en: "1st Round Exam", desc_th: "สอบข้อเขียนวิชาคณิตศาสตร์ และ วิทยาศาสตร์", desc_en: "Math & Science written examination", icon: "pencil-simple" },
@@ -483,37 +450,87 @@
         const i18n = {
             th: {
                 nav_check: "ตรวจสอบสิทธิ์", btn_apply: "สมัครเข้าศึกษาต่อ (MWIT)", btn_learn_more: "ทำความรู้จักเรา",
-                hero_title: "ห้องเรียนวิทยาศาสตร์ วมว.\nสาธิตวิทยาการอิสลาม ม.อ.",
+                hero_title: "ห้องเรียนวิทยาศาสตร์ โครงการ วมว.\nโรงเรียนสาธิตวิทยาการอิสลาม ม.อ.",
                 hero_subtitle: "เรียนรู้วิทยาศาสตร์อย่างเข้มข้น ควบคู่การใช้ชีวิตบนวิถีจริยธรรม ในสังคมที่เปิดกว้างและเป็นมิตรสำหรับทุกคน",
                 status_open: "ระบบกำลังเปิดรับสมัคร", status_closed: "หมดเขตรับสมัครแล้ว",
-                about_title: "โครงการ วมว. คืออะไร?", about_desc: "โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย รับการสนับสนุนจาก อว.",
+                
+                // สถิติ 4 ช่อง
+                stat_1_val: "30 คน", stat_1_desc: "รับ 1 ห้องเรียน",
+                stat_2_val: "ฟรี", stat_2_desc: "ทุนการศึกษา 3 ปี",
+                stat_3_val: "200 ฿", stat_3_desc: "ค่าสมัครสอบรอบแรก",
+                stat_4_val: "ส.ค.", stat_4_desc: "ช่วงเปิดรับสมัคร",
+
+                about_title: "โครงการ วมว. คืออะไร?", about_desc: "โครงการห้องเรียนวิทยาศาสตร์ในโรงเรียน โดยการกำกับดูแลของมหาวิทยาลัย เป็นโครงการจัดตั้งห้องเรียนสำหรับผู้เรียนที่มีความสามารถพิเศษทางด้านวิทย์ฯ และเทคโนโลยี ได้รับการสนับสนุนจากกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม",
                 feature_heading: "ทำไมต้อง วมว. สาธิตอิสลาม ม.อ. ?",
                 check_title: "ตรวจสอบสิทธิ์เบื้องต้น", check_desc: "ติ๊กเลือกคุณสมบัติที่คุณมี หากผ่านเกณฑ์ ระบบจะแสดงปุ่มสมัครให้",
                 chk_h1: "คุณสมบัติด้านวิชาการ", chk_h2: "คุณสมบัติทั่วไป & หอพัก",
                 check_1: "กำลังศึกษาชั้น ม.3 ในปี 2569", check_2: "GPAX ม.1-ม.2 \u2265 3.00", check_3: "GPA วิทยาศาสตร์ \u2265 3.00", check_4: "GPA คณิตศาสตร์ \u2265 3.00",
                 check_5: "สัญชาติไทย (มีเลข 13 หลัก)", check_6: "สุขภาพดี ไม่เป็นโรคติดต่อร้ายแรง", check_7: "สามารถเข้าพักในหอพักประจำได้", check_8: "ขยัน ประพฤติดี",
-                check_success: "คุณสมบัติครบถ้วน!",
+                check_success: "คุณสมบัติครบถ้วน!", 
+                
+                // เอกสาร
                 doc_title: "เอกสารที่ต้องเตรียมสมัคร", doc_desc: "จัดเตรียมไฟล์ให้พร้อม ก่อนเข้าระบบรับสมัคร",
+                doc_1_title: "ใบระเบียน ปพ.1", doc_1_desc: "แสดงเกรดเฉลี่ย ม.1 - ม.2 (รวม 4 เทอม)",
+                doc_2_title: "บัตรประจำตัวประชาชน", doc_2_desc: "ของตัวนักเรียนผู้สมัคร",
+                doc_3_tag: "ทางเลือก", doc_3_title: "ใบรับรองผู้อำนวยการ", doc_3_desc: "สำหรับขอยกเว้นค่าธรรมเนียมสมัครสอบ",
+                doc_4_title: "รูปถ่ายติดบัตร", doc_4_desc: "สำหรับทำบัตรประจำตัวสอบ",
+
                 time_title: "ไทม์ไลน์ก้าวสู่รั้ว วมว. ม.อ.", time_desc: "บันทึกปฏิทินไว้เลย! กระบวนการคัดเลือกผ่านระบบกลาง และสอบรอบสอง",
                 ben_title: "สิทธิประโยชน์สุดคุ้ม", ben_desc: "สวัสดิการเพื่ออนาคต สำหรับนักเรียนโครงการ วมว.",
-                sponsor_title: "สนับสนุนและดำเนินการโดย", sticky_txt: "โครงการ วมว. ม.อ."
+                sponsor_title: "สนับสนุนและดำเนินการโดย", sticky_txt: "โครงการ วมว. ม.อ.",
+
+                // Footer
+                ft_title: "โครงการ วมว. โรงเรียนสาธิตวิทยาการอิสลาม",
+                ft_subtitle: "มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี",
+                ft_contact: "ติดต่อสอบถาม",
+                ft_address: "181 หมู่ 6 ถ.เจริญประดิษฐ์ ต.รูสะมิแล อ.เมือง จ.ปัตตานี 94000",
+                ft_links: "ลิงก์ที่เกี่ยวข้อง",
+                ft_link_1: "ระบบรับสมัคร MWIT",
+                ft_link_2: "เว็บไซต์ วมว. ส่วนกลาง",
+                ft_link_3: "คณะวิทยาศาสตร์ ม.อ. ปัตตานี",
+                ft_copy: "&copy; 2026 SCiUS IDS PSU Pattani all rights reserved."
             },
             en: {
                 nav_check: "Check Eligibility", btn_apply: "Apply Now (MWIT)", btn_learn_more: "Learn More",
-                hero_title: "SCiUS Science Classrooms\nIslamic Satit PSU",
+                hero_title: "SCiUS Science Classrooms\nIDS PSU",
                 hero_subtitle: "Intensive science learning combined with ethical living in a welcoming and multicultural environment.",
                 status_open: "Application is Open", status_closed: "Application Closed",
+                
+                // สถิติ 4 ช่อง
+                stat_1_val: "30 Pax", stat_1_desc: "For 1 Class",
+                stat_2_val: "Free", stat_2_desc: "3-Year Scholarship",
+                stat_3_val: "200 THB", stat_3_desc: "1st Round Fee",
+                stat_4_val: "Aug", stat_4_desc: "Application Period",
+
                 about_title: "What is SCiUS?", about_desc: "Science Classrooms in University-Affiliated Schools Project, supported by MHESI.",
-                feature_heading: "Why SCiUS Islamic Satit PSU?",
+                feature_heading: "Why SCiUS IDS PSU?",
                 check_title: "Basic Eligibility Check", check_desc: "Check the boxes if you meet the criteria. If all met, the apply button will appear.",
                 chk_h1: "Academic Requirements", chk_h2: "General & Dormitory",
                 check_1: "Currently in Grade 9 (2026)", check_2: "Overall GPA \u2265 3.00", check_3: "Science GPA \u2265 3.00", check_4: "Math GPA \u2265 3.00",
                 check_5: "Thai Nationality", check_6: "Good health condition", check_7: "Able to live in dormitory", check_8: "Good behavior & supported by parents",
-                check_success: "You are eligible!",
+                check_success: "You are eligible!", 
+                
+                // เอกสาร
                 doc_title: "Required Documents", doc_desc: "Prepare these files before applying online.",
+                doc_1_title: "Transcript (Por.Por.1)", doc_1_desc: "Grades M.1 - M.2 (4 Terms)",
+                doc_2_title: "ID Card", doc_2_desc: "Student's ID Card",
+                doc_3_tag: "Optional", doc_3_title: "Director's Certificate", doc_3_desc: "For application fee exemption",
+                doc_4_title: "ID Photo", doc_4_desc: "For exam ID card",
+
                 time_title: "Application Timeline", time_desc: "Save the dates for MWIT and PSU selection processes.",
                 ben_title: "Exclusive Benefits", ben_desc: "Welfare and future opportunities for SCiUS students.",
-                sponsor_title: "Supported & Operated By", sticky_txt: "SCiUS PSU Project"
+                sponsor_title: "Supported & Operated By", sticky_txt: "SCiUS PSU Project",
+
+                // Footer
+                ft_title: "SCiUS IDS",
+                ft_subtitle: "Prince of Songkla University, Pattani Campus",
+                ft_contact: "Contact Us",
+                ft_address: "181 Moo 6, Charoenpradit Rd., Rusamilae, Mueang, Pattani 94000",
+                ft_links: "Related Links",
+                ft_link_1: "MWIT Application System",
+                ft_link_2: "SCiUS Central Website",
+                ft_link_3: "Faculty of Science, PSU Pattani",
+                ft_copy: "&copy; 2026 SCiUS IDS PSU Pattani all rights reserved."
             }
         };
 
@@ -542,7 +559,6 @@
         };
 
         const renderApp = () => {
-            // Text Translation
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[currentLang][key]) {
@@ -555,9 +571,7 @@
             const pdfContainer = document.getElementById('pdf-link-container');
             if(siteData.settings.pdfLink && siteData.settings.pdfLink.trim() !== "") {
                 pdfContainer.innerHTML = `<a href="${siteData.settings.pdfLink}" target="_blank" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-medium px-6 py-3 rounded-full transition shadow-md"><i class="ph-bold ph-download-simple"></i> ${currentLang==='th'?'ดาวน์โหลดประกาศรับสมัครฉบับเต็ม (PDF)':'Download Full Announcement (PDF)'}</a>`;
-            } else {
-                pdfContainer.innerHTML = "";
-            }
+            } else { pdfContainer.innerHTML = ""; }
 
             // Features
             document.getElementById('features-container').innerHTML = siteData.content.features.map(f => `
@@ -629,7 +643,6 @@
             const btns = [document.getElementById('apply-btn-main'), document.getElementById('apply-btn-check'), document.getElementById('apply-btn-sticky')];
 
             let targetTime;
-            
             if (now < openTime) {
                 targetTime = openTime;
                 if(badge) badge.className = "inline-flex items-center px-4 py-1.5 rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 text-sm font-medium mb-6 backdrop-blur-sm";
@@ -659,7 +672,6 @@
 
             const diff = targetTime - now;
             const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
-            
             if(container) {
                 container.innerHTML = `
                     <div class="bg-white/10 rounded-lg p-2 sm:p-3 min-w-[60px] sm:min-w-[80px]"><div class="text-2xl sm:text-4xl font-bold text-white mb-1">${d}</div><div class="text-[10px] sm:text-xs text-blue-200">${currentLang==='th'?'วัน':'Days'}</div></div>
@@ -670,7 +682,6 @@
             }
         }, 1000);
 
-        // Eligibility 
         document.addEventListener('DOMContentLoaded', () => {
             loadDataFromGitHub();
             const cbs = document.querySelectorAll('.eligibility-cb');
@@ -681,6 +692,11 @@
                     else res.classList.add('hidden');
                 });
             });
+
+            // Load Saved GitHub Credentials if any
+            if(localStorage.getItem('gh_user')) document.getElementById('github-user').value = localStorage.getItem('gh_user');
+            if(localStorage.getItem('gh_repo')) document.getElementById('github-repo').value = localStorage.getItem('gh_repo');
+            if(localStorage.getItem('gh_token')) document.getElementById('github-token').value = localStorage.getItem('gh_token');
         });
 
         // Admin Logic
@@ -705,7 +721,7 @@
             document.getElementById('admin-apply-link').value = siteData.settings.applyLink;
             document.getElementById('admin-pdf-link').value = siteData.settings.pdfLink || "";
 
-            // Timeline (Bilingual)
+            // Timeline
             document.getElementById('admin-timeline-list').innerHTML = siteData.timeline.map((t, idx) => `
                 <div class="border rounded p-3 bg-white relative">
                     <button onclick="deleteItem('timeline', ${idx})" class="absolute top-2 right-2 text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
@@ -724,7 +740,7 @@
                 </div>
             `).join('');
 
-            // Benefits (Bilingual)
+            // Benefits
             document.getElementById('admin-benefits-list').innerHTML = siteData.content.benefits.map((b, idx) => `
                 <div class="border rounded p-3 bg-white relative">
                     <button onclick="deleteItemCustom('content', 'benefits', ${idx})" class="absolute top-2 right-2 text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
@@ -740,7 +756,7 @@
                 </div>
             `).join('');
 
-            // FAQ (Bilingual)
+            // FAQ
             document.getElementById('admin-faq-list').innerHTML = siteData.faqs.map((f, idx) => `
                 <div class="border rounded p-3 bg-white relative">
                     <button onclick="deleteItem('faqs', ${idx})" class="absolute top-2 right-2 text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
@@ -765,6 +781,7 @@
         window.addBenefitItem = () => { siteData.content.benefits.push({ id: Date.now(), icon: "star", title_th: "สิทธิพิเศษ", title_en:"Benefit", desc_th: "", desc_en: "" }); renderAdminPanel(); };
         window.addFaqItem = () => { siteData.faqs.push({ id: Date.now(), q_th: "คำถาม?", q_en: "Question?", a_th: "", a_en: "" }); renderAdminPanel(); };
 
+        // 📥 ดาวน์โหลดไฟล์ JSON แบบเดิม
         window.exportJSONForGithub = () => {
             const dataStr = JSON.stringify(siteData, null, 2);
             const blob = new Blob([dataStr], { type: "application/json" });
@@ -772,6 +789,77 @@
             const a = document.createElement('a'); a.href = url; a.download = 'site-data.json';
             document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
             alert("ดาวน์โหลดไฟล์ 'site-data.json' สำเร็จ!\nนำไฟล์ไป Upload ใน GitHub เพื่ออัปเดตเว็บ");
+        };
+
+        // 🚀 บันทึกตรงผ่าน GitHub API (Sync อัตโนมัติ)
+        window.syncToGitHubDirectly = async () => {
+            const user = document.getElementById('github-user').value.trim();
+            const repo = document.getElementById('github-repo').value.trim();
+            const token = document.getElementById('github-token').value.trim();
+
+            if (!user || !repo || !token) {
+                alert("กรุณากรอก GitHub Username, Repo Name และ Token ให้ครบถ้วนในช่องด้านบน");
+                return;
+            }
+
+            // บันทึก Credentials ไว้ในเครื่อง
+            localStorage.setItem('gh_user', user);
+            localStorage.setItem('gh_repo', repo);
+            localStorage.setItem('gh_token', token);
+
+            const btn = document.getElementById('sync-btn');
+            const origHTML = btn.innerHTML;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> กำลังอัปเดตเข้า GitHub...`;
+            btn.disabled = true;
+
+            try {
+                const path = 'site-data.json';
+                const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
+                // 1. ดึง sha ของไฟล์เดิม
+                let sha = '';
+                const getRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (getRes.ok) {
+                    const getJson = await getRes.json();
+                    sha = getJson.sha;
+                }
+
+                // 2. แปลงข้อความ JSON เป็น Base64 (รองรับ ภาษาไทย UTF-8)
+                const jsonString = JSON.stringify(siteData, null, 2);
+                const bytes = new TextEncoder().encode(jsonString);
+                let binString = "";
+                bytes.forEach((b) => binString += String.fromCharCode(b));
+                const contentBase64 = btoa(binString);
+
+                // 3. ส่งข้อมูลไปอัปเดตบน GitHub (PUT Request)
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update site-data.json via Admin CMS',
+                        content: contentBase64,
+                        sha: sha !== '' ? sha : undefined
+                    })
+                });
+
+                if (putRes.ok) {
+                    alert("🎉 บันทึกสำเร็จ!\n\nข้อมูลอัปเดตเข้า GitHub เรียบร้อยแล้ว Vercel จะปรับปรุงหน้าเว็บจริงให้อัตโนมัติใน 1 นาทีครับ");
+                } else {
+                    const errJson = await putRes.json();
+                    alert("เกิดข้อผิดพลาดจาก GitHub: " + (errJson.message || "ไม่สามารถอัปเดตได้ ตรวจสอบ Token และ ชื่อ Repo"));
+                }
+            } catch (err) {
+                alert("เกิดข้อผิดพลาดในการเชื่อมต่อ: " + err.message);
+            } finally {
+                btn.innerHTML = origHTML;
+                btn.disabled = false;
+            }
         };
     </script>
 </body>
