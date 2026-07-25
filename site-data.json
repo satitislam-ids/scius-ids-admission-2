@@ -87,7 +87,7 @@
       "q_th": "สามารถเลือกสมัครศูนย์ วมว. ได้กี่แห่ง?",
       "q_en": "How many SCiUS centers can I choose?",
       "a_th": "ในระบบสมัครรอบแรก สามารถเลือกได้สูงสุด 2 แห่ง (ต้องเรียงลำดับ) แต่หากผ่านเข้ารอบสอง จะมีสิทธิ์เข้าสอบรอบสองได้ 'เพียง 1 แห่ง' ตามลำดับที่เลือกไว้เท่านั้น",
-      "a_en": "You can rank up to 2 centers in the 1st round. However, you can only take the 2nd round exam at 1 center based on your rank."
+      "a_en": "How many SCiUS centers can I choose?\nYou can rank up to 2 centers in the 1st round. However, you can only take the 2nd round exam at 1 center based on your rank."
     }
   ],
   "content": {
