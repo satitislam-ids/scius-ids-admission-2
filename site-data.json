@@ -88,6 +88,13 @@
       "q_en": "How many SCiUS centers can I choose?",
       "a_th": "ในระบบสมัครรอบแรก สามารถเลือกได้สูงสุด 2 แห่ง (ต้องเรียงลำดับ) แต่หากผ่านเข้ารอบสอง จะมีสิทธิ์เข้าสอบรอบสองได้ 'เพียง 1 แห่ง' ตามลำดับที่เลือกไว้เท่านั้น",
       "a_en": "How many SCiUS centers can I choose?\nYou can rank up to 2 centers in the 1st round. However, you can only take the 2nd round exam at 1 center based on your rank."
+    },
+    {
+      "id": 1785007143585,
+      "q_th": "หากเรียนไม่จบ หรือทำผิดกฎพ้นสภาพ มีเงื่อนไขปรับเงินหรือไม่?",
+      "q_en": "Are there penalties for leaving the program early?",
+      "a_th": "มีครับ นักเรียนต้องปฏิบัติตามกฎระเบียบของโครงการ หากผิดวินัยร้ายแรงจนต้องพ้นสภาพ หรือสละสิทธิ์กลางคัน จะต้องชดใช้เงินคืนตามหลักเกณฑ์ที่โครงการกำหนด",
+      "a_en": "Yes. Students must follow program rules. Early termination or rule violations will result in a financial penalty according to the policy."
     }
   ],
   "content": {
