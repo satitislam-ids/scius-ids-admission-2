@@ -81,6 +81,13 @@
       "q_en": "Is there any tuition fee?",
       "a_th": "ผู้สอบผ่านจะได้รับทุนเรียนฟรีตลอด 3 ปี รวมถึงค่าที่พัก",
       "a_en": "Admitted students receive full scholarships covering tuition and dorms."
+    },
+    {
+      "id": 1784972631676,
+      "q_th": "คำถาม?",
+      "q_en": "Question?",
+      "a_th": "",
+      "a_en": ""
     }
   ],
   "content": {
