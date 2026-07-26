@@ -87,7 +87,6 @@
     <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- โลโก้ใหม่ ปรับขนาดให้พอดีและเป็นทางการ -->
                 <div class="flex items-center cursor-pointer gap-3 sm:gap-4" onclick="window.scrollTo(0,0)">
                     <img src="https://i.postimg.cc/G3JfNWnH/Asset-1.png" alt="SCiUS Logo" class="h-10 sm:h-12 w-auto object-contain">
                     <span class="font-bold text-lg sm:text-2xl tracking-wide whitespace-nowrap">
@@ -260,7 +259,7 @@
         </div>
     </section>
 
-    <!-- 🟢 SECTION ใหม่: เกณฑ์การสอบคัดเลือก (Exam Details) 🟢 -->
+    <!-- 🟢 SECTION: เกณฑ์การสอบคัดเลือก (Exam Details) 🟢 -->
     <section class="py-16 bg-slate-100 border-t border-slate-200 relative overflow-hidden">
         <!-- Background Elements -->
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-psu-accent/10 blur-3xl pointer-events-none"></div>
@@ -361,11 +360,13 @@
     <section class="py-12 bg-white border-t border-slate-200">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-6"><h4 class="text-sm font-semibold text-slate-400 uppercase tracking-widest" data-i18n="sponsor_title">สนับสนุนและดำเนินการโดย</h4></div>
+            <!-- แก้ไขข้อ 1: เพิ่มโลโก้โรงเรียน (IDS PSU) ตรงกลาง พร้อมปรับ Responsive -->
             <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-14">
-                <img id="logo-mhesi" src="https://i.postimg.cc/6p0CnxgZ/Artwork-Logo-MHESIfinal27042564-01.png" class="h-24 sm:h-28 grayscale-hover object-contain" alt="MHESI">
-                <img id="logo-scius-footer" src="https://i.postimg.cc/jqLvT291/SCi-US-Logo-FULL-JPG-EN.png" class="h-16 sm:h-20 grayscale-hover object-contain" alt="SCiUS">
-                <img id="logo-psu" src="https://i.postimg.cc/Y08RHts6/Prince-of-Songkla-University-Emblem.png" class="h-16 sm:h-20 grayscale-hover object-contain" alt="PSU">
-                <img id="logo-sci" src="https://i.postimg.cc/vZqLCdzC/Logo-Subbrand-Faculty-of-Science-and-Technology-Full-EN.png" class="h-12 sm:h-16 grayscale-hover object-contain" alt="Science PSU">
+                <img id="logo-mhesi" src="https://i.postimg.cc/6p0CnxgZ/Artwork-Logo-MHESIfinal27042564-01.png" class="h-20 sm:h-28 grayscale-hover object-contain" alt="MHESI">
+                <img id="logo-scius-footer" src="https://i.postimg.cc/jqLvT291/SCi-US-Logo-FULL-JPG-EN.png" class="h-14 sm:h-20 grayscale-hover object-contain" alt="SCiUS">
+                <img id="logo-ids" src="https://i.postimg.cc/ZY6R05mp/IDS-PSU-Logo-Final-02.png" class="h-12 sm:h-16 grayscale-hover object-contain" alt="IDS PSU">
+                <img id="logo-psu" src="https://i.postimg.cc/Y08RHts6/Prince-of-Songkla-University-Emblem.png" class="h-14 sm:h-20 grayscale-hover object-contain" alt="PSU">
+                <img id="logo-sci" src="https://i.postimg.cc/vZqLCdzC/Logo-Subbrand-Faculty-of-Science-and-Technology-Full-EN.png" class="h-10 sm:h-16 grayscale-hover object-contain" alt="Science PSU">
             </div>
         </div>
     </section>
@@ -400,9 +401,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="text-center text-sm text-slate-500 relative">
-                <p data-i18n="ft_copy">© 2026 SCiUS IDS PSU Pattani all rights reserved.</p>
-                <button onclick="toggleAdminPanel()" class="absolute right-0 top-0 hover:text-white flex items-center gap-1 opacity-50 hover:opacity-100"><i class="ph-fill ph-gear"></i> Admin</button>
+            <!-- แก้ไขข้อ 2: จัด Layout ใหม่ด้วย Flexbox เพื่อไม่ให้ปุ่ม Admin ทับลิขสิทธิ์เวลามองบนมือถือ -->
+            <div class="flex flex-col-reverse sm:flex-row sm:justify-between items-center text-sm text-slate-500 gap-4">
+                <!-- ใส่กล่องหลอกซ้ายสุดเพื่อให้ข้อความอยู่ตรงกลางเป๊ะในโหมดคอมพิวเตอร์ -->
+                <div class="hidden sm:block sm:w-24"></div> 
+                <p data-i18n="ft_copy" class="text-center">© 2026 SCiUS IDS PSU Pattani all rights reserved.</p>
+                <button onclick="toggleAdminPanel()" class="hover:text-white flex items-center justify-end gap-1 opacity-50 hover:opacity-100 sm:w-24"><i class="ph-fill ph-gear"></i> Admin</button>
             </div>
         </div>
     </footer>
@@ -427,7 +431,7 @@
             <div class="space-y-4">
                 <div><input type="password" id="login-pass" class="w-full px-4 py-3 border rounded-lg text-center font-bold tracking-widest text-lg" placeholder="รหัสผ่าน (PIN)"></div>
                 <button onclick="handleLogin()" class="w-full bg-psu-blue text-white font-bold py-3 rounded-lg hover:bg-psu-light transition">ยืนยัน</button>
-                <button onclick="toggleAdminPanel()" class="w-full text-slate-500 py-2 text-sm">ยกเลิก</button>
+                <button onclick="toggleAdminPanel()" class="w-full text-slate-500 py-2 text-sm hover:text-slate-800 transition">ยกเลิก</button>
                 <p id="login-error" class="text-red-500 text-sm text-center hidden"></p>
             </div>
         </div>
@@ -435,14 +439,19 @@
         <div id="admin-dashboard" class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col hidden my-8">
             <div class="px-6 py-4 border-b flex justify-between items-center bg-slate-50 rounded-t-2xl sticky top-0 z-10">
                 <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i class="ph-fill ph-gear text-psu-blue"></i> CMS Admin Control</h2>
-                <button onclick="handleLogout()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg">ปิด</button>
+                <button onclick="handleLogout()" class="px-4 py-2 text-sm text-white bg-red-500 hover:bg-red-600 font-bold rounded-lg transition"><i class="ph-bold ph-sign-out"></i> ออกจากระบบ</button>
             </div>
             <div class="p-6 overflow-y-auto space-y-6 flex-1 bg-slate-50">
                 
                 <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
                     <h3 class="font-bold text-psu-blue mb-2 flex items-center gap-2"><i class="ph-bold ph-key"></i> ตั้งค่าการอัปเดตอัตโนมัติ (GitHub API Sync)</h3>
-                    <p class="text-xs text-slate-600 mb-3">แปะ GitHub Access Token ไว้ครั้งเดียว เมื่อกดบันทึก ข้อมูลจะวิ่งไปอัปเดตบน GitHub + Vercel ทันทีโดยไม่ต้องโหลดไฟล์วางทับ!</p>
-                    <div class="grid sm:grid-cols-3 gap-3">
+                    <!-- แก้ไขข้อ 3: เพิ่มคำอธิบายเรื่องความปลอดภัยของ Token ให้ User ทราบ -->
+                    <p class="text-xs text-slate-600 mb-2">
+                        <strong>คำแนะนำด้านความปลอดภัย:</strong> ห้ามนำ Token ไปฝังไว้ในโค้ด HTML เด็ดขาด เพราะจะทำให้ระบบโดนแฮกได้ 
+                        ระบบปัจจุบันถูกออกแบบให้จำค่า Token ไว้เฉพาะในเบราว์เซอร์เครื่องนี้ (Local Storage) ซึ่งปลอดภัยที่สุดสำหรับหน้าเว็บเดี่ยว 
+                        <i>หากใช้เครื่องอื่น แนะนำให้ใช้ตัวจัดการรหัสผ่าน (Password Manager) ของเบราว์เซอร์ในการช่วยกรอกอัตโนมัติครับ</i>
+                    </p>
+                    <div class="grid sm:grid-cols-3 gap-3 mt-3">
                         <input type="text" id="github-user" class="text-xs p-2 border rounded" placeholder="GitHub Username (เช่น yourname)">
                         <input type="text" id="github-repo" class="text-xs p-2 border rounded" placeholder="Repo Name (เช่น mwit-apply-psu)">
                         <input type="password" id="github-token" class="text-xs p-2 border rounded" placeholder="GitHub Token (ghp_...)">
@@ -805,7 +814,14 @@
         });
 
         // Admin Logic
-        window.toggleAdminPanel = () => document.getElementById('admin-panel').classList.toggle('hidden');
+        // แก้ไขข้อ 4: เคลียร์รหัสผ่านทุกครั้งที่เปิด/ปิด หน้า Admin Modal
+        window.toggleAdminPanel = () => {
+            document.getElementById('admin-panel').classList.toggle('hidden');
+            // เคลียร์ช่องรหัสผ่านและข้อความ Error ทิ้งทุกครั้งที่เข้า-ออก Modal 
+            document.getElementById('login-pass').value = ''; 
+            document.getElementById('login-error').classList.add('hidden');
+        };
+
         window.handleLogin = () => {
             if (document.getElementById('login-pass').value === 'Admin*scius2026') {
                 isAdmin = true;
@@ -818,7 +834,14 @@
                 document.getElementById('login-error').classList.remove('hidden');
             }
         };
-        window.handleLogout = () => { isAdmin = false; document.getElementById('admin-login').classList.remove('hidden'); document.getElementById('admin-dashboard').classList.add('hidden'); toggleAdminPanel(); };
+
+        // ปรับปรุงปุ่มออกจากระบบ ให้เคลียร์ค่าด้วย
+        window.handleLogout = () => { 
+            isAdmin = false; 
+            document.getElementById('admin-login').classList.remove('hidden'); 
+            document.getElementById('admin-dashboard').classList.add('hidden'); 
+            toggleAdminPanel(); 
+        };
         
         const renderAdminPanel = () => {
             document.getElementById('admin-open-date').value = siteData.settings.openDate;
@@ -954,7 +977,7 @@
                 });
 
                 if (putRes.ok) {
-                    alert("🎉 บันทึกสำเร็จ!\n\nข้อมูลอัปเดตเข้า GitHub เรียบร้อยแล้ว Vercel จะปรับปรุงหน้าเว็บจริงให้อัตโนมัติใน 1 นาทีครับ");
+                    alert("🎉 บันทึกสำเร็จ!\n\nข้อมูลอัปเดตเข้า GitHub เรียบร้อยแล้ว Vercel จะปรับปรุงหน้าเว็บจริงให้อัตโนมัติใน 1-2 นาทีครับ");
                 } else {
                     const errJson = await putRes.json();
                     alert("เกิดข้อผิดพลาดจาก GitHub: " + (errJson.message || "ไม่สามารถอัปเดตได้ ตรวจสอบ Token และ ชื่อ Repo"));
