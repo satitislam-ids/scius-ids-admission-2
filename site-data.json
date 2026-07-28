@@ -154,8 +154,8 @@
         "icon": "buildings",
         "title_th": "อยู่ฟรี กินฟรี",
         "title_en": "Free Dorms & Meals",
-        "desc_th": "พักหอพักปลอดภัยพร้อมอาหารครบมื้อ",
-        "desc_en": "Safe dormitories with all meals provided"
+        "desc_th": "พักหอพักปลอดภัยพร้อมค่าอาหาร",
+        "desc_en": "Safe dormitories with meals provided"
       },
       {
         "id": 3,
