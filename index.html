@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
+    <!-- Vercel Web Analytics -->
+    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -113,7 +116,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div id="status-badge" class="inline-flex items-center px-4 py-1.5 rounded-full bg-green-500/20 text-green-300 border border-green-500/30 text-sm font-medium mb-6 backdrop-blur-sm">
                 <span class="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span>
-                <span id="status-text" data-i18n="status_open">ระบบกำลังเปิดรับสมัคร</span>
+                <span id="status-text" data-i18n="status_open">ระบบกำลังเ���ิดรับสมัคร</span>
             </div>
 
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-i18n="hero_title">
@@ -426,7 +429,7 @@
             <div class="text-center mb-6">
                 <div class="w-16 h-16 bg-psu-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 text-psu-blue text-2xl"><i class="ph-fill ph-lock-key"></i></div>
                 <h2 class="text-2xl font-bold text-slate-800">เข้าสู่ระบบจัดการ</h2>
-                <p class="text-slate-500 text-sm mt-1">เฉพาะเจ้าหน้าที่ศูนย์ วมว.</p>
+                <p class="text-slate-500 text-sm mt-1">เ���พาะเจ้าหน้าที่ศูนย์ วมว.</p>
             </div>
             <div class="space-y-4">
                 <div><input type="password" id="login-pass" class="w-full px-4 py-3 border rounded-lg text-center font-bold tracking-widest text-lg" placeholder="รหัสผ่าน (PIN)"></div>
@@ -515,7 +518,7 @@
             faqs: [
                 { id: 1, q_th: "โครงการนี้เปิดรับนักเรียนศาสนาอื่นหรือไม่?", q_en: "Are non-Muslim students accepted?", a_th: "รับครับ โครงการเรายินดีต้อนรับนักเรียนทุกศาสนา เพื่อการเรียนรู้ร่วมกันในสังคมพหุวัฒนธรรม", a_en: "Yes, students of all religions are welcome to foster a multicultural learning environment." },
                 { id: 2, q_th: "ต้องเสียค่าเทอมไหม?", q_en: "Is there any tuition fee?", a_th: "ผู้สอบผ่านจะได้รับการสนับสนุนค่าใช้จ่ายตลอด 3 ปี (ม.4-ม.6) รวมถึงค่าหอพักและอาหาร", a_en: "Admitted students receive full financial support covering tuition, dorms, and meals for 3 years." },
-                { id: 3, q_th: "สามารถเลือกสมัครศูนย์ วมว. ได้กี่แห่ง?", q_en: "How many SCiUS centers can I choose?", a_th: "ในระบบสมัครรอบแรก สามารถเลือกได้สูงสุด 2 แห่ง (ต้องเรียงลำดับ) แต่หากผ่านเข้ารอบสอง จะมีสิทธิ์เข้าสอบรอบสองได้ 'เพียง 1 แห่ง' ตามลำดับที่เลือกไว้เท่านั้น", a_en: "You can rank up to 2 centers in the 1st round. However, you can only take the 2nd round exam at 1 center based on your rank." },
+                { id: 3, q_th: "สามารถเลือกสมัครศูนย์ วมว. ได้กี่แห่ง?", q_en: "How many SCiUS centers can I choose?", a_th: "ในระบบสมัครรอบแรก สามารถเลือกได้สูงสุด 2 แห่ง (ต้องเรียงลำดับ) แต่หากผ่านเข้ารอบสอง จะมีสิทธิ์เข้าสอบรอบสองได้ 'เพียง 1 แห่ง' ตามลำ���ับที่เลือกไว้เท่านั้น", a_en: "You can rank up to 2 centers in the 1st round. However, you can only take the 2nd round exam at 1 center based on your rank." },
                 { id: 4, q_th: "หากเรียนไม่จบ หรือทำผิดกฎพ้นสภาพ มีเงื่อนไขปรับเงินหรือไม่?", q_en: "Are there penalties for leaving the program early?", a_th: "มีครับ นักเรียนต้องปฏิบัติตามกฎระเบียบของโครงการ หากผิดวินัยร้ายแรงจนต้องพ้นสภาพ หรือสละสิทธิ์กลางคัน จะต้องชดใช้เงินคืนตามหลักเกณฑ์ที่โครงการกำหนด", a_en: "Yes. Students must follow program rules. Early termination or rule violations will result in a financial penalty according to the policy." }
             ],
             content: {
@@ -526,7 +529,7 @@
                     { id: 4, icon: "globe-hemisphere-west", title_th: "สังคมพหุวัฒนธรรม", title_en: "Multicultural Society", desc_th: "เรียนรู้การอยู่ร่วมกันอย่างมีความสุข", desc_en: "Living together happily", detail_th:"ออกแบบให้ผู้เรียนปรับตัวเข้ากับสภาพแวดล้อมสากล", detail_en: "Designed for students to adapt to global environments." }
                 ],
                 benefits: [
-                    { id: 1, icon: "money", title_th: "เรียนฟรี 100%", title_en: "100% Free Tuition", desc_th: "งบประมาณสนับสนุนตลอด 3 ปี (ม.4-ม.6)", desc_en: "Fully funded for 3 years (Grade 10-12)" },
+                    { id: 1, icon: "money", title_th: "เรียนฟรี 100%", title_en: "100% Free Tuition", desc_th: "งบปร��มาณสนับสนุนตลอด 3 ปี (ม.4-ม.6)", desc_en: "Fully funded for 3 years (Grade 10-12)" },
                     { id: 2, icon: "buildings", title_th: "อยู่ฟรี กินฟรี", title_en: "Free Dorms & Meals", desc_th: "พักหอพักปลอดภัยพร้อมค่าอาหาร", desc_en: "Safe dormitories with meals provided" },
                     { id: 3, icon: "microscope", title_th: "ใช้ทรัพยากร ม.อ.", title_en: "Access to PSU Facilities", desc_th: "ใช้ห้องแล็บ ห้องสมุด เสมือนนักศึกษา", desc_en: "Access to labs and libraries like a university student" },
                     { id: 4, icon: "rocket-launch", title_th: "โควตารับตรง ป.ตรี", title_en: "Direct Quota to Bachelor's", desc_th: "โอกาสศึกษาต่อระดับอุดมศึกษาโดยวิธีรับตรง", desc_en: "Special quota for undergraduate studies" }
@@ -572,7 +575,7 @@
 
                 // เอกสาร
                 doc_title: "เอกสารที่ต้องเตรียมสมัคร", doc_desc: "จัดเตรียมไฟล์ให้พร้อม ก่อนเข้าระบบรับสมัคร",
-                doc_1_title: "ใบระเบียน ปพ.1", doc_1_desc: "แสดงเกรดเฉลี่ย ม.1 - ม.2 (รวม 4 เทอม)",
+                doc_1_title: "ใบระเบียน ปพ.1", doc_1_desc: "แสดงเกรดเฉลี่ย ม.1 - ม.2 (รวม 4 เ��อม)",
                 doc_2_title: "บัตรประจำตัวประชาชน", doc_2_desc: "ของตัวนักเรียนผู้สมัคร",
                 doc_3_tag: "ทางเลือก", doc_3_title: "ใบรับรองผู้อำนวยการ", doc_3_desc: "สำหรับขอยกเว้นค่าธรรมเนียมสมัครสอบ",
                 doc_4_title: "รูปถ่ายติดบัตร", doc_4_desc: "สำหรับทำบัตรประจำตัวสอบ",
