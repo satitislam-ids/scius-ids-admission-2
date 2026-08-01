@@ -38,10 +38,10 @@
     },
     {
       "id": 4,
-      "date_th": "3 - 13 มกราคม 2570",
-      "date_en": "Jan 3 - 13, 2027",
-      "title_th": "ยืนยันสิทธิ์รอบสอง",
-      "title_en": "Confirm 2nd Round",
+      "date_th": "21 ธันวาคม - 4 มกราคม 2570",
+      "date_en": "Dec 21 - Jan 4, 2027",
+      "title_th": "ยืนยันสิทธิ์และชำระค่าธรรมเนียมรอบสอง",
+      "title_en": "Confirm 2nd Round & Pay the fee.",
       "desc_th": "ชำระเงินค่าสมัครสอบรอบสอง 700 บาท",
       "desc_en": "Pay 700 THB for 2nd round exam",
       "icon": "money"
@@ -65,6 +65,16 @@
       "desc_th": "ประกาศผลเพื่อเข้าเรียนในชั้น ม.4",
       "desc_en": "Final list of 30 admitted students",
       "icon": "student"
+    },
+    {
+      "id": 1785561378533,
+      "date_th": "11 มกราคม 2570",
+      "date_en": "Jan 11, 2027",
+      "title_th": "ผู้มีสิทธิสอบรอบสอง",
+      "title_en": "Round 2 Candidates",
+      "desc_th": "ประกาศรายชื่อผู้มีสิทธิสอบรอบสอง",
+      "desc_en": "Round 2 Exam Qualified Candidates",
+      "icon": "calendar"
     }
   ],
   "faqs": [
