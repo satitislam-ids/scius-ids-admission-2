@@ -15,6 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- เพิ่มไลบรารี DataLabels ตรงนี้ -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     
     <script>
         tailwind.config = {
@@ -279,6 +281,9 @@
 
         // Global Chart Instances
         let charts = {};
+        
+        // ลงทะเบียนใช้งาน DataLabels
+        Chart.register(ChartDataLabels);
 
         // --- 2. Process CSV Logic ---
         function processCSV() {
@@ -516,7 +521,6 @@
         }
 
         // --- Helper Functions ---
-        // (ยกเลิกฟังก์ชัน shortenSchool ทิ้งไป เพราะเราจะแสดงชื่อเต็ม 100% ตามรีเควส)
 
         function renderChart(canvasId, type, labels, dataArr, labelTitle, colors, extraOptions = {}) {
             if(charts[canvasId]) { charts[canvasId].destroy(); }
@@ -526,8 +530,17 @@
                 responsive: true, maintainAspectRatio: false,
                 plugins: { 
                     legend: { display: (type === 'pie' || type === 'doughnut'), position: 'bottom' },
-                    title: { display: true, text: labelTitle, padding: {bottom: 15} }
-                }
+                    title: { display: true, text: labelTitle, padding: {bottom: 15} },
+                    // เพิ่มการตั้งค่าแสดงตัวเลขบนกราฟถาวร
+                    datalabels: {
+                        anchor: type === 'bar' ? 'end' : 'center',
+                        align: type === 'bar' ? 'end' : 'center',
+                        color: '#475569',
+                        font: { weight: 'bold', family: 'Kanit', size: 12 },
+                        formatter: (value) => value > 0 ? value : '' // ซ่อนเลข 0
+                    }
+                },
+                layout: { padding: { top: 20, right: 20 } } // เผื่อพื้นที่ให้ตัวเลขไม่ล้นขอบ
             };
             if(type === 'bar') {
                 options.plugins.legend.display = false;
