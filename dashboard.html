@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCiUS IDS Analytics Dashboard (Executive View)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- PapaParse for reading CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Kanit', 'sans-serif'] }, colors: { 'psu-blue': '#002C6A', 'psu-accent': '#00AEEF' } } }
+        }
+    </script>
+    <style>
+        body { background-color: #f1f5f9; }
+        .glass-card { background: rgba(255, 255, 255, 1); border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border-radius: 1rem; padding: 1.5rem; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        #print-area { display: none; }
+        @media print {
+            body { background: white; -webkit-print-color-adjust: exact; }
+            .no-print { display: none !important; }
+            #print-area { display: block; }
+            .glass-card { box-shadow: none; border: 1px solid #cbd5e1; break-inside: avoid; margin-bottom: 20px; }
+            .chart-container { height: 250px; }
+            @page { size: A4 portrait; margin: 10mm; }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- 🟢 1. LOGIN SCREEN -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-slate-900 p-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        <div class="glass-card max-w-md w-full relative z-10 p-8 text-center bg-white shadow-2xl">
+            <div class="w-20 h-20 bg-psu-blue rounded-2xl mx-auto flex items-center justify-center text-white text-4xl mb-6 shadow-lg"><i class="ph-bold ph-chart-polar"></i></div>
+            <h1 class="text-2xl font-bold text-slate-800 mb-2">SCiUS Executive Dashboard</h1>
+            <p class="text-sm text-slate-500 mb-6">ระบบวิเคราะห์ข้อมูลผู้สมัคร (เฉพาะผู้บริหาร)</p>
+            <input type="password" id="pin-input" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-center text-xl tracking-widest font-bold focus:outline-none focus:border-psu-accent focus:ring-2 focus:ring-psu-accent/20 transition mb-4" placeholder="กรอกรหัส PIN">
+            <button onclick="login()" class="w-full bg-psu-blue hover:bg-psu-accent text-white font-bold py-3 rounded-xl transition shadow-md">เข้าสู่ระบบ (Secure Login)</button>
+            <p id="login-err" class="text-red-500 text-sm mt-3 hidden">รหัสไม่ถูกต้อง</p>
+        </div>
+    </div>
+
+    <!-- 🟢 2. MAIN DASHBOARD -->
+    <div id="dashboard-screen" class="hidden min-h-screen flex flex-col">
+        
+        <!-- Navbar -->
+        <nav class="bg-psu-blue text-white shadow-md p-4 sticky top-0 z-50 no-print">
+            <div class="max-w-[1400px] mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 p-2 rounded-lg"><i class="ph-bold ph-chart-pie-slice text-xl"></i></div>
+                    <span class="font-bold text-lg hidden sm:block">SCiUS IDS Executive Analytics (Local Secure)</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition"><i class="ph-bold ph-printer"></i> พิมพ์รายงาน</button>
+                    <button onclick="logout()" class="text-red-300 hover:text-white text-sm flex items-center gap-1 transition"><i class="ph-bold ph-sign-out"></i> ออกระบบ</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-1 max-w-[1400px] mx-auto w-full p-4 sm:p-6 lg:p-8">
+            
+            <!-- Upload Section -->
+            <div class="glass-card mb-8 no-print border-l-4 border-l-psu-accent bg-blue-50/50">
+                <h2 class="text-xl font-bold text-psu-blue mb-2"><i class="ph-bold ph-upload-simple"></i> อัปโหลดฐานข้อมูลผู้สมัคร MWIT (.csv)</h2>
+                <p class="text-sm text-slate-600 mb-4">รองรับไฟล์ CSV UTF-8 ระบบประมวลผลบนเบราว์เซอร์ 100% ไม่ละเมิด PDPA</p>
+                <div class="flex flex-col sm:flex-row gap-4 items-center">
+                    <input type="file" id="csv-file" accept=".csv" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-psu-blue file:text-white hover:file:bg-psu-accent transition cursor-pointer bg-white border border-slate-200 rounded-full p-1">
+                    <button onclick="processCSV()" id="process-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-full transition shadow-md whitespace-nowrap"><i class="ph-bold ph-magic-wand"></i> วิเคราะห์ข้อมูล</button>
+                </div>
+            </div>
+
+            <div id="loading-spinner" class="hidden text-center py-20">
+                <i class="ph-bold ph-spinner animate-spin text-5xl text-psu-accent mx-auto mb-4"></i>
+                <p class="text-psu-blue font-bold">กำลังวิเคราะห์และจัดกลุ่มข้อมูล...</p>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard-content" class="hidden space-y-8 animate-fade-in">
+                
+                <!-- 🟢 1. สรุปภาพรวม (Summary) -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-6">
+                    <div class="glass-card flex flex-col justify-center border-t-4 border-t-psu-blue relative overflow-hidden">
+                        <i class="ph-fill ph-users absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
+                        <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">ผู้สมัครทั้งหมด</p>
+                        <p id="stat-total" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                    </div>
+                    <div class="glass-card flex flex-col justify-center border-t-4 border-t-pink-500 relative overflow-hidden">
+                        <i class="ph-fill ph-gender-intersex absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
+                        <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">สัดส่วน ชาย / หญิง</p>
+                        <p id="stat-gender" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                    </div>
+                    <div class="glass-card flex flex-col justify-center border-t-4 border-t-green-500 relative overflow-hidden">
+                        <i class="ph-fill ph-money absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
+                        <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">อัตราชำระเงินแล้ว</p>
+                        <p id="stat-paid-pct" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                    </div>
+                    <div class="glass-card flex flex-col justify-center border-t-4 border-t-yellow-500 relative overflow-hidden">
+                        <i class="ph-fill ph-star absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
+                        <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">เกรดเฉลี่ยรวม (GPAX)</p>
+                        <p id="stat-avg-gpa" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                    </div>
+                </div>
+
+                <!-- 🟢 2. วิเคราะห์ข้อมูลทั่วไป & เศรษฐฐานะ -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-card bg-white">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-map-pin text-psu-accent"></i> ภูมิลำเนาผู้สมัคร (จังหวัด)</h3>
+                        <div class="chart-container"><canvas id="provincesChart"></canvas></div>
+                    </div>
+                    <div class="glass-card bg-white">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-credit-card text-green-500"></i> สถานะการชำระเงิน</h3>
+                        <div class="chart-container"><canvas id="paymentChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-card bg-white">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-buildings text-psu-blue"></i> 10 อันดับโรงเรียนปัจจุบัน</h3>
+                        <div class="chart-container !h-[350px]"><canvas id="topSchoolsChart"></canvas></div>
+                    </div>
+                    <div class="glass-card bg-white">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-wallet text-purple-500"></i> รายได้เฉลี่ยผู้ปกครอง</h3>
+                        <div class="chart-container !h-[350px]"><canvas id="incomeChart"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- 🟢 3. ข้อมูลวิชาการ -->
+                <div class="glass-card bg-white">
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 border-b pb-2"><i class="ph-fill ph-student text-orange-500"></i> โปรไฟล์วิชาการ (เกรดเฉลี่ย)</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="chart-container"><canvas id="gpaTotalChart"></canvas></div>
+                        <div class="chart-container"><canvas id="gpaMathChart"></canvas></div>
+                        <div class="chart-container"><canvas id="gpaSciChart"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ส่วนที่ 4: วิเคราะห์ความนิยม (Market Preference) -->
+                <!-- ========================================== -->
+                <div class="mt-10 mb-8 border-t-2 border-slate-200 pt-8">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="ph-fill ph-trend-up text-psu-accent"></i> วิเคราะห์ความนิยม ผู้สมัครเลือก คู่ศูนย์ ม.อ. ปัตตานี</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <!-- การ์ดที่ 1: เลือกเป็นอันดับ 1 -->
+                        <div class="glass-card flex items-center p-6 border-l-8 border-l-psu-blue relative overflow-hidden group">
+                            <div class="absolute right-0 top-0 opacity-5 transition-opacity group-hover:opacity-10 text-9xl -mt-4 -mr-4 text-psu-blue font-black">1</div>
+                            <div class="flex-1 relative z-10">
+                                <p class="text-sm text-slate-500 font-bold mb-1">เลือกคู่ศูนย์ ม.อ. ปัตตานี เป็น</p>
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-xl font-bold text-slate-700">อันดับที่</span>
+                                    <span class="text-4xl font-black text-psu-blue mx-2">1</span>
+                                </div>
+                            </div>
+                            <div class="text-right relative z-10 border-l border-slate-200 pl-6 ml-4">
+                                <p class="text-xs text-slate-400 mb-1">จำนวนผู้สมัคร</p>
+                                <p id="hub-rank-1" class="text-4xl font-black text-slate-800">0 <span class="text-base text-slate-500 font-normal">คน</span></p>
+                            </div>
+                        </div>
+
+                        <!-- การ์ดที่ 2: เลือกเป็นอันดับ 2 -->
+                        <div class="glass-card flex items-center p-6 border-l-8 border-l-psu-accent relative overflow-hidden group">
+                            <div class="absolute right-0 top-0 opacity-5 transition-opacity group-hover:opacity-10 text-9xl -mt-4 -mr-4 text-psu-accent font-black">2</div>
+                            <div class="flex-1 relative z-10">
+                                <p class="text-sm text-slate-500 font-bold mb-1">เลือกคู่ศูนย์ ม.อ. ปัตตานี เป็น</p>
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-xl font-bold text-slate-700">อันดับที่</span>
+                                    <span class="text-4xl font-black text-psu-accent mx-2">2</span>
+                                </div>
+                            </div>
+                            <div class="text-right relative z-10 border-l border-slate-200 pl-6 ml-4">
+                                <p class="text-xs text-slate-400 mb-1">จำนวนผู้สมัคร</p>
+                                <p id="hub-rank-2" class="text-4xl font-black text-slate-800">0 <span class="text-base text-slate-500 font-normal">คน</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 🟢 กราฟ: โรงเรียนปัจจุบันที่สนใจ คู่ศูนย์ วมว. ม.อ. ปัตตานี 🟢 -->
+                    <div class="glass-card bg-white">
+                        <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="ph-fill ph-student"></i> 10 อันดับโรงเรียนปัจจุบันของผู้สมัคร ที่เลือกสอบ คู่ศูนย์ ม.อ. ปัตตานี</h4>
+                        <p class="text-xs text-slate-500 mb-4">(นับรวมผู้ที่เลือกคู่ศูนย์ ม.อ. ปัตตานี ทั้งอันดับ 1 และ อันดับ 2)</p>
+                        <div class="chart-container !h-[400px]"><canvas id="psuFeederChart"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- ส่วนที่ 5: วิเคราะห์งานแนะแนว (Own School) -->
+                <!-- ========================================== -->
+                <div class="mt-10 mb-8 border-t-2 border-slate-200 pt-8 bg-blue-50/30 p-6 rounded-2xl border border-blue-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-psu-blue flex items-center gap-2"><i class="ph-fill ph-compass"></i> วิเคราะห์ข้อมูลนักเรียนโรงเรียนเรา</h3>
+                            <p class="text-sm text-slate-500">(สาธิตวิทยาการอิสลาม มหาวิทยาลัยสงขลานครินทร์)</p>
+                        </div>
+                        <div class="text-right bg-white px-6 py-3 rounded-xl shadow-sm border border-slate-100">
+                            <p class="text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">จำนวนที่สมัครผ่านระบบ</p>
+                            <p id="own-total" class="text-3xl font-black text-psu-blue">0 <span class="text-base text-slate-400 font-normal">คน</span></p>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-3 gap-6">
+                        <div class="glass-card bg-white lg:col-span-1 shadow-sm border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-4">โครงการที่นักเรียนเราเลือกสมัคร</h4>
+                            <div class="chart-container !h-[300px]"><canvas id="ownSchoolProjectsChart"></canvas></div>
+                        </div>
+                        <div class="glass-card bg-white lg:col-span-1 shadow-sm border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-4">การเลือก วมว. อันดับ 1</h4>
+                            <div class="chart-container !h-[300px]"><canvas id="ownSchoolScius1Chart"></canvas></div>
+                        </div>
+                        <div class="glass-card bg-white lg:col-span-1 shadow-sm border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-4">การเลือก วมว. อันดับ 2</h4>
+                            <div class="chart-container !h-[300px]"><canvas id="ownSchoolScius2Chart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <!-- 🟢 เพิ่มใหม่: ตารางรายชื่อนักเรียนโรงเรียนเรา 🟢 -->
+                    <div class="mt-8 glass-card bg-white shadow-sm border border-slate-100 overflow-hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2"><i class="ph-fill ph-users text-psu-accent"></i> รายชื่อนักเรียนโรงเรียนเราที่สมัครเข้าระบบ</h4>
+                            <button onclick="document.getElementById('own-students-container').classList.toggle('hidden')" class="text-xs text-psu-light hover:text-psu-accent underline font-medium">ซ่อน / แสดงรายชื่อ</button>
+                        </div>
+                        <div id="own-students-container" class="overflow-x-auto max-h-[400px] overflow-y-auto rounded-xl border border-slate-100">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-slate-50 sticky top-0 z-10 shadow-sm">
+                                    <tr>
+                                        <th class="px-4 py-3 text-xs font-bold text-slate-500 text-center w-12">ลำดับ</th>
+                                        <th class="px-4 py-3 text-xs font-bold text-slate-500">ชื่อ - นามสกุล</th>
+                                        <th class="px-4 py-3 text-xs font-bold text-slate-500">สถานะชำระเงิน</th>
+                                        <th class="px-4 py-3 text-xs font-bold text-slate-500">วมว. อันดับ 1 ที่เลือก</th>
+                                        <th class="px-4 py-3 text-xs font-bold text-slate-500">เบอร์โทรศัพท์</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="own-students-list" class="divide-y divide-slate-100 bg-white">
+                                    <!-- ข้อมูลรายชื่อจะถูกแทรกที่นี่ -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timestamp -->
+                <div class="mt-8 pt-4 border-t border-slate-200 flex justify-end items-center text-slate-500 text-sm pb-8">
+                    <p class="bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm flex items-center gap-2">
+                        <i class="ph-fill ph-clock text-psu-accent"></i> 
+                        ข้อมูลวิเคราะห์ล่าสุดเมื่อ: <span id="last-updated-text" class="font-bold text-slate-700">-</span>
+                    </p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- 1. Login Logic ---
+        function login() {
+            const pin = document.getElementById('pin-input').value;
+            if (pin === 'Admin*scius2026') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+            } else {
+                document.getElementById('login-err').classList.remove('hidden');
+            }
+        }
+        function logout() {
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('pin-input').value = '';
+        }
+
+        // Global Chart Instances
+        let charts = {};
+
+        // --- 2. Process CSV Logic ---
+        function processCSV() {
+            const fileInput = document.getElementById('csv-file');
+            if (!fileInput.files.length) { alert('กรุณาเลือกไฟล์ CSV ก่อนครับ'); return; }
+
+            const file = fileInput.files[0];
+            const btn = document.getElementById('process-btn');
+            btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin"></i> กำลังอ่านไฟล์...`;
+            btn.disabled = true;
+
+            document.getElementById('dashboard-content').classList.add('hidden');
+            document.getElementById('loading-spinner').classList.remove('hidden');
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    analyzeData(results.data);
+                    
+                    // อัปเดตเวลาล่าสุด
+                    const now = new Date();
+                    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    document.getElementById('last-updated-text').innerText = now.toLocaleDateString('th-TH', options) + ' น.';
+                    
+                    document.getElementById('loading-spinner').classList.add('hidden');
+                    document.getElementById('dashboard-content').classList.remove('hidden');
+
+                    btn.innerHTML = `<i class="ph-bold ph-check"></i> ประมวลผลสำเร็จ`;
+                    btn.classList.replace('bg-green-600', 'bg-psu-blue');
+                    setTimeout(() => { 
+                        btn.innerHTML = `<i class="ph-bold ph-magic-wand"></i> อัปเดตข้อมูลใหม่`; 
+                        btn.disabled = false;
+                        btn.classList.replace('bg-psu-blue', 'bg-green-600');
+                    }, 2000);
+                },
+                error: function(err) {
+                    alert('เกิดข้อผิดพลาดในการอ่านไฟล์: ' + err.message);
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="ph-bold ph-magic-wand"></i> ลองใหม่`;
+                    document.getElementById('loading-spinner').classList.add('hidden');
+                }
+            });
+        }
+
+        // --- 3. Analytics Logic (The Brains) ---
+        function analyzeData(data) {
+            // Helpers
+            const cleanStr = (str) => (str || "").toString().trim();
+            const countNotEmpty = (row, colName) => (row[colName] && row[colName].trim() !== "" && row[colName].trim() !== "-") ? 1 : 0;
+            const categorizeGPA = (gpa) => {
+                if(isNaN(gpa) || gpa === 0) return 'ไม่ระบุ';
+                if(gpa >= 3.8) return '3.80 - 4.00';
+                if(gpa >= 3.5) return '3.50 - 3.79';
+                if(gpa >= 3.0) return '3.00 - 3.49';
+                return 'ต่ำกว่า 3.00';
+            };
+
+            // --- VARIABLES ---
+            // Public Stats
+            let totalApplicants = data.length;
+            let maleCount = 0; let femaleCount = 0;
+            let sumGPA = 0; let validGPA = 0;
+            let schoolsCount = {}; let provCount = {};
+            
+            // Executive Stats
+            let paymentCount = { 'ชำระเงินแล้ว':0, 'ยังไม่ชำระเงิน':0, 'รอยืนยัน':0 };
+            let incomeCount = {};
+            let gpaBuckets = { total: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0}, math: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0}, sci: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0} };
+
+            // Own School
+            const ownSchoolExact = "โรงเรียนสาธิตวิทยาการอิสลาม มหาวิทยาลัยสงขลานครินทร์";
+            let ownTotal = 0;
+            let ownProjects = { 'MWIT':0, 'PCSHS':0, 'SCiUS 1':0, 'SCiUS 2':0, 'KOSEN':0, 'DPST':0 };
+            let ownScius1 = {}; let ownScius2 = {};
+            let ownStudentsList = []; // 🟢 ตัวแปรใหม่สำหรับเก็บรายชื่อ
+
+            // Market Comparison (Exact Strings)
+            const choiceSatitExact = "สาธิตมหาวิทยาลัยสงขลานครินทร์";
+            // Market Comparison (Hub Level Logic)
+            let hubRank1 = 0, hubRank2 = 0;
+            
+            // PSU Target Feeders
+            let psuApplicantsSchools = {};
+
+            // --- LOOP DATA ---
+            data.forEach(row => {
+                // 1. Basic Demographics
+                let gender = cleanStr(row['เพศ']);
+                if (gender.includes("ชาย")) maleCount++; else if (gender.includes("หญิง")) femaleCount++;
+                
+                let prov = cleanStr(row['จังหวัด']);
+                if(prov) provCount[prov] = (provCount[prov] || 0) + 1;
+                
+                let school = cleanStr(row['โรงเรียนปัจจุบัน']);
+                if(school) schoolsCount[school] = (schoolsCount[school] || 0) + 1;
+
+                // 2. Executive Data
+                let payment = cleanStr(row['สถานะการชำระค่าธรรมเนียม']);
+                if(payment.includes("ชำระ") && !payment.includes("ไม่")) paymentCount['ชำระเงินแล้ว']++;
+                else if(payment.includes("ไม่")) paymentCount['ยังไม่ชำระเงิน']++;
+                else if(payment !== "") paymentCount['รอยืนยัน']++;
+
+                let incDad = cleanStr(row['รายได้ต่อเดือนของบิดา']);
+                let incMom = cleanStr(row['รายได้ต่อเดือนของมารดา']);
+                if(incDad && incDad !== "-") incomeCount[incDad] = (incomeCount[incDad] || 0) + 1;
+                if(incMom && incMom !== "-") incomeCount[incMom] = (incomeCount[incMom] || 0) + 1;
+
+                // 3. Academic Profile
+                let gpa = parseFloat(row['ผลการเรียนเฉลี่ยรวม']);
+                if (!isNaN(gpa) && gpa > 0) { sumGPA += gpa; validGPA++; gpaBuckets.total[categorizeGPA(gpa)]++; }
+                let gpaM = parseFloat(row['ผลการเรียนเฉลี่ยคณิตศาสตร์']);
+                if (!isNaN(gpaM) && gpaM > 0) { gpaBuckets.math[categorizeGPA(gpaM)]++; }
+                let gpaS = parseFloat(row['ผลการเรียนเฉลี่ยวิทยาศาสตร์']);
+                if (!isNaN(gpaS) && gpaS > 0) { gpaBuckets.sci[categorizeGPA(gpaS)]++; }
+
+                // 4. Own School Logic (ใช้ชื่อเต็มตรงเป๊ะตามไฟล์)
+                if (school === ownSchoolExact) {
+                    ownTotal++;
+                    if(countNotEmpty(row, 'โรงเรียนมหิดลวิทยานุสรณ์')) ownProjects['MWIT']++;
+                    if(row['โครงการจุฬาภรณราขวิทยาลัย'] || row['โครงการจุฬาภรณราชวิทยาลัย']) { if(cleanStr(row['โครงการจุฬาภรณราขวิทยาลัย'] || row['โครงการจุฬาภรณราชวิทยาลัย']) !== "") ownProjects['PCSHS']++; }
+                    if(countNotEmpty(row, 'โครงการ วมว อันดับ 1') || countNotEmpty(row, 'โครงการ วมว. 1 อันดับ')) ownProjects['SCiUS 1']++;
+                    if(countNotEmpty(row, 'โครงการ วมว อันดับ 2') || countNotEmpty(row, 'โครงการ วมว. 2 อันดับ')) ownProjects['SCiUS 2']++;
+                    if(countNotEmpty(row, 'สถาบันโคเซ็น สจล.') || countNotEmpty(row, 'สถาบันโคเซ็น มจธ.') || countNotEmpty(row, 'สถาบันโคเซ็น  มจธ.')) ownProjects['KOSEN']++;
+                    if(countNotEmpty(row, 'โครงการ พสวท.')) ownProjects['DPST']++;
+
+                    let s1 = cleanStr(row['โครงการ วมว อันดับ 1'] || row['โครงการ วมว. 1 อันดับ']);
+                    let s2 = cleanStr(row['โครงการ วมว อันดับ 2'] || row['โครงการ วมว. 2 อันดับ']);
+                    if(s1) ownScius1[s1] = (ownScius1[s1] || 0) + 1;
+                    if(s2) ownScius2[s2] = (ownScius2[s2] || 0) + 1;
+
+                    // 🟢 เก็บข้อมูลรายชื่อเข้า Array
+                    ownStudentsList.push({
+                        name: `${cleanStr(row['คำนำหน้าชื่อ'])} ${cleanStr(row['ชื่อ'])} ${cleanStr(row['นามสกุล'])}`,
+                        payment: cleanStr(row['สถานะการชำระค่าธรรมเนียม']),
+                        scius1: s1 || "-",
+                        phone: cleanStr(row['หมายเลขโทรศัพท์ 1']) || "-"
+                    });
+                }
+
+                // 5. Hub Preference & Target Feeders (อิงตามการเลือกคู่ศูนย์)
+                let allS1 = cleanStr(row['โครงการ วมว อันดับ 1'] || row['โครงการ วมว. 1 อันดับ']);
+                let allS2 = cleanStr(row['โครงการ วมว อันดับ 2'] || row['โครงการ วมว. 2 อันดับ']);
+                let chosePSU = false;
+
+                // ตรวจสอบว่ามีคีย์เวิร์ดของ ศูนย์ปัตตานี หรือไม่ (ดักคำกว้างๆ เพื่อให้ครอบคลุม format ของ MWIT)
+                const isPattaniHub = (str) => str.includes("ปัตตานี") || str.includes("สาธิตวิทยาการอิสลาม") || str.includes("สาธิตมหาวิทยาลัยสงขลานครินทร์");
+
+                if(isPattaniHub(allS1)) { hubRank1++; chosePSU = true; }
+                if(isPattaniHub(allS2)) { hubRank2++; chosePSU = true; }
+
+                // 6. เก็บรวบรวมโรงเรียนปัจจุบันที่เด็กเลือก วมว. คู่ศูนย์ปัตตานี
+                if (chosePSU && school !== "") {
+                    psuApplicantsSchools[school] = (psuApplicantsSchools[school] || 0) + 1;
+                }
+            });
+
+            // --- RENDER TEXT ---
+            document.getElementById('stat-total').innerText = totalApplicants.toLocaleString();
+            let mPct = totalApplicants ? Math.round((maleCount/totalApplicants)*100) : 0;
+            let fPct = totalApplicants ? Math.round((femaleCount/totalApplicants)*100) : 0;
+            document.getElementById('stat-gender').innerText = `${mPct}% / ${fPct}%`;
+            let paidPct = totalApplicants ? Math.round((paymentCount['ชำระเงินแล้ว']/totalApplicants)*100) : 0;
+            document.getElementById('stat-paid-pct').innerText = `${paidPct}%`;
+            document.getElementById('stat-avg-gpa').innerText = validGPA ? (sumGPA/validGPA).toFixed(2) : "0.00";
+            document.getElementById('own-total').innerHTML = `${ownTotal.toLocaleString()} <span class="text-lg text-slate-400">คน</span>`;
+            
+            // อัปเดตตัวเลขการ์ดคู่ศูนย์
+            document.getElementById('hub-rank-1').innerText = hubRank1; 
+            document.getElementById('hub-rank-2').innerText = hubRank2;
+
+            // 🟢 อัปเดตตารางรายชื่อนักเรียนโรงเรียนเรา
+            const tableBody = document.getElementById('own-students-list');
+            if(tableBody) {
+                if(ownStudentsList.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">ไม่พบข้อมูลนักเรียนโรงเรียนเราในไฟล์นี้</td></tr>`;
+                } else {
+                    tableBody.innerHTML = ownStudentsList.map((std, idx) => {
+                        // เช็กสี Badge ชำระเงิน
+                        let badgeColor = "bg-slate-100 text-slate-600";
+                        if (std.payment.includes('ชำระ') && !std.payment.includes('ไม่')) badgeColor = "bg-green-100 text-green-700 border border-green-200";
+                        else if (std.payment.includes('ไม่') || std.payment === "") badgeColor = "bg-red-100 text-red-700 border border-red-200 animate-pulse";
+
+                        return `
+                        <tr class="border-b border-slate-50 hover:bg-slate-50 transition">
+                            <td class="px-4 py-3 text-sm text-slate-400 text-center">${idx + 1}</td>
+                            <td class="px-4 py-3 text-sm font-bold text-psu-blue">${std.name}</td>
+                            <td class="px-4 py-3 text-sm"><span class="px-2 py-1 rounded-full text-[10px] font-bold ${badgeColor}">${std.payment || 'ไม่มีข้อมูล'}</span></td>
+                            <td class="px-4 py-3 text-xs text-slate-600 truncate max-w-[200px]" title="${std.scius1}">${std.scius1}</td>
+                            <td class="px-4 py-3 text-xs text-slate-500">${std.phone}</td>
+                        </tr>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // --- RENDER CHARTS ---
+            // Helper configuration for printing friendly colors
+            Chart.defaults.color = '#64748b';
+            Chart.defaults.font.family = 'Kanit';
+
+            // 1. Top Schools (Bar - เปลี่ยนเป็นแนวนอน เพื่อให้อ่านชื่อยาวๆ ได้ครบ)
+            let topSchools = Object.entries(schoolsCount).sort((a,b) => b[1]-a[1]).slice(0, 10);
+            renderChart('topSchoolsChart', 'bar', topSchools.map(i=>i[0]), topSchools.map(i=>i[1]), 'จำนวน (คน)', ['#00AEEF'], { indexAxis: 'y' });
+
+            // 2. Provinces (Doughnut)
+            let topProv = Object.entries(provCount).sort((a,b) => b[1]-a[1]).slice(0, 5);
+            let otherProvCount = Object.entries(provCount).sort((a,b) => b[1]-a[1]).slice(5).reduce((a, b) => a + b[1], 0);
+            if (otherProvCount > 0) topProv.push(["อื่นๆ", otherProvCount]);
+            renderChart('provincesChart', 'doughnut', topProv.map(i=>i[0]), topProv.map(i=>i[1]), 'จังหวัด', ['#002C6A', '#0055A5', '#00AEEF', '#38bdf8', '#bae6fd', '#e2e8f0']);
+
+            // 3. Payment Status (Pie)
+            renderChart('paymentChart', 'pie', Object.keys(paymentCount), Object.values(paymentCount), 'สถานะ', ['#10b981', '#f43f5e', '#fbbf24']);
+
+            // 4. Income Status (Bar Horizontal)
+            let incSorted = Object.entries(incomeCount).sort((a,b) => b[1]-a[1]).slice(0, 6);
+            renderChart('incomeChart', 'bar', incSorted.map(i=>i[0]), incSorted.map(i=>i[1]), 'จำนวนผู้ปกครอง', ['#6366f1'], { indexAxis: 'y' });
+
+            // 5. GPA Profiles (Bar)
+            const gpaLabels = ['3.80 - 4.00', '3.50 - 3.79', '3.00 - 3.49', 'ต่ำกว่า 3.00'];
+            renderChart('gpaTotalChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.total[l]), 'เกรดเฉลี่ยรวม', ['#f59e0b']);
+            renderChart('gpaSciChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.sci[l]), 'วิชาวิทยาศาสตร์', ['#10b981']);
+            renderChart('gpaMathChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.math[l]), 'วิชาคณิตศาสตร์', ['#ef4444']);
+
+            // 6. Own School Charts (ดึงชื่อเต็มมาโชว์ 100%)
+            renderChart('ownSchoolProjectsChart', 'bar', Object.keys(ownProjects), Object.values(ownProjects), 'จำนวนนักเรียน (คน)', ['#002C6A']);
+            let s1Sorted = Object.entries(ownScius1).sort((a,b) => b[1]-a[1]).slice(0, 5);
+            let s2Sorted = Object.entries(ownScius2).sort((a,b) => b[1]-a[1]).slice(0, 5);
+            renderChart('ownSchoolScius1Chart', 'doughnut', s1Sorted.map(i=>i[0]), s1Sorted.map(i=>i[1]), 'วมว. อันดับ 1', ['#002C6A', '#0055A5', '#00AEEF', '#38bdf8', '#bae6fd']);
+            renderChart('ownSchoolScius2Chart', 'doughnut', s2Sorted.map(i=>i[0]), s2Sorted.map(i=>i[1]), 'วมว. อันดับ 2', ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#ffedd5']);
+
+            // 7. PSU Target Feeder Schools (Bar แนวนอน)
+            let topPsuFeeder = Object.entries(psuApplicantsSchools).sort((a,b) => b[1]-a[1]).slice(0, 10);
+            renderChart('psuFeederChart', 'bar', topPsuFeeder.map(i=>i[0]), topPsuFeeder.map(i=>i[1]), 'จำนวนนักเรียน (คน)', ['#8b5cf6'], { indexAxis: 'y' });
+        }
+
+        // --- Helper Functions ---
+        // (ยกเลิกฟังก์ชัน shortenSchool ทิ้งไป เพราะเราจะแสดงชื่อเต็ม 100% ตามรีเควส)
+
+        function renderChart(canvasId, type, labels, dataArr, labelTitle, colors, extraOptions = {}) {
+            if(charts[canvasId]) { charts[canvasId].destroy(); }
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            let options = {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: (type === 'pie' || type === 'doughnut'), position: 'bottom' },
+                    title: { display: true, text: labelTitle, padding: {bottom: 15} }
+                }
+            };
+            if(type === 'bar') {
+                options.plugins.legend.display = false;
+                if(extraOptions.indexAxis === 'y') {
+                    options.indexAxis = 'y';
+                    options.scales = { x: { beginAtZero: true, ticks:{stepSize:1} } };
+                } else {
+                    options.scales = { y: { beginAtZero: true, ticks:{stepSize:1} } };
+                }
+            }
+
+            charts[canvasId] = new Chart(ctx, {
+                type: type,
+                data: { labels: labels, datasets: [{ label: labelTitle, data: dataArr, backgroundColor: colors, borderRadius: type === 'bar' ? 4 : 0 }] },
+                options: options
+            });
+        }
+    </script>
+</body>
+</html>
