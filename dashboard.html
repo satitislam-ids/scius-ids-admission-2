@@ -114,30 +114,70 @@
                     </div>
                 </div>
 
-                <!-- 🟢 2. วิเคราะห์ข้อมูลทั่วไป & เศรษฐฐานะ -->
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="glass-card bg-white">
-                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-map-pin text-psu-accent"></i> ภูมิลำเนาผู้สมัคร (จังหวัด)</h3>
-                        <div class="chart-container"><canvas id="provincesChart"></canvas></div>
+                <!-- 🟢 เพิ่มใหม่: เช็คสถานะการทำรายการในระบบ MWIT -->
+                <div class="grid md:grid-cols-2 gap-6 mt-8">
+                    <div class="glass-card bg-white border-t-4 border-t-purple-500">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-check-square-offset text-purple-500"></i> สถานะการยืนยันข้อมูล (ในระบบ)</h3>
+                        <div class="chart-container"><canvas id="confirmStatusChart"></canvas></div>
+                        <p class="text-xs text-slate-500 text-center mt-2">เพื่อประเมินกลุ่มเป้าหมายที่ต้องติดตาม (Follow-up)</p>
                     </div>
-                    <div class="glass-card bg-white">
-                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-credit-card text-green-500"></i> สถานะการชำระเงิน</h3>
+                    <div class="glass-card bg-white border-t-4 border-t-green-500">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-credit-card text-green-500"></i> สถานะการชำระค่าธรรมเนียม</h3>
                         <div class="chart-container"><canvas id="paymentChart"></canvas></div>
                     </div>
                 </div>
 
+                <!-- 🟢 2. วิเคราะห์ภูมิศาสตร์ (Geography) -->
+                <h3 class="text-xl font-bold text-psu-blue mt-10 mb-4 border-l-4 border-psu-accent pl-3"><i class="ph-fill ph-map-trifold"></i> วิเคราะห์ระดับภูมิภาค (Geography & Feeders)</h3>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="glass-card bg-white">
-                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-buildings text-psu-blue"></i> 10 อันดับโรงเรียนปัจจุบัน</h3>
-                        <div class="chart-container !h-[350px]"><canvas id="topSchoolsChart"></canvas></div>
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-house-line text-psu-accent"></i> ภูมิลำเนาผู้สมัครทั้งหมด (ที่อยู่)</h3>
+                        <div class="chart-container !h-[600px]"><canvas id="provincesChart"></canvas></div>
                     </div>
                     <div class="glass-card bg-white">
-                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-wallet text-purple-500"></i> รายได้เฉลี่ยผู้ปกครอง</h3>
-                        <div class="chart-container !h-[350px]"><canvas id="incomeChart"></canvas></div>
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-buildings text-psu-blue"></i> จังหวัดของโรงเรียนปัจจุบัน</h3>
+                        <div class="chart-container !h-[600px]"><canvas id="schoolProvincesChart"></canvas></div>
                     </div>
                 </div>
 
-                <!-- 🟢 3. ข้อมูลวิชาการ -->
+                <!-- 10 อันดับโรงเรียนปัจจุบัน -->
+                <div class="glass-card bg-white mt-6">
+                    <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-backpack text-orange-500"></i> 15 อันดับโรงเรียนปัจจุบันที่มีผู้สมัครสูงสุด</h3>
+                    <div class="chart-container !h-[450px]"><canvas id="topSchoolsChart"></canvas></div>
+                </div>
+
+                <!-- 🟢 3. ข้อมูลครอบครัวและเศรษฐฐานะ -->
+                <h3 class="text-xl font-bold text-psu-blue mt-10 mb-4 border-l-4 border-psu-accent pl-3"><i class="ph-fill ph-users-three"></i> บริบทครอบครัวและเศรษฐฐานะ (Family & Socio-economic)</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="glass-card bg-white">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-graduation-cap text-indigo-500"></i> วุฒิการศึกษาผู้ปกครอง (เปรียบเทียบบิดา-มารดา)</h3>
+                        <div class="chart-container !h-[350px]"><canvas id="parentsEduChart"></canvas></div>
+                    </div>
+                    <div class="glass-card bg-white flex flex-col">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-calendar-blank text-rose-500"></i> ช่วงอายุผู้ปกครอง (Generation)</h3>
+                        <div class="chart-container flex-1"><canvas id="parentsAgeChart"></canvas></div>
+                        <div class="grid grid-cols-2 gap-4 mt-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div class="text-center border-r border-slate-200 pr-2">
+                                <p class="text-xs font-bold text-psu-blue mb-1">สถิติอายุ บิดา</p>
+                                <p class="text-sm text-slate-600">เฉลี่ย: <span id="age-dad-avg" class="font-bold text-psu-blue">-</span> ปี</p>
+                                <p class="text-xs text-slate-500 mt-1">น้อยสุด <span id="age-dad-min">-</span> | มากสุด <span id="age-dad-max">-</span></p>
+                            </div>
+                            <div class="text-center pl-2">
+                                <p class="text-xs font-bold text-pink-500 mb-1">สถิติอายุ มารดา</p>
+                                <p class="text-sm text-slate-600">เฉลี่ย: <span id="age-mom-avg" class="font-bold text-pink-500">-</span> ปี</p>
+                                <p class="text-xs text-slate-500 mt-1">น้อยสุด <span id="age-mom-min">-</span> | มากสุด <span id="age-mom-max">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card bg-white">
+                    <h3 class="text-lg font-bold text-slate-700 mb-4"><i class="ph-fill ph-wallet text-emerald-500"></i> ฐานรายได้ต่อเดือนของผู้ปกครอง (แยกบิดา/มารดา)</h3>
+                    <div class="chart-container !h-[350px]"><canvas id="incomeChart"></canvas></div>
+                </div>
+
+                <!-- 🟢 4. ข้อมูลวิชาการ -->
                 <div class="glass-card bg-white">
                     <h3 class="text-lg font-bold text-slate-700 mb-6 border-b pb-2"><i class="ph-fill ph-student text-orange-500"></i> โปรไฟล์วิชาการ (เกรดเฉลี่ย)</h3>
                     <div class="grid md:grid-cols-3 gap-6">
@@ -207,6 +247,29 @@
                         <div class="text-right bg-white px-6 py-3 rounded-xl shadow-sm border border-slate-100">
                             <p class="text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">จำนวนที่สมัครผ่านระบบ</p>
                             <p id="own-total" class="text-3xl font-black text-psu-blue">0 <span class="text-base text-slate-400 font-normal">คน</span></p>
+                        </div>
+                    </div>
+
+                                        <!-- 🟢 เพิ่มใหม่: กราฟเปรียบเทียบยอดการสมัครกับจำนวนนักเรียน ม.3 ทั้งหมด 🟢 -->
+                    <div class="glass-card bg-white mb-6 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-6">
+                        <div class="flex-1 w-full">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2">อัตราส่วนการสมัครสอบของนักเรียนชั้น ม.3</h4>
+                            <div class="flex items-center gap-3 mb-4 bg-slate-50 p-3 rounded-lg border border-slate-100 inline-flex">
+                                <label class="text-sm text-slate-600 font-medium">จำนวน นร. ม.3 ทั้งระดับชั้น:</label>
+                                <!-- สามารถพิมพ์แก้ไขตัวเลข 65 ได้ตรงนี้เลย -->
+                                <input type="number" id="input-total-m3" value="65" class="border border-slate-300 rounded-md px-3 py-1 w-20 text-center font-bold text-psu-blue focus:outline-none focus:border-psu-accent shadow-inner" title="สามารถพิมพ์แก้ไขตัวเลขได้" onchange="if(window.currentRawData) analyzeData(window.currentRawData);"> 
+                                <span class="text-sm text-slate-600">คน</span>
+                            </div>
+                            <div class="text-slate-600 text-sm bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                                จากข้อมูลในระบบ พบว่ามีนักเรียนโรงเรียนเราสมัครแล้ว <span id="text-own-applied" class="font-black text-psu-blue text-2xl mx-1">0</span> คน 
+                                <br class="sm:hidden">คิดเป็น <span id="text-own-pct" class="font-black text-islamic-green text-2xl mx-1">0%</span> ของนักเรียนทั้งหมด
+                                <div class="w-full bg-slate-200 rounded-full h-3 mt-3 overflow-hidden">
+                                    <div id="bar-own-pct" class="bg-islamic-green h-3 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/3 chart-container !h-[200px]">
+                            <canvas id="ownConversionChart"></canvas>
                         </div>
                     </div>
 
@@ -302,6 +365,7 @@
                 header: true,
                 skipEmptyLines: true,
                 complete: function(results) {
+                    window.currentRawData = results.data; // บันทึกข้อมูลไว้เผื่อมีการเปลี่ยนตัวเลข ม.3
                     analyzeData(results.data);
                     
                     // อัปเดตเวลาล่าสุด
@@ -347,12 +411,23 @@
             let totalApplicants = data.length;
             let maleCount = 0; let femaleCount = 0;
             let sumGPA = 0; let validGPA = 0;
-            let schoolsCount = {}; let provCount = {};
+            let schoolsCount = {};
+            let provCount = {};
+            let schoolProvCount = {}; // 🟢 ภูมิลำเนาโรงเรียน            
             
             // Executive Stats
+            let confirmStatusCount = {}; // 🟢 สถานะยืนยันข้อมูล            
             let paymentCount = { 'ชำระเงินแล้ว':0, 'ยังไม่ชำระเงิน':0, 'รอยืนยัน':0 };
             let incomeCount = {};
-            let gpaBuckets = { total: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0}, math: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0}, sci: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0} };
+            let gpaBuckets = { total: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0}, math: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0}, sci: {'3.80 - 4.00':0, '3.50 - 3.79':0, '3.00 - 3.49':0, 'ต่ำกว่า 3.00':0} };            
+
+            // 🟢 ข้อมูลเศรษฐฐานะ & ครอบครัว
+            let incomeDadCount = {}; let incomeMomCount = {};
+            let eduDadCount = {}; let eduMomCount = {};
+            let ageDadRanges = {'< 35':0, '35-44':0, '45-54':0, '55+':0};
+            let ageMomRanges = {'< 35':0, '35-44':0, '45-54':0, '55+':0};
+            let ageDadStats = {min: 999, max: 0, sum: 0, count: 0};
+            let ageMomStats = {min: 999, max: 0, sum: 0, count: 0};
 
             // Own School
             const ownSchoolExact = "โรงเรียนสาธิตวิทยาการอิสลาม มหาวิทยาลัยสงขลานครินทร์";
@@ -377,20 +452,49 @@
                 
                 let prov = cleanStr(row['จังหวัด']);
                 if(prov) provCount[prov] = (provCount[prov] || 0) + 1;
+
+                let schoolProv = cleanStr(row['จังหวัดโรงเรียนปัจจุบัน']);
+                if(schoolProv) schoolProvCount[schoolProv] = (schoolProvCount[schoolProv] || 0) + 1;
                 
                 let school = cleanStr(row['โรงเรียนปัจจุบัน']);
                 if(school) schoolsCount[school] = (schoolsCount[school] || 0) + 1;
 
-                // 2. Executive Data
+                // 2. Executive Data & Funnel
+                let confirmStatus = cleanStr(row['สถานะการยืนยันข้อมูล']);
+                if(confirmStatus) confirmStatusCount[confirmStatus] = (confirmStatusCount[confirmStatus] || 0) + 1;
+
                 let payment = cleanStr(row['สถานะการชำระค่าธรรมเนียม']);
                 if(payment.includes("ชำระ") && !payment.includes("ไม่")) paymentCount['ชำระเงินแล้ว']++;
                 else if(payment.includes("ไม่")) paymentCount['ยังไม่ชำระเงิน']++;
                 else if(payment !== "") paymentCount['รอยืนยัน']++;
 
+                // 🟢 การศึกษาและรายได้
                 let incDad = cleanStr(row['รายได้ต่อเดือนของบิดา']);
                 let incMom = cleanStr(row['รายได้ต่อเดือนของมารดา']);
-                if(incDad && incDad !== "-") incomeCount[incDad] = (incomeCount[incDad] || 0) + 1;
-                if(incMom && incMom !== "-") incomeCount[incMom] = (incomeCount[incMom] || 0) + 1;
+                if(incDad && incDad !== "-") incomeDadCount[incDad] = (incomeDadCount[incDad] || 0) + 1;
+                if(incMom && incMom !== "-") incomeMomCount[incMom] = (incomeMomCount[incMom] || 0) + 1;
+
+                let eduDad = cleanStr(row['วุฒิการศึกษาของบิดา']);
+                let eduMom = cleanStr(row['วุฒิการศึกษาของมารดา']);
+                if(eduDad && eduDad !== "-") eduDadCount[eduDad] = (eduDadCount[eduDad] || 0) + 1;
+                if(eduMom && eduMom !== "-") eduMomCount[eduMom] = (eduMomCount[eduMom] || 0) + 1;
+
+                // 🟢 อายุ (คำนวณ Min, Max, Avg, ช่วงอายุ)
+                let ageDad = parseInt(row['อายุบิดา']);
+                let ageMom = parseInt(row['อายุมารดา']);
+                
+                if(!isNaN(ageDad) && ageDad > 15 && ageDad < 100) {
+                    ageDadStats.sum += ageDad; ageDadStats.count++;
+                    if(ageDad < ageDadStats.min) ageDadStats.min = ageDad;
+                    if(ageDad > ageDadStats.max) ageDadStats.max = ageDad;
+                    if(ageDad < 35) ageDadRanges['< 35']++; else if(ageDad <= 44) ageDadRanges['35-44']++; else if(ageDad <= 54) ageDadRanges['45-54']++; else ageDadRanges['55+']++;
+                }
+                if(!isNaN(ageMom) && ageMom > 15 && ageMom < 100) {
+                    ageMomStats.sum += ageMom; ageMomStats.count++;
+                    if(ageMom < ageMomStats.min) ageMomStats.min = ageMom;
+                    if(ageMom > ageMomStats.max) ageMomStats.max = ageMom;
+                    if(ageMom < 35) ageMomRanges['< 35']++; else if(ageMom <= 44) ageMomRanges['35-44']++; else if(ageMom <= 54) ageMomRanges['45-54']++; else ageMomRanges['55+']++;
+                }
 
                 // 3. Academic Profile
                 let gpa = parseFloat(row['ผลการเรียนเฉลี่ยรวม']);
@@ -451,9 +555,27 @@
             document.getElementById('stat-avg-gpa').innerText = validGPA ? (sumGPA/validGPA).toFixed(2) : "0.00";
             document.getElementById('own-total').innerHTML = `${ownTotal.toLocaleString()} <span class="text-lg text-slate-400">คน</span>`;
             
+            // 🟢 Text สถิติอายุผู้ปกครอง
+            document.getElementById('age-dad-avg').innerText = ageDadStats.count ? Math.round(ageDadStats.sum/ageDadStats.count) : "-";
+            document.getElementById('age-dad-min').innerText = ageDadStats.count ? ageDadStats.min : "-";
+            document.getElementById('age-dad-max').innerText = ageDadStats.count ? ageDadStats.max : "-";
+            
+            document.getElementById('age-mom-avg').innerText = ageMomStats.count ? Math.round(ageMomStats.sum/ageMomStats.count) : "-";
+            document.getElementById('age-mom-min').innerText = ageMomStats.count ? ageMomStats.min : "-";
+            document.getElementById('age-mom-max').innerText = ageMomStats.count ? ageMomStats.max : "-";
+
             // อัปเดตตัวเลขการ์ดคู่ศูนย์
             document.getElementById('hub-rank-1').innerText = hubRank1; 
             document.getElementById('hub-rank-2').innerText = hubRank2;
+
+                        // 🟢 อัปเดตการ์ดเปรียบเทียบยอด ม.3
+            let totalM3 = parseInt(document.getElementById('input-total-m3').value) || 65;
+            let notApplied = Math.max(0, totalM3 - ownTotal);
+            let appliedPct = totalM3 > 0 ? Math.round((ownTotal / totalM3) * 100) : 0;
+            
+            document.getElementById('text-own-applied').innerText = ownTotal;
+            document.getElementById('text-own-pct').innerText = appliedPct + '%';
+            document.getElementById('bar-own-pct').style.width = appliedPct + '%';
 
             // 🟢 อัปเดตตารางรายชื่อนักเรียนโรงเรียนเรา
             const tableBody = document.getElementById('own-students-list');
@@ -485,37 +607,78 @@
             Chart.defaults.color = '#64748b';
             Chart.defaults.font.family = 'Kanit';
 
-            // 1. Top Schools (Bar - เปลี่ยนเป็นแนวนอน เพื่อให้อ่านชื่อยาวๆ ได้ครบ)
-            let topSchools = Object.entries(schoolsCount).sort((a,b) => b[1]-a[1]).slice(0, 10);
-            renderChart('topSchoolsChart', 'bar', topSchools.map(i=>i[0]), topSchools.map(i=>i[1]), 'จำนวน (คน)', ['#00AEEF'], { indexAxis: 'y' });
-
-            // 2. Provinces (Doughnut)
-            let topProv = Object.entries(provCount).sort((a,b) => b[1]-a[1]).slice(0, 5);
-            let otherProvCount = Object.entries(provCount).sort((a,b) => b[1]-a[1]).slice(5).reduce((a, b) => a + b[1], 0);
-            if (otherProvCount > 0) topProv.push(["อื่นๆ", otherProvCount]);
-            renderChart('provincesChart', 'doughnut', topProv.map(i=>i[0]), topProv.map(i=>i[1]), 'จังหวัด', ['#002C6A', '#0055A5', '#00AEEF', '#38bdf8', '#bae6fd', '#e2e8f0']);
-
-            // 3. Payment Status (Pie)
+            // 🟢 1. สถานะยืนยันข้อมูล & การชำระเงิน (Pie)
+            renderChart('confirmStatusChart', 'pie', Object.keys(confirmStatusCount), Object.values(confirmStatusCount), 'จำนวนคน', ['#a855f7', '#d8b4fe', '#f3e8ff']);
             renderChart('paymentChart', 'pie', Object.keys(paymentCount), Object.values(paymentCount), 'สถานะ', ['#10b981', '#f43f5e', '#fbbf24']);
 
-            // 4. Income Status (Bar Horizontal)
-            let incSorted = Object.entries(incomeCount).sort((a,b) => b[1]-a[1]).slice(0, 6);
-            renderChart('incomeChart', 'bar', incSorted.map(i=>i[0]), incSorted.map(i=>i[1]), 'จำนวนผู้ปกครอง', ['#6366f1'], { indexAxis: 'y' });
+            // 🟢 2. ภูมิลำเนา vs จังหวัดโรงเรียน (Bar แนวนอน แบบโชว์ทั้งหมด ไม่กรอง "อื่นๆ")
+            let allProv = Object.entries(provCount).sort((a,b) => b[1]-a[1]);
+            renderChart('provincesChart', 'bar', allProv.map(i=>i[0]), allProv.map(i=>i[1]), 'ภูมิลำเนา', ['#00AEEF'], { indexAxis: 'y' });
+            
+            let allSchoolProv = Object.entries(schoolProvCount).sort((a,b) => b[1]-a[1]);
+            renderChart('schoolProvincesChart', 'bar', allSchoolProv.map(i=>i[0]), allSchoolProv.map(i=>i[1]), 'จังหวัดที่ตั้งโรงเรียน', ['#002C6A'], { indexAxis: 'y' });
 
-            // 5. GPA Profiles (Bar)
+            // 3. Top 15 Schools (Bar แนวนอน)
+            let topSchools = Object.entries(schoolsCount).sort((a,b) => b[1]-a[1]).slice(0, 15);
+            renderChart('topSchoolsChart', 'bar', topSchools.map(i=>i[0].substring(0,40)+(i[0].length>40?'...':'')), topSchools.map(i=>i[1]), 'จำนวน (คน)', ['#f97316'], { indexAxis: 'y' });
+
+            // 🟢 4. ข้อมูลครอบครัว (Education & Age) แบบแท่งคู่ (Grouped Bar)
+            // วุฒิการศึกษา ต้องดึง Label มารวมกันก่อน
+            let allEduLabels = [...new Set([...Object.keys(eduDadCount), ...Object.keys(eduMomCount)])].sort();
+            let eduDadData = allEduLabels.map(l => eduDadCount[l] || 0);
+            let eduMomData = allEduLabels.map(l => eduMomCount[l] || 0);
+            
+            if(charts['parentsEduChart']) charts['parentsEduChart'].destroy();
+            charts['parentsEduChart'] = new Chart(document.getElementById('parentsEduChart').getContext('2d'), {
+                type: 'bar',
+                data: { labels: allEduLabels, datasets: [
+                    { label: 'บิดา', data: eduDadData, backgroundColor: '#0055A5', borderRadius: 4 },
+                    { label: 'มารดา', data: eduMomData, backgroundColor: '#ec4899', borderRadius: 4 }
+                ]},
+                options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: { anchor: 'end', align: 'end', font: {size:10} } } }
+            });
+
+            // อายุผู้ปกครอง
+            if(charts['parentsAgeChart']) charts['parentsAgeChart'].destroy();
+            charts['parentsAgeChart'] = new Chart(document.getElementById('parentsAgeChart').getContext('2d'), {
+                type: 'bar',
+                data: { labels: Object.keys(ageDadRanges), datasets: [
+                    { label: 'บิดา', data: Object.values(ageDadRanges), backgroundColor: '#0055A5', borderRadius: 4 },
+                    { label: 'มารดา', data: Object.values(ageMomRanges), backgroundColor: '#ec4899', borderRadius: 4 }
+                ]},
+                options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: { anchor: 'end', align: 'end' } } }
+            });
+
+            // 🟢 5. รายได้ผู้ปกครอง (แยกบิดา มารดา)
+            let allIncLabels = [...new Set([...Object.keys(incomeDadCount), ...Object.keys(incomeMomCount)])];
+            let incDadData = allIncLabels.map(l => incomeDadCount[l] || 0);
+            let incMomData = allIncLabels.map(l => incomeMomCount[l] || 0);
+            
+            if(charts['incomeChart']) charts['incomeChart'].destroy();
+            charts['incomeChart'] = new Chart(document.getElementById('incomeChart').getContext('2d'), {
+                type: 'bar',
+                data: { labels: allIncLabels, datasets: [
+                    { label: 'บิดา', data: incDadData, backgroundColor: '#10b981', borderRadius: 4 },
+                    { label: 'มารดา', data: incMomData, backgroundColor: '#f43f5e', borderRadius: 4 }
+                ]},
+                options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { datalabels: { anchor: 'end', align: 'end' } } }
+            });
+
+            // 6. GPA Profiles (Bar)
             const gpaLabels = ['3.80 - 4.00', '3.50 - 3.79', '3.00 - 3.49', 'ต่ำกว่า 3.00'];
             renderChart('gpaTotalChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.total[l]), 'เกรดเฉลี่ยรวม', ['#f59e0b']);
             renderChart('gpaSciChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.sci[l]), 'วิชาวิทยาศาสตร์', ['#10b981']);
             renderChart('gpaMathChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.math[l]), 'วิชาคณิตศาสตร์', ['#ef4444']);
 
-            // 6. Own School Charts (ดึงชื่อเต็มมาโชว์ 100%)
+            // 7. Own School Charts (ดึงชื่อเต็มมาโชว์ 100%)
+            renderChart('ownConversionChart', 'doughnut', ['สมัครแล้ว', 'ยังไม่สมัคร'], [ownTotal, notApplied], 'สัดส่วนการสมัคร (%)', ['#10b981', '#e2e8f0']);
             renderChart('ownSchoolProjectsChart', 'bar', Object.keys(ownProjects), Object.values(ownProjects), 'จำนวนนักเรียน (คน)', ['#002C6A']);
             let s1Sorted = Object.entries(ownScius1).sort((a,b) => b[1]-a[1]).slice(0, 5);
             let s2Sorted = Object.entries(ownScius2).sort((a,b) => b[1]-a[1]).slice(0, 5);
             renderChart('ownSchoolScius1Chart', 'doughnut', s1Sorted.map(i=>i[0]), s1Sorted.map(i=>i[1]), 'วมว. อันดับ 1', ['#002C6A', '#0055A5', '#00AEEF', '#38bdf8', '#bae6fd']);
             renderChart('ownSchoolScius2Chart', 'doughnut', s2Sorted.map(i=>i[0]), s2Sorted.map(i=>i[1]), 'วมว. อันดับ 2', ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#ffedd5']);
 
-            // 7. PSU Target Feeder Schools (Bar แนวนอน)
+            // 8. PSU Target Feeder Schools (Bar แนวนอน)
             let topPsuFeeder = Object.entries(psuApplicantsSchools).sort((a,b) => b[1]-a[1]).slice(0, 10);
             renderChart('psuFeederChart', 'bar', topPsuFeeder.map(i=>i[0]), topPsuFeeder.map(i=>i[1]), 'จำนวนนักเรียน (คน)', ['#8b5cf6'], { indexAxis: 'y' });
         }
