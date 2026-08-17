@@ -532,14 +532,14 @@
                 if (!isNaN(gpaS) && gpaS > 0) { gpaBuckets.sci[categorizeGPA(gpaS)]++; }
 
                 let chkMwit = hasValue(row['โรงเรียนมหิดลวิทยานุสรณ์']);
-                let chkPcshs = hasValue(row['โครงการจุฬาภรณราขวิทยาลัย']) || hasValue(row['โครงการจุฬาภรณราชวิทยาลัย']);
+                let chkPcshs = hasValue(row['โครงการจุฬาภรณราชวิทยาลัย']) || hasValue(row['โครงการจุฬาภรณราชวิทยาลัย ที่เลือก']);
                 let chkScius1 = hasValue(row['โครงการ วมว. 1 อันดับ']) || hasValue(row['โครงการ วมว อันดับ 1 (1/0)']); // เช็กคอลัมน์ที่เป็น 1/0
                 let chkScius2 = hasValue(row['โครงการ วมว. 2 อันดับ']) || hasValue(row['โครงการ วมว อันดับ 2 (1/0)']);
                 let chkKosenKmutt = hasValue(row['สถาบันโคเซ็น มจธ.']) || hasValue(row['สถาบันโคเซ็น  มจธ.']);
                 let chkKosenKmitl = hasValue(row['สถาบันโคเซ็น สจล.']);
                 let chkDpst = hasValue(row['โครงการ พสวท.']);
 
-                let locPcshs = cleanStr(row['โครงการจุฬาภรณ์ราชวิทยาลัย']);
+                let locPcshs = cleanStr(row['โครงการจุฬาภรณราชวิทยาลัย ที่เลือก']);
                 let locScius1 = cleanStr(row['โครงการ วมว อันดับ 1']); 
                 let locScius2 = cleanStr(row['โครงการ วมว อันดับ 2']);
 
