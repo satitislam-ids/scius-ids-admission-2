@@ -53,7 +53,7 @@
         <div class="glass-card max-w-md w-full relative z-10 p-8 text-center bg-white shadow-2xl">
             <div class="w-20 h-20 bg-psu-blue rounded-2xl mx-auto flex items-center justify-center text-white text-4xl mb-6 shadow-lg"><i class="ph-bold ph-chart-polar"></i></div>
             <h1 class="text-2xl font-bold text-slate-800 mb-2">SCiUS Executive Dashboard</h1>
-            <p class="text-sm text-slate-500 mb-6">ระบบวิเคราะห์ข้อมูลผู้สมัคร (เฉพาะผู้บริหาร)</p>
+            <p class="text-sm text-slate-500 mb-6">ระบบวิเคราะห์ข้อมูลและประเมิน KPI เชิงลึก</p>
             <input type="password" id="pin-input" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-center text-xl tracking-widest font-bold focus:outline-none focus:border-psu-accent focus:ring-2 focus:ring-psu-accent/20 transition mb-4" placeholder="กรอกรหัส PIN">
             <button onclick="login()" class="w-full bg-psu-blue hover:bg-psu-accent text-white font-bold py-3 rounded-xl transition shadow-md">เข้าสู่ระบบ (Secure Login)</button>
             <p id="login-err" class="text-red-500 text-sm mt-3 hidden">รหัสไม่ถูกต้อง</p>
@@ -67,7 +67,7 @@
             <div class="max-w-[1400px] mx-auto flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 p-2 rounded-lg"><i class="ph-bold ph-chart-pie-slice text-xl"></i></div>
-                    <span class="font-bold text-lg hidden sm:block">SCiUS IDS Executive Analytics (Local Secure)</span>
+                    <span class="font-bold text-lg hidden sm:block">SCiUS Executive Analytics & KPI</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition"><i class="ph-bold ph-printer"></i> พิมพ์รายงาน</button>
@@ -79,27 +79,59 @@
         <main class="flex-1 max-w-[1400px] mx-auto w-full p-4 sm:p-6 lg:p-8">
             
             <div class="glass-card mb-8 no-print border-l-4 border-l-psu-accent bg-blue-50/50">
-                <h2 class="text-xl font-bold text-psu-blue mb-2"><i class="ph-bold ph-upload-simple"></i> อัปโหลดฐานข้อมูลผู้สมัคร MWIT (.csv)</h2>
-                <p class="text-sm text-slate-600 mb-4">รองรับไฟล์ CSV UTF-8 ระบบประมวลผลบนเบราว์เซอร์ 100% ไม่ละเมิด PDPA</p>
-                <div class="flex flex-col sm:flex-row gap-4 items-center">
-                    <input type="file" id="csv-file" accept=".csv" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-psu-blue file:text-white hover:file:bg-psu-accent transition cursor-pointer bg-white border border-slate-200 rounded-full p-1">
-                    <button onclick="processCSV()" id="process-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-full transition shadow-md whitespace-nowrap"><i class="ph-bold ph-magic-wand"></i> วิเคราะห์ข้อมูล</button>
+                <h2 class="text-xl font-bold text-psu-blue mb-2"><i class="ph-bold ph-upload-simple"></i> นำเข้าข้อมูลเพื่อประเมินผล (CSV)</h2>
+                <p class="text-sm text-slate-600 mb-4">อัปโหลดไฟล์ปีปัจจุบัน และปีที่แล้ว (ทางเลือก) เพื่อวิเคราะห์อัตราการเติบโตและการเปลี่ยนแปลงของโรงเรียนเครือข่าย</p>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-white p-4 rounded-xl border border-blue-200">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">1. ข้อมูลผู้สมัครรอบปัจจุบัน (จำเป็น)</label>
+                        <input type="file" id="csv-file-current" accept=".csv" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-psu-blue file:text-white hover:file:bg-psu-accent transition cursor-pointer">
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">2. ข้อมูลผู้สมัครรอบที่แล้ว (เพื่อเปรียบเทียบ KPI)</label>
+                        <input type="file" id="csv-file-prev" accept=".csv" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-300 file:text-slate-700 hover:file:bg-slate-400 transition cursor-pointer">
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+                    <p id="upload-err-msg" class="text-red-500 text-sm font-bold hidden"></p>
+                    <button onclick="processCSV()" id="process-btn" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-full transition shadow-md whitespace-nowrap ml-auto"><i class="ph-bold ph-magic-wand"></i> วิเคราะห์และเปรียบเทียบข้อมูล</button>
                 </div>
             </div>
 
             <div id="loading-spinner" class="hidden text-center py-20">
                 <i class="ph-bold ph-spinner animate-spin text-5xl text-psu-accent mx-auto mb-4"></i>
-                <p class="text-psu-blue font-bold">กำลังวิเคราะห์และจัดกลุ่มข้อมูล...</p>
+                <p class="text-psu-blue font-bold">กำลังประมวลผลอัลกอริทึมเปรียบเทียบข้อมูล...</p>
             </div>
 
             <div id="dashboard-content" class="hidden space-y-8 animate-fade-in">
                 
-                <!-- 🟢 สรุปภาพรวม -->
+                <!-- 🟢 แถบบอกวันที่ของข้อมูล (Data Vintage Banner) -->
+                <div id="data-vintage-banner" class="hidden bg-indigo-50 border border-indigo-100 rounded-xl p-4 mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-calendar-check text-3xl text-indigo-500"></i>
+                        <div>
+                            <p class="text-sm font-bold text-slate-700">รอบการดึงข้อมูล (Data Vintage)</p>
+                            <p class="text-xs text-slate-500 mt-1">
+                                🟢 ข้อมูลปัจจุบัน: <span id="vintage-curr-text" class="font-bold text-indigo-700 bg-white px-2 py-0.5 rounded border border-indigo-200">ไม่ระบุวันที่ในชื่อไฟล์</span>
+                                <span id="vintage-prev-container" class="hidden"> | ⚪ ข้อมูลเปรียบเทียบ: <span id="vintage-prev-text" class="font-bold text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">ไม่ระบุวันที่ในชื่อไฟล์</span></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="vintage-duration" class="hidden mt-3 sm:mt-0 text-xs font-bold bg-white px-4 py-2 rounded-full border border-indigo-200 text-indigo-600 shadow-sm flex items-center gap-1">
+                        <i class="ph-bold ph-clock-counter-clockwise"></i> <span id="vintage-duration-text">ระยะห่าง: -</span>
+                    </div>
+                </div>
+
+                <!-- 🟢 สรุปภาพรวม & KPI Growth -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-6">
                     <div class="glass-card flex flex-col justify-center border-t-4 border-t-psu-blue relative overflow-hidden">
                         <i class="ph-fill ph-users absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
                         <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">ผู้สมัครทั้งหมด</p>
-                        <p id="stat-total" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                        <div class="flex items-end gap-2 relative z-10">
+                            <p id="stat-total" class="text-3xl sm:text-4xl font-black text-slate-800">-</p>
+                            <span id="delta-total" class="hidden text-xs font-bold px-2 py-1 rounded-md mb-1"></span>
+                        </div>
                     </div>
                     <div class="glass-card flex flex-col justify-center border-t-4 border-t-pink-500 relative overflow-hidden">
                         <i class="ph-fill ph-gender-intersex absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
@@ -109,14 +141,111 @@
                     <div class="glass-card flex flex-col justify-center border-t-4 border-t-green-500 relative overflow-hidden">
                         <i class="ph-fill ph-money absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
                         <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">อัตราชำระเงินแล้ว</p>
-                        <p id="stat-paid-pct" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                        <div class="flex items-end gap-2 relative z-10">
+                            <p id="stat-paid-pct" class="text-3xl sm:text-4xl font-black text-slate-800">-</p>
+                            <span id="delta-paid" class="hidden text-xs font-bold px-2 py-1 rounded-md mb-1"></span>
+                        </div>
                     </div>
                     <div class="glass-card flex flex-col justify-center border-t-4 border-t-yellow-500 relative overflow-hidden">
                         <i class="ph-fill ph-star absolute -right-4 -bottom-4 text-7xl text-slate-100"></i>
                         <p class="text-sm text-slate-500 font-bold mb-1 relative z-10">เกรดเฉลี่ยรวม (GPAX)</p>
-                        <p id="stat-avg-gpa" class="text-3xl sm:text-4xl font-black text-slate-800 relative z-10">-</p>
+                        <div class="flex items-end gap-2 relative z-10">
+                            <p id="stat-avg-gpa" class="text-3xl sm:text-4xl font-black text-slate-800">-</p>
+                            <span id="delta-gpa" class="hidden text-xs font-bold px-2 py-1 rounded-md mb-1"></span>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 🟢 ส่วนวิเคราะห์ความเคลื่อนไหวโรงเรียนเครือข่าย (Feeder Dynamics) -->
+                <div id="comparative-section" class="hidden mt-6 grid md:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="glass-card bg-white shadow-sm border-t-4 border-t-green-500">
+                        <h4 class="font-bold text-slate-700 text-sm mb-3 flex items-center gap-2"><i class="ph-fill ph-rocket-launch text-green-500"></i> โรงเรียนดาวรุ่ง (ยอดพุ่ง)</h4>
+                        <ul id="list-rising-stars" class="space-y-2"></ul>
+                    </div>
+                    <div class="glass-card bg-white shadow-sm border-t-4 border-t-psu-accent">
+                        <h4 class="font-bold text-slate-700 text-sm mb-3 flex items-center gap-2"><i class="ph-fill ph-sparkle text-psu-accent"></i> โรงเรียนหน้าใหม่ (เปิดตลาด)</h4>
+                        <ul id="list-new-entry" class="space-y-2"></ul>
+                    </div>
+                    <div class="glass-card bg-white shadow-sm border-t-4 border-t-red-500">
+                        <h4 class="font-bold text-slate-700 text-sm mb-3 flex items-center gap-2"><i class="ph-fill ph-warning-circle text-red-500"></i> เฝ้าระวัง (ยอดตก)</h4>
+                        <ul id="list-drop-off" class="space-y-2"></ul>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- 🟢 ADVANCED ANALYTICS & STRATEGIC INSIGHTS -->
+                <!-- ========================================== -->
+                <div class="mt-10 mb-8 border-t-2 border-slate-200 pt-8 bg-gradient-to-br from-slate-900 to-psu-blue p-6 rounded-2xl shadow-xl text-white">
+                    <h3 class="text-2xl font-bold text-white mb-2 flex items-center gap-2"><i class="ph-fill ph-lightbulb text-yellow-400 animate-pulse"></i> ข้อมูลเชิงลึกสำหรับผู้บริหาร (Executive Insights)</h3>
+                    <p class="text-sm text-slate-300 mb-8">วิเคราะห์รอยรั่วของผู้สมัคร, ความเสี่ยงการสละสิทธิ์ และจัดเกรดโรงเรียนเป้าหมายอัตโนมัติ</p>
+                    
+                    <!-- 1. Funnel -->
+                    <div class="bg-white/10 rounded-xl p-6 border border-white/20 backdrop-blur-sm mb-6">
+                        <h4 class="font-bold text-white text-lg mb-4 flex items-center gap-2"><i class="ph-fill ph-funnel text-psu-accent"></i> อัตราการเปลี่ยนผ่านผู้สมัคร (Conversion Funnel)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
+                            <!-- Step 1 -->
+                            <div class="bg-white rounded-lg p-4 text-center relative z-10 shadow-lg border-b-4 border-blue-400">
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">1. สมัครในระบบทั้งหมด</p>
+                                <p id="funnel-total" class="text-3xl font-black text-psu-blue">-</p>
+                            </div>
+                            <!-- Step 2 -->
+                            <div class="bg-white rounded-lg p-4 text-center relative z-10 shadow-lg border-b-4 border-purple-400">
+                                <div class="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center z-20 hidden md:flex border-4 border-white text-purple-600"><i class="ph-bold ph-caret-right"></i></div>
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">2. ยืนยันข้อมูลแล้ว</p>
+                                <p id="funnel-confirmed" class="text-3xl font-black text-purple-600">-</p>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden"><div id="funnel-confirm-bar" class="bg-purple-500 h-1.5" style="width: 0%"></div></div>
+                                <p class="text-[10px] text-slate-400 mt-1"><span id="funnel-confirm-pct" class="font-bold text-purple-600">0%</span> จากทั้งหมด</p>
+                            </div>
+                            <!-- Step 3 -->
+                            <div class="bg-white rounded-lg p-4 text-center relative z-10 shadow-lg border-b-4 border-green-500">
+                                <div class="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center z-20 hidden md:flex border-4 border-white text-green-600"><i class="ph-bold ph-caret-right"></i></div>
+                                <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">3. ชำระเงินสำเร็จ (ยอดจริง)</p>
+                                <p id="funnel-paid" class="text-3xl font-black text-green-600">-</p>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden"><div id="funnel-paid-bar" class="bg-green-500 h-1.5" style="width: 0%"></div></div>
+                                <p class="text-[10px] text-slate-400 mt-1"><span id="funnel-paid-pct" class="font-bold text-green-600">0%</span> จากทั้งหมด</p>
+                            </div>
+                            <!-- Background connecting line for desktop -->
+                            <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-white/20 -translate-y-1/2 z-0"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <!-- 2. Flight Risk -->
+                        <div class="bg-white rounded-xl p-6 text-slate-800 shadow-lg">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2 flex items-center gap-2"><i class="ph-fill ph-warning-circle text-red-500"></i> วิเคราะห์ความเสี่ยงการสละสิทธิ์ (Flight Risk)</h4>
+                            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">จากผู้สมัคร <span id="risk-base" class="font-bold text-psu-blue">-</span> คน ที่เลือกสอบ "ม.อ.ปัตตานี" พบว่ามีการเลือกสอบสนามแข่งขันสูงร่วมด้วย ดังนี้:</p>
+                            <div id="flight-risk-list" class="space-y-4">
+                                <!-- JS Injected -->
+                            </div>
+                            <div class="mt-4 bg-orange-50 p-3 rounded-lg border border-orange-100 text-xs text-orange-700">
+                                <i class="ph-bold ph-info"></i> หาก % สูงกว่า 30% ผู้บริหารควรเตรียมแผนเรียกตัวสำรองล่วงหน้า
+                            </div>
+                        </div>
+
+                        <!-- 3. Feeder School Tiering -->
+                        <div class="bg-white rounded-xl p-6 text-slate-800 shadow-lg flex flex-col">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2 flex items-center gap-2"><i class="ph-fill ph-medal text-yellow-500"></i> จัดเกรดโรงเรียนคู่ค้า (Feeder Tiering)</h4>
+                            <p class="text-xs text-slate-500 mb-4 pb-2 border-b border-slate-100">ระบบ AI จัดกลุ่มอัตโนมัติ เพื่อให้ทีมงานนำไปทำ CRM (เช่น แจกโควตา/ส่งของขวัญ)</p>
+                            
+                            <div class="flex-1 overflow-y-auto max-h-[300px] pr-2">
+                                <table class="w-full text-left">
+                                    <thead class="bg-slate-50 sticky top-0">
+                                        <tr>
+                                            <th class="py-2 px-3 text-xs font-bold text-slate-500">ชื่อโรงเรียน</th>
+                                            <th class="py-2 px-3 text-xs font-bold text-slate-500 text-center">ยอดสมัคร</th>
+                                            <th class="py-2 px-3 text-xs font-bold text-slate-500 text-center">GPAX เฉลี่ย</th>
+                                            <th class="py-2 px-3 text-xs font-bold text-slate-500 text-center">Tier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tier-table-body" class="divide-y divide-slate-100">
+                                        <!-- JS Injected -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ========================================== -->
 
                 <div class="grid md:grid-cols-2 gap-6 mt-8">
                     <div class="glass-card bg-white border-t-4 border-t-purple-500">
@@ -130,14 +259,11 @@
                     </div>
                 </div>
 
-                <!-- ========================================== -->
-                <!-- 🟢 วิเคราะห์ภาพรวมความสนใจโครงการ (Big Picture) -->
-                <!-- ========================================== -->
                 <div class="mt-10 mb-8 border-t-2 border-slate-200 pt-8">
                     <h3 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2"><i class="ph-fill ph-chart-bar text-psu-blue"></i> วิเคราะห์ภาพรวมความสนใจโครงการ (ผู้สมัครทุกคนในระบบ)</h3>
                     
                     <div class="glass-card bg-white mb-6">
-                        <h4 class="font-bold text-slate-700 text-sm mb-4"><i class="ph-fill ph-check-circle text-psu-accent"></i> ปริมาณผู้สมัครจำแนกตามโครงการ (แสดง 7 แท่งอิสระ ผู้สมัคร 1 คนเลือกได้หลายโครงการ)</h4>
+                        <h4 class="font-bold text-slate-700 text-sm mb-4"><i class="ph-fill ph-check-circle text-psu-accent"></i> ปริมาณผู้สมัครจำแนกตามโครงการ</h4>
                         <div class="chart-container !h-[400px]"><canvas id="overallProjectsChart"></canvas></div>
                     </div>
 
@@ -163,7 +289,6 @@
                     </div>
                 </div>
 
-                <!-- 🟢 วิเคราะห์ภูมิศาสตร์ -->
                 <h3 class="text-xl font-bold text-psu-blue mt-10 mb-4 border-l-4 border-psu-accent pl-3"><i class="ph-fill ph-map-trifold"></i> วิเคราะห์ระดับภูมิภาค (Geography & Feeders)</h3>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="glass-card bg-white flex flex-col">
@@ -190,7 +315,6 @@
                     </div>
                 </div>
 
-                <!-- 🟢 ครอบครัวและเศรษฐฐานะ -->
                 <h3 class="text-xl font-bold text-psu-blue mt-10 mb-4 border-l-4 border-psu-accent pl-3"><i class="ph-fill ph-users-three"></i> บริบทครอบครัวและเศรษฐฐานะ (Family & Socio-economic)</h3>
                 
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
@@ -221,7 +345,6 @@
                     <div class="chart-container !h-[350px]"><canvas id="incomeChart"></canvas></div>
                 </div>
 
-                <!-- 🟢 โปรไฟล์วิชาการ -->
                 <div class="glass-card bg-white">
                     <h3 class="text-lg font-bold text-slate-700 mb-6 border-b pb-2"><i class="ph-fill ph-student text-orange-500"></i> โปรไฟล์วิชาการ (เกรดเฉลี่ย)</h3>
                     <div class="grid md:grid-cols-3 gap-6">
@@ -301,7 +424,7 @@
                             <h4 class="font-bold text-slate-800 text-lg mb-2">อัตราส่วนการสมัครสอบของนักเรียนชั้น ม.3</h4>
                             <div class="flex items-center gap-3 mb-4 bg-slate-50 p-3 rounded-lg border border-slate-100 inline-flex">
                                 <label class="text-sm text-slate-600 font-medium">จำนวน นร. ม.3 ทั้งระดับชั้น:</label>
-                                <input type="number" id="input-total-m3" value="65" class="border border-slate-300 rounded-md px-3 py-1 w-20 text-center font-bold text-psu-blue focus:outline-none focus:border-psu-accent shadow-inner" title="สามารถพิมพ์แก้ไขตัวเลขได้" onchange="if(window.currentRawData) analyzeData(window.currentRawData);"> 
+                                <input type="number" id="input-total-m3" value="65" class="border border-slate-300 rounded-md px-3 py-1 w-20 text-center font-bold text-psu-blue focus:outline-none focus:border-psu-accent shadow-inner" title="สามารถพิมพ์แก้ไขตัวเลขได้" onchange="if(window.currentRawData) processBothData(window.currentRawData, window.prevRawData);"> 
                                 <span class="text-sm text-slate-600">คน</span>
                             </div>
                             <div class="text-slate-600 text-sm bg-blue-50/50 p-4 rounded-xl border border-blue-100">
@@ -337,7 +460,7 @@
                             <h4 class="font-bold text-slate-700 text-sm flex items-center gap-2"><i class="ph-fill ph-users text-psu-accent"></i> รายชื่อนักเรียนโรงเรียนเราที่สมัครเข้าระบบ</h4>
                             <button onclick="document.getElementById('own-students-container').classList.toggle('hidden')" class="text-xs text-psu-light hover:text-psu-accent underline font-medium">ซ่อน / แสดงรายชื่อ</button>
                         </div>
-                        <div id="own-students-container" class="overflow-x-auto max-h-[400px] overflow-y-auto rounded-xl border border-slate-100">
+                        <div id="own-students-container" class="overflow-x-auto max-h-[400px] overflow-y-auto rounded-xl border border-slate-100 hidden">
                             <table class="w-full text-left border-collapse">
                                 <thead class="bg-slate-50 sticky top-0 z-10 shadow-sm">
                                     <tr>
@@ -387,59 +510,287 @@
         let charts = {};
         Chart.register(ChartDataLabels);
 
-        function processCSV() {
-            const fileInput = document.getElementById('csv-file');
-            if (!fileInput.files.length) { alert('กรุณาเลือกไฟล์ CSV ก่อนครับ'); return; }
+        // Helper string cleaner
+        const cleanStr = (str) => (str || "").toString().trim();
+        const hasValue = (val) => {
+            if (!val) return false;
+            val = val.toString().trim();
+            return (val !== "" && val !== "-" && val !== "0" && val.toLowerCase() !== "false");
+        };
 
-            const file = fileInput.files[0];
+        // 🟢 อ่านไฟล์ด้วย Promise เพื่อรอให้ทั้ง 2 ไฟล์ประมวลผลเสร็จพร้อมกัน
+        function parseCSVAsync(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) resolve(null);
+                Papa.parse(file, {
+                    header: true,
+                    skipEmptyLines: 'greedy',
+                    complete: (results) => resolve(results.data),
+                    error: (err) => reject(err)
+                });
+            });
+        }
+
+        // 🟢 ฟังก์ชันดึงวันที่จากชื่อไฟล์
+        function extractDateFromFilename(filename) {
+            if (!filename) return null;
+            // รองรับ YYYY-MM-DD หรือ YYYY_MM_DD
+            let match = filename.match(/(\d{4})[-_](\d{2})[-_](\d{2})/);
+            if (match) {
+                let y = parseInt(match[1]);
+                if (y > 2500) y -= 543; // แปลง พ.ศ. เป็น ค.ศ.
+                return new Date(y, parseInt(match[2]) - 1, parseInt(match[3]));
+            }
+            // รองรับ DD-MM-YYYY หรือ DD_MM_YYYY
+            match = filename.match(/(\d{2})[-_](\d{2})[-_](\d{4})/);
+            if (match) {
+                let y = parseInt(match[3]);
+                if (y > 2500) y -= 543; // แปลง พ.ศ. เป็น ค.ศ.
+                return new Date(y, parseInt(match[2]) - 1, parseInt(match[1]));
+            }
+            return null;
+        }
+
+        // 🟢 ฟังก์ชันจัดรูปแบบวันที่ให้แสดงผลสวยงาม (ภาษาไทย)
+        function formatThaiDate(dateObj) {
+            if (!dateObj) return "ไม่ระบุวันที่";
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return dateObj.toLocaleDateString('th-TH', options);
+        }
+
+        async function processCSV() {
+            const fileCurrent = document.getElementById('csv-file-current').files[0];
+            const filePrev = document.getElementById('csv-file-prev').files[0];
+            const errMsg = document.getElementById('upload-err-msg');
+            
+            if (!fileCurrent) { 
+                errMsg.innerText = "❌ กรุณาอัปโหลด 'ข้อมูลผู้สมัครรอบปัจจุบัน' ก่อนครับ";
+                errMsg.classList.remove('hidden');
+                return; 
+            }
+            errMsg.classList.add('hidden');
+
             const btn = document.getElementById('process-btn');
-            btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin"></i> กำลังอ่านไฟล์...`;
+            btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin"></i> กำลังวิเคราะห์...`;
             btn.disabled = true;
 
             document.getElementById('dashboard-content').classList.add('hidden');
             document.getElementById('loading-spinner').classList.remove('hidden');
 
-            Papa.parse(file, {
-                header: true,
-                skipEmptyLines: 'greedy', // 🟢 ป้องกันการนับแถวว่างที่ต่อท้ายไฟล์ CSV เพื่อให้ยอดรวมเป๊ะ 100%
-                complete: function(results) {
-                    window.currentRawData = results.data;
-                    analyzeData(results.data);
-                    
-                    const now = new Date();
-                    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-                    document.getElementById('last-updated-text').innerText = now.toLocaleDateString('th-TH', options) + ' น.';
-                    
-                    document.getElementById('loading-spinner').classList.add('hidden');
-                    document.getElementById('dashboard-content').classList.remove('hidden');
+            try {
+                // อ่านข้อมูลคู่ขนาน
+                const currentData = await parseCSVAsync(fileCurrent);
+                const prevData = filePrev ? await parseCSVAsync(filePrev) : null;
 
-                    btn.innerHTML = `<i class="ph-bold ph-check"></i> ประมวลผลสำเร็จ`;
-                    btn.classList.replace('bg-green-600', 'bg-psu-blue');
-                    setTimeout(() => { 
-                        btn.innerHTML = `<i class="ph-bold ph-magic-wand"></i> อัปเดตข้อมูลใหม่`; 
-                        btn.disabled = false;
-                        btn.classList.replace('bg-psu-blue', 'bg-green-600');
-                    }, 2000);
-                },
-                error: function(err) {
-                    alert('เกิดข้อผิดพลาด: ' + err.message);
-                    btn.disabled = false;
-                    btn.innerHTML = `<i class="ph-bold ph-magic-wand"></i> ลองใหม่`;
-                    document.getElementById('loading-spinner').classList.add('hidden');
+                window.currentRawData = currentData;
+                window.prevRawData = prevData;
+
+                // 🟢 ดึงและแสดงผลวันที่จากชื่อไฟล์
+                const currDate = extractDateFromFilename(fileCurrent.name);
+                const prevDate = filePrev ? extractDateFromFilename(filePrev.name) : null;
+                
+                document.getElementById('data-vintage-banner').classList.remove('hidden');
+                document.getElementById('vintage-curr-text').innerText = currDate ? formatThaiDate(currDate) : fileCurrent.name;
+                
+                if (filePrev) {
+                    document.getElementById('vintage-prev-container').classList.remove('hidden');
+                    document.getElementById('vintage-prev-text').innerText = prevDate ? formatThaiDate(prevDate) : filePrev.name;
+                    
+                    if (currDate && prevDate) {
+                        const diffTime = Math.abs(currDate - prevDate);
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        document.getElementById('vintage-duration').classList.remove('hidden');
+                        document.getElementById('vintage-duration-text').innerText = `ระยะห่าง: ${diffDays} วัน`;
+                    } else {
+                        document.getElementById('vintage-duration').classList.add('hidden');
+                    }
+                } else {
+                    document.getElementById('vintage-prev-container').classList.add('hidden');
+                    document.getElementById('vintage-duration').classList.add('hidden');
                 }
+
+                processBothData(currentData, prevData);
+                
+                const now = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                document.getElementById('last-updated-text').innerText = now.toLocaleDateString('th-TH', options) + ' น.';
+                
+                document.getElementById('loading-spinner').classList.add('hidden');
+                document.getElementById('dashboard-content').classList.remove('hidden');
+
+                btn.innerHTML = `<i class="ph-bold ph-check"></i> ประมวลผลสำเร็จ`;
+                btn.classList.replace('bg-green-600', 'bg-psu-blue');
+                setTimeout(() => { 
+                    btn.innerHTML = `<i class="ph-bold ph-magic-wand"></i> อัปเดตข้อมูลใหม่`; 
+                    btn.disabled = false;
+                    btn.classList.replace('bg-psu-blue', 'bg-green-600');
+                }, 2000);
+
+            } catch (err) {
+                errMsg.innerText = "❌ เกิดข้อผิดพลาดในการอ่านไฟล์: " + err.message;
+                errMsg.classList.remove('hidden');
+                btn.disabled = false;
+                btn.innerHTML = `<i class="ph-bold ph-magic-wand"></i> ลองใหม่`;
+                document.getElementById('loading-spinner').classList.add('hidden');
+            }
+        }
+
+        // 🟢 ฟังก์ชันดึงสถิติพื้นฐาน (แยกเพื่อใช้กับทั้ง current และ prev)
+        function extractStats(data) {
+            let stats = {
+                total: data.length,
+                male: 0, female: 0,
+                paid: 0,
+                sumGPA: 0, validGPA: 0,
+                schoolsCount: {}
+            };
+
+            data.forEach(row => {
+                let gender = cleanStr(row['เพศ']);
+                if (gender.includes("ชาย")) stats.male++; else if (gender.includes("หญิง")) stats.female++;
+                
+                let payment = cleanStr(row['สถานะการชำระค่าธรรมเนียม']);
+                if(payment.includes("ชำระ") && !payment.includes("ไม่")) stats.paid++;
+
+                let gpa = parseFloat(row['ผลการเรียนเฉลี่ยรวม']);
+                if (!isNaN(gpa) && gpa > 0) { stats.sumGPA += gpa; stats.validGPA++; }
+
+                let school = cleanStr(row['โรงเรียนปัจจุบัน']);
+                if(school && school !== "-") stats.schoolsCount[school] = (stats.schoolsCount[school] || 0) + 1;
             });
+
+            stats.paidPct = stats.total ? (stats.paid / stats.total) * 100 : 0;
+            stats.avgGPA = stats.validGPA ? (stats.sumGPA / stats.validGPA) : 0;
+            
+            return stats;
+        }
+
+        // 🟢 Helper สำหรับสร้าง Badge แสดง % การเปลี่ยนแปลง
+        function renderDeltaBadge(elementId, currValue, prevValue, formatType = 'number') {
+            const el = document.getElementById(elementId);
+            if (!el) return; // Safeguard: ป้องกัน Error หากไม่มี ID นี้ใน HTML
+            
+            if (!prevValue) {
+                el.classList.add('hidden');
+                return;
+            }
+            
+            let diff = currValue - prevValue;
+            let pct = prevValue !== 0 ? (diff / prevValue) * 100 : 0;
+            
+            // สำหรับ Rate (เช่น % ชำระเงิน, GPA) เราอาจจะแสดงเป็น +X% หรือ +X หน่วยไปเลย
+            let displayString = "";
+            if (formatType === 'headcount_and_percent') {
+                // แสดงทั้งจำนวนคน และ เปอร์เซ็นต์ เช่น "+150 คน (+15.5%)"
+                displayString = `${diff > 0 ? '+' : ''}${diff.toLocaleString()} คน (${diff > 0 ? '+' : ''}${pct.toFixed(1)}%)`;
+            } else if (formatType === 'percent_point') {
+                // สำหรับสัดส่วนชำระเงิน แสดงเป็น %
+                displayString = `${diff > 0 ? '+' : ''}${diff.toFixed(1)}%`;
+            } else if (formatType === 'raw_diff') {
+                // สำหรับ GPA แสดงเป็นทศนิยม
+                displayString = `${diff > 0 ? '+' : ''}${diff.toFixed(2)}`;
+            }
+
+            el.classList.remove('hidden', 'bg-green-100', 'text-green-600', 'bg-red-100', 'text-red-600', 'bg-slate-100', 'text-slate-500');
+            
+            if (diff > 0) {
+                el.innerHTML = `<i class="ph-bold ph-trend-up"></i> ${displayString}`;
+                el.classList.add('bg-green-100', 'text-green-600');
+            } else if (diff < 0) {
+                el.innerHTML = `<i class="ph-bold ph-trend-down"></i> ${displayString}`;
+                el.classList.add('bg-red-100', 'text-red-600');
+            } else {
+                el.innerHTML = `<i class="ph-bold ph-minus"></i> ไม่เปลี่ยนแปลง`;
+                el.classList.add('bg-slate-100', 'text-slate-500');
+            }
+        }
+
+        function processBothData(currentData, prevData) {
+            // 1. ประมวลผล Current Data เต็มรูปแบบ (แบบเดิมของคุณ)
+            analyzeData(currentData); 
+
+            // 2. ถ้ามี Prev Data ให้ดึงสถิติมาเปรียบเทียบ KPI
+            const compSection = document.getElementById('comparative-section');
+            
+            if (prevData && prevData.length > 0 && compSection) {
+                compSection.classList.remove('hidden');
+                
+                let currStats = extractStats(currentData);
+                let prevStats = extractStats(prevData);
+
+                // Update UI Deltas (ปรับ formatType ตรงนี้)
+                renderDeltaBadge('delta-total', currStats.total, prevStats.total, 'headcount_and_percent');
+                renderDeltaBadge('delta-paid', currStats.paidPct, prevStats.paidPct, 'percent_point'); 
+                renderDeltaBadge('delta-gpa', currStats.avgGPA, prevStats.avgGPA, 'raw_diff');
+
+                // 3. วิเคราะห์พลวัตของโรงเรียนเครือข่าย (Feeder Dynamics)
+                let schoolDiff = [];
+                let newEntries = [];
+                let dropOffs = [];
+
+                // หา Rising Stars และ Drop-offs
+                for (let school in currStats.schoolsCount) {
+                    let currCount = currStats.schoolsCount[school];
+                    let prevCount = prevStats.schoolsCount[school] || 0;
+                    let diff = currCount - prevCount;
+                    
+                    if (prevCount === 0) {
+                        newEntries.push({ school, currCount });
+                    } else {
+                        schoolDiff.push({ school, currCount, prevCount, diff });
+                    }
+                }
+
+                // หา Drop-offs ชัดๆ (โรงเรียนที่มีในรอบก่อน แต่หายไปเลยรอบนี้ หรือลดลงมาก)
+                for (let school in prevStats.schoolsCount) {
+                    if (!currStats.schoolsCount[school]) {
+                        dropOffs.push({ school, currCount: 0, prevCount: prevStats.schoolsCount[school], diff: -prevStats.schoolsCount[school] });
+                    }
+                }
+                
+                // นำโรงเรียนที่มีอยู่แล้วแต่วูบลง มารวมใน dropOffs
+                schoolDiff.filter(s => s.diff < 0).forEach(s => dropOffs.push(s));
+
+                // Sort data
+                schoolDiff.sort((a, b) => b.diff - a.diff); // มากไปน้อย (Rising)
+                newEntries.sort((a, b) => b.currCount - a.currCount); // มากไปน้อย
+                dropOffs.sort((a, b) => a.diff - b.diff); // ติดลบมากสุดไปน้อย (Drop)
+
+                // Render Lists
+                const renderList = (elementId, arr, type) => {
+                    const el = document.getElementById(elementId);
+                    if (arr.length === 0) { el.innerHTML = `<li class="text-sm text-slate-400">ไม่พบข้อมูลในหมวดนี้</li>`; return; }
+                    
+                    el.innerHTML = arr.slice(0, 5).map(item => {
+                        if(type === 'rising') {
+                            return `<li class="flex justify-between items-center text-sm"><span class="truncate pr-2 font-medium text-slate-700">${item.school}</span><span class="text-green-600 font-bold whitespace-nowrap bg-green-50 px-2 py-1 rounded-md text-xs">+${item.diff} คน</span></li>`;
+                        } else if (type === 'new') {
+                            return `<li class="flex justify-between items-center text-sm"><span class="truncate pr-2 font-medium text-slate-700">${item.school}</span><span class="text-psu-accent font-bold whitespace-nowrap bg-blue-50 px-2 py-1 rounded-md text-xs">${item.currCount} คน</span></li>`;
+                        } else {
+                            return `<li class="flex justify-between items-center text-sm"><span class="truncate pr-2 font-medium text-slate-700">${item.school}</span><span class="text-red-500 font-bold whitespace-nowrap bg-red-50 px-2 py-1 rounded-md text-xs">${item.diff} คน</span></li>`;
+                        }
+                    }).join('');
+                };
+
+                renderList('list-rising-stars', schoolDiff.filter(s => s.diff > 0), 'rising');
+                renderList('list-new-entry', newEntries, 'new');
+                renderList('list-drop-off', dropOffs, 'drop');
+
+            } else {
+                if(compSection) compSection.classList.add('hidden');
+                
+                const dTotal = document.getElementById('delta-total');
+                if(dTotal) dTotal.classList.add('hidden');
+                
+                const dPaid = document.getElementById('delta-paid');
+                if(dPaid) dPaid.classList.add('hidden');
+                
+                const dGpa = document.getElementById('delta-gpa');
+                if(dGpa) dGpa.classList.add('hidden');
+            }
         }
 
         function analyzeData(data) {
-            const cleanStr = (str) => (str || "").toString().trim();
-            
-            // ฟังก์ชันตรวจสอบค่าว่าไม่ว่าง และไม่ใช่ 0 (ความถูกต้องแม่นยำ 100%)
-            const hasValue = (val) => {
-                if (!val) return false;
-                val = val.toString().trim();
-                return (val !== "" && val !== "-" && val !== "0" && val.toLowerCase() !== "false");
-            };
-            
             const categorizeGPA = (gpa) => {
                 if(isNaN(gpa) || gpa === 0) return 'ไม่ระบุ';
                 if(gpa >= 3.8) return '3.80 - 4.00';
@@ -448,7 +799,7 @@
                 return 'ต่ำกว่า 3.00';
             };
 
-            let totalApplicants = data.length; // จำนวนผู้สมัครรวมมาจากบรรทัดที่มีใน CSV จริงๆ 
+            let totalApplicants = data.length; 
             let maleCount = 0; let femaleCount = 0;
             let sumGPA = 0; let validGPA = 0;
             let schoolsCount = {};
@@ -468,6 +819,13 @@
 
             let overallProjects = { 'MWIT': 0, 'PCSHS (จุฬาภรณฯ)': 0, 'SCiUS อันดับ 1': 0, 'SCiUS อันดับ 2': 0, 'KOSEN KMUTT': 0, 'KOSEN-KMITL': 0, 'DPST (พสวท.)': 0 };
             let overallPcshs = {}; let overallScius1 = {}; let overallScius2 = {};
+
+            // 🟢 NEW VARIABLES FOR ADVANCED ANALYTICS
+            let funnelConfirmed = 0;
+            let funnelPaid = 0;
+            let flightRiskCount = { 'MWIT (มหิดลวิทยานุสรณ์)': 0, 'KOSEN (โคเซ็น)': 0, 'PCSHS (จุฬาภรณฯ)': 0, 'DPST (พสวท.)': 0 };
+            let psuApplicantsTotal = 0; 
+            let schoolStats = {}; // { 'school_name': { count: 0, sumGPA: 0, validGPA: 0 } }
 
             const ownSchoolExact = "โรงเรียนสาธิตวิทยาการอิสลาม มหาวิทยาลัยสงขลานครินทร์";
             let ownTotal = 0;
@@ -492,10 +850,17 @@
                 if(school && school !== "-") schoolsCount[school] = (schoolsCount[school] || 0) + 1;
 
                 let confirmStatus = cleanStr(row['สถานะการยืนยันข้อมูล']);
-                if(confirmStatus) confirmStatusCount[confirmStatus] = (confirmStatusCount[confirmStatus] || 0) + 1;
+                if(confirmStatus) {
+                    confirmStatusCount[confirmStatus] = (confirmStatusCount[confirmStatus] || 0) + 1;
+                    // 🟢 ADVANCED: Funnel 
+                    if(confirmStatus.includes("ยืนยัน") || confirmStatus.includes("สมบูรณ์")) funnelConfirmed++;
+                }
 
                 let payment = cleanStr(row['สถานะการชำระค่าธรรมเนียม']);
-                if(payment.includes("ชำระ") && !payment.includes("ไม่")) paymentCount['ชำระเงินแล้ว']++;
+                if(payment.includes("ชำระ") && !payment.includes("ไม่")) {
+                    paymentCount['ชำระเงินแล้ว']++;
+                    funnelPaid++; // 🟢 ADVANCED: Funnel 
+                }
                 else if(payment.includes("ไม่")) paymentCount['ยังไม่ชำระเงิน']++;
                 else if(payment !== "") paymentCount['รอยืนยัน']++;
 
@@ -525,7 +890,21 @@
                 }
 
                 let gpa = parseFloat(row['ผลการเรียนเฉลี่ยรวม']);
-                if (!isNaN(gpa) && gpa > 0) { sumGPA += gpa; validGPA++; gpaBuckets.total[categorizeGPA(gpa)]++; }
+                if (!isNaN(gpa) && gpa > 0) { 
+                    sumGPA += gpa; validGPA++; gpaBuckets.total[categorizeGPA(gpa)]++; 
+                    // 🟢 ADVANCED: Store for Tiering
+                    if(school && school !== "-") {
+                        if(!schoolStats[school]) schoolStats[school] = { count: 0, sumGPA: 0, validGPA: 0 };
+                        schoolStats[school].sumGPA += gpa;
+                        schoolStats[school].validGPA++;
+                    }
+                }
+                // 🟢 ADVANCED: Store Count for Tiering
+                if(school && school !== "-") {
+                    if(!schoolStats[school]) schoolStats[school] = { count: 0, sumGPA: 0, validGPA: 0 };
+                    schoolStats[school].count++;
+                }
+
                 let gpaM = parseFloat(row['ผลการเรียนเฉลี่ยคณิตศาสตร์']);
                 if (!isNaN(gpaM) && gpaM > 0) { gpaBuckets.math[categorizeGPA(gpaM)]++; }
                 let gpaS = parseFloat(row['ผลการเรียนเฉลี่ยวิทยาศาสตร์']);
@@ -533,7 +912,7 @@
 
                 let chkMwit = hasValue(row['โรงเรียนมหิดลวิทยานุสรณ์']);
                 let chkPcshs = hasValue(row['โครงการจุฬาภรณราชวิทยาลัย']) || hasValue(row['โครงการจุฬาภรณราชวิทยาลัย ที่เลือก']);
-                let chkScius1 = hasValue(row['โครงการ วมว. 1 อันดับ']) || hasValue(row['โครงการ วมว อันดับ 1 (1/0)']); // เช็กคอลัมน์ที่เป็น 1/0
+                let chkScius1 = hasValue(row['โครงการ วมว. 1 อันดับ']) || hasValue(row['โครงการ วมว อันดับ 1 (1/0)']); 
                 let chkScius2 = hasValue(row['โครงการ วมว. 2 อันดับ']) || hasValue(row['โครงการ วมว อันดับ 2 (1/0)']);
                 let chkKosenKmutt = hasValue(row['สถาบันโคเซ็น มจธ.']) || hasValue(row['สถาบันโคเซ็น  มจธ.']);
                 let chkKosenKmitl = hasValue(row['สถาบันโคเซ็น สจล.']);
@@ -583,6 +962,15 @@
                 if(isPattaniHub(locScius1)) { hubRank1++; chosePSU = true; }
                 if(isPattaniHub(locScius2)) { hubRank2++; chosePSU = true; }
 
+                // 🟢 ADVANCED: Flight Risk Tracking
+                if(chosePSU) {
+                    psuApplicantsTotal++;
+                    if(chkMwit) flightRiskCount['MWIT (มหิดลวิทยานุสรณ์)']++;
+                    if(chkKosenKmutt || chkKosenKmitl) flightRiskCount['KOSEN (โคเซ็น)']++;
+                    if(chkPcshs || hasValue(locPcshs)) flightRiskCount['PCSHS (จุฬาภรณฯ)']++;
+                    if(chkDpst) flightRiskCount['DPST (พสวท.)']++;
+                }
+
                 if (chosePSU && school !== "" && school !== "-") {
                     psuApplicantsSchools[school] = (psuApplicantsSchools[school] || 0) + 1;
                 }
@@ -608,6 +996,82 @@
 
             document.getElementById('hub-rank-1').innerText = hubRank1; 
             document.getElementById('hub-rank-2').innerText = hubRank2;
+
+            // ==========================================
+            // 🟢 RENDER ADVANCED ANALYTICS
+            // ==========================================
+            // 1. Render Funnel
+            document.getElementById('funnel-total').innerText = totalApplicants.toLocaleString();
+            document.getElementById('funnel-confirmed').innerText = funnelConfirmed.toLocaleString();
+            document.getElementById('funnel-paid').innerText = funnelPaid.toLocaleString();
+            
+            let confirmPct = totalApplicants ? Math.round((funnelConfirmed/totalApplicants)*100) : 0;
+            let finalPaidPct = totalApplicants ? Math.round((funnelPaid/totalApplicants)*100) : 0;
+            
+            // ใช้ Timeout เล็กน้อยเพื่อให้ CSS Transition ทำงานเมื่อโชว์หน้า
+            setTimeout(() => {
+                document.getElementById('funnel-confirm-bar').style.width = confirmPct + '%';
+                document.getElementById('funnel-confirm-pct').innerText = confirmPct + '%';
+                document.getElementById('funnel-paid-bar').style.width = finalPaidPct + '%';
+                document.getElementById('funnel-paid-pct').innerText = finalPaidPct + '%';
+            }, 300);
+
+            // 2. Render Flight Risk
+            document.getElementById('risk-base').innerText = psuApplicantsTotal.toLocaleString();
+            let riskLevels = [];
+            for(let k in flightRiskCount) {
+                let pct = psuApplicantsTotal ? Math.round((flightRiskCount[k]/psuApplicantsTotal)*100) : 0;
+                riskLevels.push({name: k, pct: pct, count: flightRiskCount[k]});
+            }
+            riskLevels.sort((a,b) => b.pct - a.pct); // เรียงจากมากไปน้อย
+            
+            document.getElementById('flight-risk-list').innerHTML = riskLevels.map(r => `
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="font-bold text-slate-700">${r.name}</span>
+                        <span class="text-slate-500">${r.count.toLocaleString()} คน (<span class="${r.pct >= 30 ? 'text-red-500 font-bold' : ''}">${r.pct}%</span>)</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2">
+                        <div class="h-2 rounded-full transition-all duration-1000 ${r.pct >= 30 ? 'bg-red-500' : 'bg-orange-400'}" style="width: ${r.pct}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 3. Render Feeder Tiering (AI Logic)
+            let tierA = [], tierB = [];
+            for(let s in schoolStats) {
+                let st = schoolStats[s];
+                let avg = st.validGPA ? (st.sumGPA / st.validGPA).toFixed(2) : "0.00";
+                // กฎการเข้า Tier
+                if(st.count >= 5 && parseFloat(avg) >= 3.50) {
+                    tierA.push({ name: s, count: st.count, gpa: avg });
+                } else if (st.count >= 3) {
+                    tierB.push({ name: s, count: st.count, gpa: avg });
+                }
+            }
+            
+            tierA.sort((a,b) => b.count - a.count);
+            tierB.sort((a,b) => b.count - a.count);
+            
+            const renderTier = (arr, badgeClass, badgeText) => {
+                return arr.slice(0, 15).map(s => `
+                    <tr class="border-b border-slate-50 hover:bg-slate-100 transition">
+                        <td class="py-2 px-3 text-sm font-medium text-slate-700 truncate max-w-[180px]" title="${s.name}">${s.name}</td>
+                        <td class="py-2 px-3 text-sm text-center font-bold text-psu-blue">${s.count}</td>
+                        <td class="py-2 px-3 text-sm text-center text-slate-500">${s.gpa}</td>
+                        <td class="py-2 px-3 text-center"><span class="px-2 py-1 text-[10px] rounded-full font-bold shadow-sm whitespace-nowrap ${badgeClass}">${badgeText}</span></td>
+                    </tr>
+                `).join('');
+            };
+
+            let tierHtml = renderTier(tierA, 'bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-700 border border-yellow-300', 'Tier A (Premium)');
+            tierHtml += renderTier(tierB, 'bg-slate-200 text-slate-700 border border-slate-300', 'Tier B (Core)');
+            
+            if(tierA.length === 0 && tierB.length === 0) {
+                tierHtml = `<tr><td colspan="4" class="text-center py-6 text-slate-400">ยังไม่มีข้อมูลเพียงพอสำหรับการจัดกลุ่ม (ต้องการยอด 3 คนขึ้นไป)</td></tr>`;
+            }
+            document.getElementById('tier-table-body').innerHTML = tierHtml;
+            // ==========================================
 
             let totalM3 = parseInt(document.getElementById('input-total-m3').value) || 65;
             let notApplied = Math.max(0, totalM3 - ownTotal);
@@ -689,13 +1153,12 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: { anchor: 'end', align: 'end' } }, layout: { padding: { top: 20 } } }
             });
 
-            // 🟢 ฟังก์ชันจัดเรียงฐานรายได้จากน้อยไปมากแบบฉลาด (Smart Sorting) 🟢
             let allIncLabels = [...new Set([...Object.keys(incomeDadCount), ...Object.keys(incomeMomCount)])];
             allIncLabels.sort((a, b) => {
                 const getVal = (str) => {
                     if (!str || str === "-" || str === "ไม่ระบุ") return -1;
-                    if (str.includes("ไม่มี")) return 0; // จับ "ไม่มีรายได้" ให้อยู่อันดับ 1
-                    let match = str.replace(/,/g, '').match(/\d+/); // ดึงตัวเลขแรกที่เจอเพื่อใช้จัดเรียง
+                    if (str.includes("ไม่มี")) return 0;
+                    let match = str.replace(/,/g, '').match(/\d+/);
                     return match ? parseInt(match[0]) : 999999;
                 };
                 return getVal(a) - getVal(b);
@@ -714,7 +1177,6 @@
                 options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { datalabels: { anchor: 'end', align: 'end' } } }
             });
 
-            // 🟢 เกรดเฉลี่ย: ปลดล็อกให้แสดงชื่อกราฟ (Titles) บนหัวกราฟทุกตัวเพื่อการแคปหน้าจอ 🟢
             const gpaLabels = ['3.80 - 4.00', '3.50 - 3.79', '3.00 - 3.49', 'ต่ำกว่า 3.00'];
             renderChart('gpaTotalChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.total[l]), 'เกรดเฉลี่ยรวม', ['#f59e0b']);
             renderChart('gpaSciChart', 'bar', gpaLabels, gpaLabels.map(l=>gpaBuckets.sci[l]), 'วิชาวิทยาศาสตร์', ['#10b981']);
@@ -737,7 +1199,6 @@
                 responsive: true, maintainAspectRatio: false,
                 plugins: { 
                     legend: { display: (type === 'pie' || type === 'doughnut'), position: 'bottom' },
-                    // 🟢 เปลี่ยนเงื่อนไขให้แสดงชื่อ (Title) ในกราฟ "ทุกประเภท" ไม่ใช่แค่กราฟวงกลม
                     title: { display: true, text: labelTitle, padding: {bottom: 15}, font: { size: 14 } },
                     datalabels: {
                         anchor: type === 'bar' ? 'end' : 'center',
